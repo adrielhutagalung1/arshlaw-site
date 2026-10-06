@@ -220,10 +220,11 @@ def practice_list(lang, linked=True):
 
 
 def marquee(lang):
-    phrase = T(lang, 'Karena setiap urusan hukum penting', 'Because all legal matters matter')
-    item = f'<span>{phrase}</span><i aria-hidden="true"></i>'
-    return f"""<section class="marquee" aria-label="{phrase}">
-  <div class="marquee-track" aria-hidden="true">{item * 8}</div>
+    p1 = T(lang, 'Menjaga Kepentingan', 'Protecting Interests')
+    p2 = T(lang, 'Memperjuangkan Hak', 'Fighting for Rights')
+    item = f'<span>{p1}</span><i aria-hidden="true"></i><span>{p2}</span><i aria-hidden="true"></i>'
+    return f"""<section class="marquee" aria-label="{p1}. {p2}.">
+  <div class="marquee-track" aria-hidden="true">{item * 6}</div>
 </section>"""
 
 
@@ -260,7 +261,7 @@ def home(lang):
   <div class="wrap">
     <div class="copy">
       <hr class="gold-rule">
-      <h1 class="hero-title"><span class="ln"><span>{T(lang, 'Karena setiap urusan hukum', 'Because all legal matters')}</span></span> <span class="ln"><em>{T(lang, 'penting.', 'matter.')}</em></span></h1>
+      <h1 class="hero-title"><span class="ln"><span>{T(lang, 'Menjaga Kepentingan.', 'Protecting Interests.')}</span></span> <span class="ln"><em>{T(lang, 'Memperjuangkan Hak.', 'Fighting for Rights.')}</em></span></h1>
       <p class="intro fade-in">{T(lang, 'Kantor hukum di Jakarta untuk pengusaha, perusahaan, dan keluarga. Kami menyusun dan memeriksa perjanjian, menangani urusan ketenagakerjaan, dan mendampingi Anda di pengadilan bila sengketa tidak terhindarkan.', 'A Jakarta law office for business owners, companies, and families. We draft and review agreements, handle employment matters, and represent you in court when a dispute cannot be avoided.')}</p>
       <div class="buttons fade-in">
         <a class="btn btn-gold" href="{wa(lang)}">{WA_ICON} {T(lang, 'Konsultasi lewat WhatsApp', 'Consult via WhatsApp')}</a>
@@ -491,9 +492,9 @@ def contact(lang):
 
 PAGES = {
     "index.html": (home,
-                   ("ARSH &amp; Partners Law Office | Kantor Hukum di Jakarta",
+                   ("ARSH &amp; Partners Law Office | Menjaga Kepentingan. Memperjuangkan Hak.",
                     "Kantor hukum di Plaza Indonesia, Jakarta, untuk pengusaha, perusahaan, dan keluarga: perjanjian, ketenagakerjaan, litigasi, dan kepailitan."),
-                   ("ARSH &amp; Partners Law Office | Law Office in Jakarta",
+                   ("ARSH &amp; Partners Law Office | Protecting Interests. Fighting for Rights.",
                     "A law office at Plaza Indonesia, Jakarta, for business owners, companies, and families: agreements, employment, litigation, and insolvency.")),
     "layanan.html": (services,
                      ("Layanan", "Pendampingan hukum usaha, pengacara pribadi, litigasi, ketenagakerjaan, PKPU dan kepailitan, hak cipta dan merek, serta konsultasi SDM."),

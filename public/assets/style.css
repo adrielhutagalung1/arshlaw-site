@@ -302,3 +302,12 @@ h1 em, h2 em { font-style: italic; color: var(--gold-soft); font-family: var(--s
   .js .hero-title .ln > *, .js .hero .gold-rule, .js .hero-title em::after, .js .hero .fade-in, .js .hero .statue { animation: none; opacity: 1; transform: none; }
   .marquee-track { animation: none; }
 }
+.hero-title { font-size: clamp(2.1rem, 4.4vw, 3.4rem); }
+.hero-title em { white-space: nowrap; }
+@media (max-width: 520px) {
+  .hero-title { font-size: clamp(1.9rem, 8.6vw, 2.4rem); }
+}
+@media (max-width: 370px) {
+  .hero-title em { white-space: normal; }
+  .hero-title em::after { display: none; }
+}
