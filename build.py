@@ -2,7 +2,7 @@
 """Membangun halaman statis situs ARSH & Partners Law Office (ID dan EN).
 
 Jalankan: python3 build.py
-Halaman Indonesia ditulis di root, halaman Inggris di en/.
+Halaman Inggris ditulis di root (halaman utama), halaman Indonesia di id/.
 Teks bertanda .todo masih menunggu isi dari advokat.
 """
 from pathlib import Path
@@ -95,10 +95,10 @@ OUTCOMES = [
 
 
 def page(lang, slug, title, description, body):
-    depth = "../" if lang == "en" else ""
-    prefix = "en/" if lang == "en" else ""
+    depth = "../" if lang == "id" else ""
+    prefix = "id/" if lang == "id" else ""
     path = "" if slug == "index.html" else slug
-    other_href = ("en/" + slug) if lang == "id" else ("../" + slug)
+    other_href = ("id/" + slug) if lang == "en" else ("../" + slug)
     nav = "\n      ".join(
         f'<a href="{h}"{" aria-current=\"page\"" if h == slug else ""}>{T(lang, i, e)}</a>' for h, i, e in NAV)
     lang_top = (f'<span class="on">ID</span> / <a href="{other_href}" hreflang="en">EN</a>' if lang == "id"
@@ -118,8 +118,8 @@ def page(lang, slug, title, description, body):
 <title>{full_title}</title>
 <meta name="description" content="{description}">
 <link rel="canonical" href="{SITE}/{prefix}{path}">
-<link rel="alternate" hreflang="id" href="{SITE}/{path}">
-<link rel="alternate" hreflang="en" href="{SITE}/en/{path}">
+<link rel="alternate" hreflang="id" href="{SITE}/id/{path}">
+<link rel="alternate" hreflang="en" href="{SITE}/{path}">
 <link rel="alternate" hreflang="x-default" href="{SITE}/{path}">
 <meta property="og:site_name" content="ARSH &amp; Partners Law Office">
 <meta property="og:title" content="{full_title}">
@@ -228,7 +228,7 @@ def marquee(lang):
 
 
 def asset(lang, name):
-    return ("../" if lang == "en" else "") + "assets/" + name
+    return ("../" if lang == "id" else "") + "assets/" + name
 
 
 TEAM = [
@@ -518,10 +518,10 @@ PAGES = {
 
 
 def main():
-    (ROOT / "en").mkdir(exist_ok=True)
+    (ROOT / "id").mkdir(exist_ok=True)
     for slug, (fn, meta_id, meta_en) in PAGES.items():
         for lang, (title, desc) in (("id", meta_id), ("en", meta_en)):
-            out = ROOT / ("en" if lang == "en" else "") / slug
+            out = ROOT / ("id" if lang == "id" else "") / slug
             out.write_text(page(lang, slug, title, desc, fn(lang)), encoding="utf-8")
             print("ditulis", out.relative_to(ROOT))
 
