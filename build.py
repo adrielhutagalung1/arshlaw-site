@@ -114,11 +114,13 @@ def page(lang, slug, title, description, body):
 <meta property="og:description" content="{description}">
 <meta property="og:url" content="{SITE}/{prefix}{path}">
 <meta property="og:locale" content="{T(lang, 'id_ID', 'en_US')}">
-<meta name="theme-color" content="#121212">
-<link rel="icon" href="{depth}assets/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0B0B0B">
+<link rel="icon" href="{depth}assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="{depth}assets/apple-touch-icon.png">
+<meta property="og:image" content="{SITE}/assets/logo-arsh.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital@0;1&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{depth}assets/style.css">
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"LegalService","name":"ARSH & Partners Law Office","url":"{SITE}/","email":"{EMAIL}","telephone":"+{WA_NUMBER}","address":{{"@type":"PostalAddress","streetAddress":"Plaza Indonesia L5 Unit E021AB, Jl. M.H. Thamrin Kav. 28-30","addressLocality":"Jakarta","postalCode":"10350","addressCountry":"ID"}}}}
@@ -136,13 +138,13 @@ def page(lang, slug, title, description, body):
 </div>
 <header class="site-header">
   <div class="wrap">
-    <a class="logo" href="index.html">ARSH &amp; Partners<small>LAW OFFICE</small></a>
+    <a class="logo" href="index.html"><img src="{depth}assets/logo-arsh.png" width="320" height="71" alt="ARSH &amp; Partners Law Office"></a>
     <button class="menu-toggle" aria-expanded="false" aria-controls="nav" aria-label="Menu"><span></span><span></span><span></span></button>
     <nav class="nav" id="nav" aria-label="{T(lang, 'Navigasi utama', 'Main navigation')}">
       {nav}
       {lang_nav}
     </nav>
-    <a class="btn btn-accent btn-small header-cta" href="{wa(lang)}">{T(lang, 'Hubungi kami', 'Contact us')}</a>
+    <a class="btn btn-dark btn-small header-cta" href="{wa(lang)}">{T(lang, 'Hubungi kami', 'Contact us')}</a>
   </div>
 </header>
 <main id="main">
@@ -151,9 +153,9 @@ def page(lang, slug, title, description, body):
 <footer class="site-footer">
   <div class="wrap">
     <div class="cols">
-      <div>
-        <a class="logo" href="index.html">ARSH &amp; Partners<small>LAW OFFICE</small></a>
-        <p style="margin-top:16px">{address(lang)}</p>
+      <div class="brand">
+        <a href="index.html"><img src="{depth}assets/logo-arsh-stacked-light.png" width="240" height="152" alt="ARSH &amp; Partners Law Office"></a>
+        <p>{address(lang)}</p>
         <p><a href="{MAPS}" rel="noopener">{T(lang, 'Petunjuk arah', 'Get directions')} &rarr;</a></p>
       </div>
       <div><h2>{T(lang, 'Halaman', 'Pages')}</h2><ul>{foot_nav}</ul></div>
@@ -190,13 +192,17 @@ def practice_list(lang, linked=True):
     return '<ul class="practice">' + "".join(rows) + "</ul>"
 
 
+def asset(lang, name):
+    return ("../" if lang == "en" else "") + "assets/" + name
+
+
 def person(lang, heading_level="h2"):
     return f"""<div class="person">
-      <div class="photo">{T(lang, 'Foto advokat', 'Photo')}</div>
+      <div class="photo">{T(lang, 'Foto menyusul', 'Photo to follow')}</div>
       <div>
-        <{heading_level}>{todo(T(lang, 'Nama lengkap, S.H., M.H.', 'Full name, S.H., M.H.'))}</{heading_level}>
-        <p class="role">{T(lang, 'Advokat Pengelola', 'Managing Partner')}</p>
-        <p>{todo(T(lang, 'latar belakang pendidikan, pengalaman, dan bidang yang paling sering ditangani', 'education, experience, and main practice areas'))}</p>
+        <{heading_level}>Adriel Hutagalung, S.H., M.H.</{heading_level}>
+        <p class="role">{T(lang, 'Advokat &amp; Managing Partner', 'Lawyer &amp; Managing Partner')}</p>
+        <p>{todo(T(lang, 'dua atau tiga kalimat tentang latar belakang pendidikan, pengalaman, dan bidang yang paling sering ditangani', 'two or three sentences on education, experience, and main practice areas'))}</p>
       </div>
     </div>"""
 
@@ -208,7 +214,7 @@ def closing(lang):
       <h2>{T(lang, 'Ingin membicarakan persoalan Anda?', 'Would you like to discuss your matter?')}</h2>
       <p>{T(lang, 'Kirim pesan singkat lewat WhatsApp, kami akan menghubungi Anda kembali.', 'Send us a short WhatsApp message and we will get back to you.')}</p>
     </div>
-    <a class="btn btn-accent" href="{wa(lang)}">{WA_ICON} WhatsApp {WA_DISPLAY}</a>
+    <a class="btn btn-dark" href="{wa(lang)}">{WA_ICON} WhatsApp {WA_DISPLAY}</a>
   </div>
 </section>"""
 
@@ -217,25 +223,26 @@ def home(lang):
     return f"""
 <section class="hero">
   <div class="wrap">
-    <div>
+    <div class="copy">
+      <hr class="gold-rule">
       <h1>{T(lang, 'Kantor hukum untuk pengusaha, perusahaan, dan keluarga di Jakarta.', 'A law office for business owners, companies, and families in Jakarta.')}</h1>
       <p class="intro">{T(lang, 'Kami menyusun dan memeriksa perjanjian, menangani urusan ketenagakerjaan, dan mendampingi Anda di pengadilan bila sengketa tidak terhindarkan.', 'We draft and review agreements, handle employment matters, and represent you in court when a dispute cannot be avoided.')}</p>
       <div class="buttons">
-        <a class="btn btn-accent" href="{wa(lang)}">{WA_ICON} {T(lang, 'Konsultasi lewat WhatsApp', 'Consult via WhatsApp')}</a>
-        <a class="btn btn-line" href="layanan.html">{T(lang, 'Lihat layanan', 'View services')}</a>
+        <a class="btn btn-gold" href="{wa(lang)}">{WA_ICON} {T(lang, 'Konsultasi lewat WhatsApp', 'Consult via WhatsApp')}</a>
+        <a class="btn btn-line-light" href="layanan.html">{T(lang, 'Lihat layanan', 'View services')}</a>
       </div>
     </div>
-    <aside class="office-card">
-      <h2>{T(lang, 'Kantor kami', 'Our office')}</h2>
-      <dl>
-        <dt>{T(lang, 'Alamat', 'Address')}</dt><dd>{address(lang)}</dd>
-        <dt>WhatsApp</dt><dd><a href="{wa(lang)}">{WA_DISPLAY}</a></dd>
-        <dt>Email</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd>
-        <dt>{T(lang, 'Jam kerja', 'Hours')}</dt><dd>{todo(T(lang, 'hari dan jam', 'days and hours'))}</dd>
-      </dl>
-      <a class="btn btn-line btn-small" href="{MAPS}" rel="noopener">{T(lang, 'Petunjuk arah', 'Get directions')}</a>
-    </aside>
+    <img class="statue" src="{asset(lang, 'dewi.webp')}" width="900" height="998" alt="" fetchpriority="high">
   </div>
+</section>
+
+<section class="facts" aria-label="{T(lang, 'Informasi kantor', 'Office information')}">
+  <dl class="wrap">
+    <div><dt>{T(lang, 'Kantor', 'Office')}</dt><dd><a href="{MAPS}" rel="noopener">Plaza Indonesia Lt. 5, Jakarta</a></dd></div>
+    <div><dt>WhatsApp</dt><dd><a href="{wa(lang)}">{WA_DISPLAY}</a></dd></div>
+    <div><dt>Email</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd></div>
+    <div><dt>{T(lang, 'Jam kerja', 'Hours')}</dt><dd>{todo(T(lang, 'hari dan jam', 'days and hours'))}</dd></div>
+  </dl>
 </section>
 
 <section class="block">
@@ -248,10 +255,13 @@ def home(lang):
   </div>
 </section>
 
-<section class="block block-soft">
+<section class="quote-band">
   <div class="wrap">
-    <p class="quote">{T(lang, '&ldquo;Cegah selagi bisa dicegah, perbaiki segera setelah disadari.&rdquo;', '&ldquo;Prevent when you are able to prevent; fix it as soon as you notice it.&rdquo;')}</p>
-    <p class="quote-by">{T(lang, 'Dari tulisan kami,', 'From our article,')} <a href="wawasan.html#irony-of-law"><em>The Irony of Law</em></a></p>
+    <img src="{asset(lang, 'mark-gold.png')}" width="600" height="434" alt="">
+    <div>
+      <p class="quote">{T(lang, '&ldquo;Cegah selagi bisa dicegah, perbaiki segera setelah disadari.&rdquo;', '&ldquo;Prevent when you are able to prevent; fix it as soon as you notice it.&rdquo;')}</p>
+      <p class="quote-by">{T(lang, 'Dari tulisan kami,', 'From our article,')} <a href="wawasan.html#irony-of-law"><em>The Irony of Law</em></a></p>
+    </div>
   </div>
 </section>
 
@@ -432,7 +442,7 @@ def contact(lang):
         <dt>{T(lang, 'Alamat', 'Address')}</dt><dd>{address(lang)}</dd>
         <dt>{T(lang, 'Jam kerja', 'Office hours')}</dt><dd>{todo(T(lang, 'hari dan jam', 'days and hours'))}</dd>
       </dl>
-      <p style="margin-top:32px"><a class="btn btn-accent" href="{wa(lang)}">{WA_ICON} {T(lang, 'Kirim pesan WhatsApp', 'Send a WhatsApp message')}</a></p>
+      <p style="margin-top:32px"><a class="btn btn-gold" href="{wa(lang)}">{WA_ICON} {T(lang, 'Kirim pesan WhatsApp', 'Send a WhatsApp message')}</a></p>
     </div>
     <iframe class="map" src="{MAP_EMBED}" loading="lazy" title="{T(lang, 'Peta lokasi Plaza Indonesia', 'Map of Plaza Indonesia')}" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>
