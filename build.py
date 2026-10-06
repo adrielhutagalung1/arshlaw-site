@@ -83,6 +83,18 @@ PRACTICE = [
 ]
 
 
+# Bidang praktik ditulis sebagai hasil bagi klien: (anchor, awal ID, penekanan ID, awal EN, penekanan EN)
+OUTCOMES = [
+    ("usaha", "Perjanjian usaha,", "diperiksa sebelum ditandatangani.", "Business agreements,", "reviewed before you sign."),
+    ("pribadi", "Dokumen pribadi,", "dibaca dengan teliti.", "Personal documents,", "read with care."),
+    ("ketenagakerjaan", "Urusan karyawan,", "ditangani sesuai aturan.", "Employee matters,", "handled by the rules."),
+    ("litigasi", "Sengketa di pengadilan,", "didampingi sampai tuntas.", "Disputes in court,", "seen through to the end."),
+    ("pkpu", "Utang-piutang dan PKPU,", "diurus dengan tertib.", "Debts and PKPU,", "managed in good order."),
+    ("hki", "Merek dan karya Anda,", "didaftarkan dan dijaga.", "Your brand and work,", "registered and protected."),
+    ("sdm", "Tim dan organisasi,", "dikembangkan bersama.", "Your team and organisation,", "developed together."),
+]
+
+
 def page(lang, slug, title, description, body):
     depth = "../" if lang == "en" else ""
     prefix = "en/" if lang == "en" else ""
@@ -103,6 +115,7 @@ def page(lang, slug, title, description, body):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add("js")</script>
 <title>{full_title}</title>
 <meta name="description" content="{description}">
 <link rel="canonical" href="{SITE}/{prefix}{path}">
@@ -178,6 +191,16 @@ document.querySelector('.menu-toggle').addEventListener('click', function () {{
   var nav = document.getElementById('nav'), open = nav.classList.toggle('open');
   this.setAttribute('aria-expanded', open);
 }});
+(function () {{
+  var els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {{
+    els.forEach(function (el) {{ el.classList.add('in'); }}); return;
+  }}
+  var io = new IntersectionObserver(function (entries) {{
+    entries.forEach(function (e) {{ if (e.isIntersecting) {{ e.target.classList.add('in'); io.unobserve(e.target); }} }});
+  }}, {{ rootMargin: '0px 0px -10% 0px' }});
+  els.forEach(function (el) {{ io.observe(el); }});
+}})();
 </script>
 </body>
 </html>
@@ -185,11 +208,23 @@ document.querySelector('.menu-toggle').addEventListener('click', function () {{
 
 
 def practice_list(lang, linked=True):
-    items = []
-    for a, ti, te, di, de in PRACTICE:
-        items.append(f'<a class="practice-item" href="layanan.html#{a}"><h3>{T(lang, ti, te)}</h3><p>{T(lang, di, de)}</p><span class="more">{T(lang, "Selengkapnya", "Read more")}</span></a>')
-    items.append(f'<a class="practice-item practice-ask" href="{wa(lang)}"><h3>{T(lang, "Belum yakin termasuk bidang mana?", "Not sure which area applies?")}</h3><p>{T(lang, "Ceritakan persoalan Anda lewat WhatsApp, kami bantu arahkan.", "Tell us about your matter on WhatsApp and we will point you in the right direction.")}</p><span class="more">WhatsApp {WA_DISPLAY}</span></a>')
-    return '<div class="practice-grid">' + "".join(items) + "</div>"
+    names = {p[0]: (p[1], p[2], p[3], p[4]) for p in PRACTICE}
+    rows = []
+    for a, i1, i2, e1, e2 in OUTCOMES:
+        ti, te, di, de = names[a]
+        rows.append(f"""<a class="outcome reveal" href="layanan.html#{a}">
+        <h3>{T(lang, i1, e1)} <em>{T(lang, i2, e2)}</em></h3>
+        <div class="outcome-body"><span class="outcome-name">{T(lang, ti, te)}</span><p>{T(lang, di, de)}</p></div>
+      </a>""")
+    return '<div class="outcomes">' + "".join(rows) + "</div>"
+
+
+def marquee(lang):
+    phrase = T(lang, 'Karena setiap urusan hukum penting', 'Because all legal matters matter')
+    item = f'<span>{phrase}</span><i aria-hidden="true"></i>'
+    return f"""<section class="marquee" aria-label="{phrase}">
+  <div class="marquee-track" aria-hidden="true">{item * 8}</div>
+</section>"""
 
 
 def asset(lang, name):
@@ -225,9 +260,9 @@ def home(lang):
   <div class="wrap">
     <div class="copy">
       <hr class="gold-rule">
-      <h1>{T(lang, 'Karena setiap urusan hukum <em>penting.</em>', 'Because all legal matters <em>matter.</em>')}</h1>
-      <p class="intro">{T(lang, 'Kantor hukum di Jakarta untuk pengusaha, perusahaan, dan keluarga. Kami menyusun dan memeriksa perjanjian, menangani urusan ketenagakerjaan, dan mendampingi Anda di pengadilan bila sengketa tidak terhindarkan.', 'A Jakarta law office for business owners, companies, and families. We draft and review agreements, handle employment matters, and represent you in court when a dispute cannot be avoided.')}</p>
-      <div class="buttons">
+      <h1 class="hero-title"><span class="ln"><span>{T(lang, 'Karena setiap urusan hukum', 'Because all legal matters')}</span></span> <span class="ln"><em>{T(lang, 'penting.', 'matter.')}</em></span></h1>
+      <p class="intro fade-in">{T(lang, 'Kantor hukum di Jakarta untuk pengusaha, perusahaan, dan keluarga. Kami menyusun dan memeriksa perjanjian, menangani urusan ketenagakerjaan, dan mendampingi Anda di pengadilan bila sengketa tidak terhindarkan.', 'A Jakarta law office for business owners, companies, and families. We draft and review agreements, handle employment matters, and represent you in court when a dispute cannot be avoided.')}</p>
+      <div class="buttons fade-in">
         <a class="btn btn-gold" href="{wa(lang)}">{WA_ICON} {T(lang, 'Konsultasi lewat WhatsApp', 'Consult via WhatsApp')}</a>
         <a class="btn btn-line-light" href="layanan.html">{T(lang, 'Lihat layanan', 'View services')}</a>
       </div>
@@ -245,14 +280,17 @@ def home(lang):
   </dl>
 </section>
 
-<section class="block block-paper">
+{marquee(lang)}
+
+<section class="block">
   <div class="wrap">
-    <header class="section-head">
+    <header class="section-head reveal">
       <h2>{T(lang, 'Bidang praktik', 'Practice areas')}</h2>
       <span class="line" aria-hidden="true"></span>
       <p>{T(lang, 'Sebagian besar pekerjaan kami bersifat pencegahan: memastikan dokumen benar sebelum ditandatangani.', 'Most of our work is preventive: getting documents right before they are signed.')}</p>
     </header>
     {practice_list(lang)}
+    <p class="outcomes-ask reveal">{T(lang, 'Belum yakin persoalan Anda termasuk bidang mana?', 'Not sure where your matter fits?')} <a class="link-arrow" href="{wa(lang)}">{T(lang, 'Tanyakan lewat WhatsApp', 'Ask us on WhatsApp')} &rarr;</a></p>
   </div>
 </section>
 
@@ -260,7 +298,7 @@ def home(lang):
   <div class="wrap">
     <img src="{asset(lang, 'mark-gold.png')}" width="600" height="434" alt="">
     <div>
-      <p class="quote">{T(lang, '&ldquo;Cegah selagi bisa dicegah, perbaiki segera setelah disadari.&rdquo;', '&ldquo;Prevent when you are able to prevent; fix it as soon as you notice it.&rdquo;')}</p>
+      <p class="quote reveal">{T(lang, '&ldquo;Cegah selagi bisa dicegah, perbaiki segera setelah disadari.&rdquo;', '&ldquo;Prevent when you are able to prevent; fix it as soon as you notice it.&rdquo;')}</p>
       <p class="quote-by">{T(lang, 'Dari tulisan kami,', 'From our article,')} <a href="wawasan.html#irony-of-law"><em>The Irony of Law</em></a></p>
     </div>
   </div>
@@ -282,7 +320,7 @@ def home(lang):
       <h2>{T(lang, 'Wawasan', 'Insights')}</h2>
       <span class="line" aria-hidden="true"></span>
     </header>
-    <div class="teasers">
+    <div class="teasers reveal">
       <a class="teaser" href="wawasan.html#irony-of-law"><span class="kicker">{T(lang, 'Artikel', 'Article')}</span><h3>The Irony of Law</h3><p>{T(lang, 'Mengapa pencegahan hampir selalu lebih ringan daripada penyelesaian perkara.', 'Why prevention is almost always lighter than resolving a case.')}</p><span class="more">{T(lang, 'Baca', 'Read')}</span></a>
       <a class="teaser" href="wawasan.html#legal-reminder"><span class="kicker">Legal Reminder Series</span><h3>{T(lang, 'Bab 1: Tanda Tangan', 'Chapter 1: Signature')}</h3><p>{T(lang, 'Seri pengingat hukum singkat yang dapat diunduh.', 'A short, downloadable series of legal reminders.')}</p><span class="more">{T(lang, 'Lihat seri', 'View series')}</span></a>
     </div>

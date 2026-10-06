@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add("js")</script>
 <title>About | ARSH &amp; Partners Law Office</title>
 <meta name="description" content="About ARSH &amp; Partners Law Office and its lawyers.">
 <link rel="canonical" href="https://www.arshlaw.id/en/tentang.html">
@@ -122,6 +123,16 @@ document.querySelector('.menu-toggle').addEventListener('click', function () {
   var nav = document.getElementById('nav'), open = nav.classList.toggle('open');
   this.setAttribute('aria-expanded', open);
 });
+(function () {
+  var els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    els.forEach(function (el) { el.classList.add('in'); }); return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -10% 0px' });
+  els.forEach(function (el) { io.observe(el); });
+})();
 </script>
 </body>
 </html>
