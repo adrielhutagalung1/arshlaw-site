@@ -233,3 +233,7 @@ p { margin: 0 0 1em; }
   .facts .wrap { padding-top: 14px; padding-bottom: 14px; }
   .practice-grid { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* Penekanan miring emas pada judul, seperti tagline kantor */
+h1 em, h2 em { font-style: italic; color: var(--gold-soft); font-family: var(--serif-text); }
+.page-hero h1 em, .hero h1 em { color: var(--gold-soft); }

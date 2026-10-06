@@ -225,8 +225,8 @@ def home(lang):
   <div class="wrap">
     <div class="copy">
       <hr class="gold-rule">
-      <h1>{T(lang, 'Kantor hukum untuk pengusaha, perusahaan, dan keluarga di Jakarta.', 'A law office for business owners, companies, and families in Jakarta.')}</h1>
-      <p class="intro">{T(lang, 'Kami menyusun dan memeriksa perjanjian, menangani urusan ketenagakerjaan, dan mendampingi Anda di pengadilan bila sengketa tidak terhindarkan.', 'We draft and review agreements, handle employment matters, and represent you in court when a dispute cannot be avoided.')}</p>
+      <h1>{T(lang, 'Karena setiap urusan hukum <em>penting.</em>', 'Because all legal matters <em>matter.</em>')}</h1>
+      <p class="intro">{T(lang, 'Kantor hukum di Jakarta untuk pengusaha, perusahaan, dan keluarga. Kami menyusun dan memeriksa perjanjian, menangani urusan ketenagakerjaan, dan mendampingi Anda di pengadilan bila sengketa tidak terhindarkan.', 'A Jakarta law office for business owners, companies, and families. We draft and review agreements, handle employment matters, and represent you in court when a dispute cannot be avoided.')}</p>
       <div class="buttons">
         <a class="btn btn-gold" href="{wa(lang)}">{WA_ICON} {T(lang, 'Konsultasi lewat WhatsApp', 'Consult via WhatsApp')}</a>
         <a class="btn btn-line-light" href="layanan.html">{T(lang, 'Lihat layanan', 'View services')}</a>
