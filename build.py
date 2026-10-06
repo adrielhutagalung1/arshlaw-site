@@ -34,7 +34,8 @@ def T(lang, id_text, en_text):
 
 
 # Jam kerja: isi (ID, EN) bila sudah dikonfirmasi; None menyembunyikan baris jam kerja.
-HOURS = None
+HOURS = ("Setiap hari, kecuali Sabat (Jumat 18.00 &ndash; Sabtu 18.00 WIB)",
+         "Every day except the Sabbath (Friday 18:00 &ndash; Saturday 18:00 WIB)")
 
 
 def hours(lang):
@@ -261,7 +262,7 @@ def team(lang, heading_level="h3"):
         if photo:
             pic = f'<div class="photo has-img"><img src="{asset(lang, photo)}" alt="{name.split(",")[0]}" width="600" height="800" loading="lazy"></div>'
         else:
-            pic = f'<div class="photo">{T(lang, "Foto menyusul", "Photo to follow")}</div>'
+            pic = '<div class="photo" aria-hidden="true"></div>'
         cards.append(f"""<article class="member reveal">
         {pic}
         <{heading_level}>{name}</{heading_level}>
