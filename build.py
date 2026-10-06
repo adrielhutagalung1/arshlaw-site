@@ -33,6 +33,14 @@ def T(lang, id_text, en_text):
     return id_text if lang == "id" else en_text
 
 
+# Jam kerja: isi (ID, EN) bila sudah dikonfirmasi; None menyembunyikan baris jam kerja.
+HOURS = None
+
+
+def hours(lang):
+    return T(lang, *HOURS) if HOURS else ""
+
+
 def todo(text):
     return f'<span class="todo">[ISI DARI ADVOKAT: {text}]</span>'
 
@@ -175,7 +183,7 @@ def page(lang, slug, title, description, body):
       <div><h2>{T(lang, 'Kontak', 'Contact')}</h2><ul>
         <li>WhatsApp <a href="{wa(lang)}">{WA_DISPLAY}</a></li>
         <li><a href="mailto:{EMAIL}">{EMAIL}</a></li>
-        <li>{T(lang, 'Jam kerja', 'Office hours')}: {todo(T(lang, 'hari dan jam', 'days and hours'))}</li>
+        {f"<li>{T(lang, 'Jam kerja', 'Office hours')}: {hours(lang)}</li>" if HOURS else ""}
       </ul></div>
     </div>
     <div class="legal">
@@ -297,7 +305,7 @@ def home(lang):
     <div><dt>{T(lang, 'Kantor', 'Office')}</dt><dd><a href="{MAPS}" rel="noopener">Plaza Indonesia Lt. 5, Jakarta</a></dd></div>
     <div><dt>WhatsApp</dt><dd><a href="{wa(lang)}">{WA_DISPLAY}</a></dd></div>
     <div><dt>Email</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd></div>
-    <div><dt>{T(lang, 'Jam kerja', 'Hours')}</dt><dd>{todo(T(lang, 'hari dan jam', 'days and hours'))}</dd></div>
+    {f"<div><dt>{T(lang, 'Jam kerja', 'Hours')}</dt><dd>{hours(lang)}</dd></div>" if HOURS else ""}
   </dl>
 </section>
 
@@ -489,7 +497,7 @@ def contact(lang):
         <dt>WhatsApp</dt><dd><a href="{wa(lang)}">{WA_DISPLAY}</a></dd>
         <dt>Email</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd>
         <dt>{T(lang, 'Alamat', 'Address')}</dt><dd>{address(lang)}</dd>
-        <dt>{T(lang, 'Jam kerja', 'Office hours')}</dt><dd>{todo(T(lang, 'hari dan jam', 'days and hours'))}</dd>
+        {f"<dt>{T(lang, 'Jam kerja', 'Office hours')}</dt><dd>{hours(lang)}</dd>" if HOURS else ""}
       </dl>
       <p style="margin-top:32px"><a class="btn btn-gold" href="{wa(lang)}">{WA_ICON} {T(lang, 'Kirim pesan WhatsApp', 'Send a WhatsApp message')}</a></p>
     </div>
