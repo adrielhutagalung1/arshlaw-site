@@ -53,7 +53,6 @@ NAV = [
     ("index.html", "Beranda", "Home"),
     ("layanan.html", "Layanan", "Services"),
     ("tentang.html", "Tentang Kami", "About"),
-    ("wawasan.html", "Wawasan", "Insights"),
     ("kontak.html", "Kontak", "Contact"),
 ]
 
@@ -321,7 +320,6 @@ def home(lang):
     <img src="{asset(lang, 'mark-gold.png')}" width="600" height="434" alt="">
     <div>
       <p class="quote reveal">{T(lang, '&ldquo;Cegah selagi bisa dicegah, perbaiki segera setelah disadari.&rdquo;', '&ldquo;Prevent when you are able to prevent; fix it as soon as you notice it.&rdquo;')}</p>
-      <p class="quote-by">{T(lang, 'Dari tulisan kami,', 'From our article,')} <a href="wawasan.html#irony-of-law"><em>The Irony of Law</em></a></p>
     </div>
   </div>
 </section>
@@ -333,19 +331,6 @@ def home(lang):
       <span class="line" aria-hidden="true"></span>
     </header>
     {team(lang)}
-  </div>
-</section>
-
-<section class="block block-paper">
-  <div class="wrap">
-    <header class="section-head">
-      <h2>{T(lang, 'Wawasan', 'Insights')}</h2>
-      <span class="line" aria-hidden="true"></span>
-    </header>
-    <div class="teasers reveal">
-      <a class="teaser" href="wawasan.html#irony-of-law"><span class="kicker">{T(lang, 'Artikel', 'Article')}</span><h3>The Irony of Law</h3><p>{T(lang, 'Mengapa pencegahan hampir selalu lebih ringan daripada penyelesaian perkara.', 'Why prevention is almost always lighter than resolving a case.')}</p><span class="more">{T(lang, 'Baca', 'Read')}</span></a>
-      <a class="teaser" href="wawasan.html#legal-reminder"><span class="kicker">Legal Reminder Series</span><h3>{T(lang, 'Bab 1: Tanda Tangan', 'Chapter 1: Signature')}</h3><p>{T(lang, 'Seri pengingat hukum singkat yang dapat diunduh.', 'A short, downloadable series of legal reminders.')}</p><span class="more">{T(lang, 'Lihat seri', 'View series')}</span></a>
-    </div>
   </div>
 </section>
 
@@ -526,9 +511,6 @@ PAGES = {
     "tentang.html": (about,
                      ("Tentang Kami", "Tentang ARSH &amp; Partners Law Office dan advokatnya."),
                      ("About", "About ARSH &amp; Partners Law Office and its lawyers.")),
-    "wawasan.html": (insights,
-                     ("Wawasan", "Artikel dan Legal Reminder Series dari ARSH &amp; Partners Law Office."),
-                     ("Insights", "Articles and the Legal Reminder Series from ARSH &amp; Partners Law Office.")),
     "kontak.html": (contact,
                     ("Kontak", "Hubungi ARSH &amp; Partners Law Office lewat WhatsApp atau email, atau kunjungi kantor kami di Plaza Indonesia, Jakarta."),
                     ("Contact", "Contact ARSH &amp; Partners Law Office by WhatsApp or email, or visit our office at Plaza Indonesia, Jakarta.")),
