@@ -8,7 +8,7 @@ Teks bertanda .todo masih menunggu isi dari advokat.
 from pathlib import Path
 from urllib.parse import quote
 
-ROOT = Path(__file__).parent
+ROOT = Path(__file__).parent / "public"
 SITE = "https://www.arshlaw.id"
 FIRM = "ARSH &amp; Partners Law Office"
 EMAIL = "info@arshlaw.id"
