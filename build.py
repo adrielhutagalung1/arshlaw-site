@@ -2,627 +2,470 @@
 """Membangun halaman statis situs ARSH & Partners Law Office (ID dan EN).
 
 Jalankan: python3 build.py
-Hasilnya ditulis langsung ke folder repositori (index.html, layanan.html, en/...).
-Teks bertanda [ISI DARI ADVOKAT] masih menunggu isi dari advokat.
+Halaman Indonesia ditulis di root, halaman Inggris di en/.
+Teks bertanda .todo masih menunggu isi dari advokat.
 """
 from pathlib import Path
+from urllib.parse import quote
 
 ROOT = Path(__file__).parent
-
+SITE = "https://www.arshlaw.id"
 FIRM = "ARSH &amp; Partners Law Office"
 EMAIL = "info@arshlaw.id"
-# Nomor resmi belum dikonfirmasi advokat; sementara memakai nomor tombol WhatsApp di situs lama.
-WA_NUMBER = "6282129652342"
-WA_DISPLAY = "+62 821 2965 2342"
-ADDRESS = "Plaza Indonesia Lt. 5 Unit #E021AB<br>Jl. M.H. Thamrin Kav. 28–30<br>Jakarta 10350"
-ADDRESS_EN = "Plaza Indonesia Level 5 Unit #E021AB<br>Jl. M.H. Thamrin Kav. 28–30<br>Jakarta 10350, Indonesia"
-SITE = "https://www.arshlaw.id"
+WA_NUMBER = "6281973140134"
+WA_DISPLAY = "+62 819 7314 0134"
+MAPS = "https://maps.google.com/?q=Plaza+Indonesia,+Jl.+M.H.+Thamrin+Kav.+28-30,+Jakarta"
+MAP_EMBED = "https://www.google.com/maps?q=Plaza+Indonesia+Jakarta&output=embed"
+
+WA_ICON = ('<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 '
+           '11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 '
+           '0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.23 8.23 0 0 1-4.2-1.15l-.3-.18-3.12.82'
+           '.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 '
+           '2.41 5.83c0 4.54-3.7 8.23-8.23 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64'
+           '.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.5'
+           '.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56'
+           '-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59'
+           '.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47'
+           '-.28Z"/></svg>')
 
 
-def ph(text):
-    return f'<span class="placeholder">[ISI DARI ADVOKAT: {text}]</span>'
+def T(lang, id_text, en_text):
+    return id_text if lang == "id" else en_text
 
 
-L = {
-    "id": {
-        "lang": "id",
-        "prefix": "",
-        "nav": [("index.html", "Beranda"), ("layanan.html", "Layanan"), ("tentang.html", "Tentang Kami"),
-                ("wawasan.html", "Wawasan"), ("kontak.html", "Kontak")],
-        "menu": "Menu",
-        "skip": "Lewati ke isi",
-        "wa_text": "Halo ARSH & Partners Law Office, saya ingin berkonsultasi.",
-        "wa_cta": "Konsultasi via WhatsApp",
-        "wa_float": "WhatsApp",
-        "footer_tag": "Kantor hukum di Jakarta untuk pengusaha, perusahaan, dan perorangan.",
-        "footer_pages": "Halaman",
-        "footer_contact": "Kontak",
-        "fine": "Informasi di situs ini bersifat umum dan bukan nasihat hukum untuk perkara tertentu.",
-        "address": ADDRESS,
-    },
-    "en": {
-        "lang": "en",
-        "prefix": "en/",
-        "nav": [("index.html", "Home"), ("layanan.html", "Services"), ("tentang.html", "About"),
-                ("wawasan.html", "Insights"), ("kontak.html", "Contact")],
-        "menu": "Menu",
-        "skip": "Skip to content",
-        "wa_text": "Hello ARSH & Partners Law Office, I would like a consultation.",
-        "wa_cta": "Consult via WhatsApp",
-        "wa_float": "WhatsApp",
-        "footer_tag": "A Jakarta law office for business owners, companies, and individuals.",
-        "footer_pages": "Pages",
-        "footer_contact": "Contact",
-        "fine": "Information on this site is general and is not legal advice for any specific matter.",
-        "address": ADDRESS_EN,
-    },
-}
+def todo(text):
+    return f'<span class="todo">[ISI DARI ADVOKAT: {text}]</span>'
 
 
-def wa_link(lang):
-    from urllib.parse import quote
-    return f"https://wa.me/{WA_NUMBER}?text={quote(L[lang]['wa_text'])}"
+def wa(lang):
+    msg = T(lang, "Halo ARSH & Partners Law Office, saya ingin berkonsultasi mengenai ",
+            "Hello ARSH & Partners Law Office, I would like to consult about ")
+    return f"https://wa.me/{WA_NUMBER}?text={quote(msg)}"
+
+
+def address(lang):
+    return T(lang,
+             "Plaza Indonesia Lt. 5, Unit E021AB<br>Jl. M.H. Thamrin Kav. 28–30<br>Jakarta Pusat 10350",
+             "Plaza Indonesia, Level 5, Unit E021AB<br>Jl. M.H. Thamrin Kav. 28–30<br>Central Jakarta 10350, Indonesia")
+
+
+NAV = [
+    ("index.html", "Beranda", "Home"),
+    ("layanan.html", "Layanan", "Services"),
+    ("tentang.html", "Tentang Kami", "About"),
+    ("wawasan.html", "Wawasan", "Insights"),
+    ("kontak.html", "Kontak", "Contact"),
+]
+
+# Bidang praktik: (anchor, judul ID, judul EN, ringkas ID, ringkas EN)
+PRACTICE = [
+    ("usaha", "Pendampingan Hukum Usaha", "Business Legal Retainer",
+     "Pengacara langganan untuk usaha yang belum memiliki bagian hukum sendiri.",
+     "A retained lawyer for businesses without their own legal department."),
+    ("pribadi", "Pengacara Pribadi", "Personal Lawyer",
+     "Pemeriksaan dokumen dan perjanjian sebelum Anda menandatanganinya.",
+     "Review of documents and agreements before you sign them."),
+    ("litigasi", "Litigasi Perdata dan Pidana", "Civil and Criminal Litigation",
+     "Pendampingan perkara di pengadilan, termasuk somasi sebelum gugatan.",
+     "Representation in court, including demand letters before a claim."),
+    ("ketenagakerjaan", "Ketenagakerjaan dan Hubungan Industrial", "Employment and Industrial Relations",
+     "Perjanjian kerja, peraturan perusahaan, PHK, dan perselisihan di PHI.",
+     "Employment agreements, company regulations, terminations, and labour court disputes."),
+    ("pkpu", "PKPU dan Kepailitan", "Suspension of Payments and Bankruptcy",
+     "Pendampingan kreditur maupun debitur dalam proses PKPU dan kepailitan.",
+     "Acting for creditors and debtors in PKPU and bankruptcy proceedings."),
+    ("hki", "Hak Cipta dan Merek", "Copyright and Trademarks",
+     "Pendaftaran serta penegakan hak cipta dan merek.",
+     "Registration and enforcement of copyright and trademarks."),
+    ("sdm", "Konsultasi dan Pelatihan SDM", "HR Consulting and Training",
+     "Pelatihan HRD dan HRM, konseling karyawan, dan program khusus perusahaan.",
+     "HRD and HRM training, employee counselling, and tailored company programmes."),
+]
 
 
 def page(lang, slug, title, description, body):
-    c = L[lang]
-    other = "en" if lang == "id" else "id"
     depth = "../" if lang == "en" else ""
+    prefix = "en/" if lang == "en" else ""
+    path = "" if slug == "index.html" else slug
     other_href = ("en/" + slug) if lang == "id" else ("../" + slug)
-    nav = "\n".join(
-        f'<a href="{href}"{" aria-current=\"page\"" if href == slug else ""}>{label}</a>'
-        for href, label in c["nav"]
-    )
-    lang_switch = (
-        f'<span class="lang"><strong>ID</strong> · <a href="{other_href}" hreflang="en" lang="en">EN</a></span>'
-        if lang == "id" else
-        f'<span class="lang"><a href="{other_href}" hreflang="id" lang="id">ID</a> · <strong>EN</strong></span>'
-    )
-    canonical = f"{SITE}/{c['prefix']}{'' if slug == 'index.html' else slug}"
-    alt_id = f"{SITE}/{'' if slug == 'index.html' else slug}"
-    alt_en = f"{SITE}/en/{'' if slug == 'index.html' else slug}"
-    footer_links = "\n".join(f'<li><a href="{h}">{t}</a></li>' for h, t in c["nav"])
-    full_title = title if slug == "index.html" else f"{title} · ARSH &amp; Partners Law Office"
+    nav = "\n      ".join(
+        f'<a href="{h}"{" aria-current=\"page\"" if h == slug else ""}>{T(lang, i, e)}</a>' for h, i, e in NAV)
+    lang_top = (f'<span class="on">ID</span> / <a href="{other_href}" hreflang="en">EN</a>' if lang == "id"
+                else f'<a href="{other_href}" hreflang="id">ID</a> / <span class="on">EN</span>')
+    lang_nav = (f'<a class="nav-lang" href="{other_href}" hreflang="en">English</a>' if lang == "id"
+                else f'<a class="nav-lang" href="{other_href}" hreflang="id">Bahasa Indonesia</a>')
+    full_title = title if slug == "index.html" else f"{title} | ARSH &amp; Partners Law Office"
+    foot_nav = "".join(f'<li><a href="{h}">{T(lang, i, e)}</a></li>' for h, i, e in NAV)
+    foot_practice = "".join(
+        f'<li><a href="layanan.html#{a}">{T(lang, ti, te)}</a></li>' for a, ti, te, *_ in PRACTICE[:5])
     return f"""<!doctype html>
-<html lang="{c['lang']}">
+<html lang="{lang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{full_title}</title>
 <meta name="description" content="{description}">
-<link rel="canonical" href="{canonical}">
-<link rel="alternate" hreflang="id" href="{alt_id}">
-<link rel="alternate" hreflang="en" href="{alt_en}">
+<link rel="canonical" href="{SITE}/{prefix}{path}">
+<link rel="alternate" hreflang="id" href="{SITE}/{path}">
+<link rel="alternate" hreflang="en" href="{SITE}/en/{path}">
+<link rel="alternate" hreflang="x-default" href="{SITE}/{path}">
+<meta property="og:site_name" content="ARSH &amp; Partners Law Office">
 <meta property="og:title" content="{full_title}">
 <meta property="og:description" content="{description}">
-<meta property="og:type" content="website">
-<meta property="og:url" content="{canonical}">
+<meta property="og:url" content="{SITE}/{prefix}{path}">
+<meta property="og:locale" content="{T(lang, 'id_ID', 'en_US')}">
+<meta name="theme-color" content="#121212">
 <link rel="icon" href="{depth}assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital@0;1&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{depth}assets/style.css">
+<script type="application/ld+json">
+{{"@context":"https://schema.org","@type":"LegalService","name":"ARSH & Partners Law Office","url":"{SITE}/","email":"{EMAIL}","telephone":"+{WA_NUMBER}","address":{{"@type":"PostalAddress","streetAddress":"Plaza Indonesia L5 Unit E021AB, Jl. M.H. Thamrin Kav. 28-30","addressLocality":"Jakarta","postalCode":"10350","addressCountry":"ID"}}}}
+</script>
 </head>
 <body>
-<a class="skip" href="#isi">{c['skip']}</a>
+<a class="skip" href="#main">{T(lang, 'Langsung ke isi', 'Skip to content')}</a>
+<div class="topbar">
+  <div class="wrap">
+    <span class="addr">Plaza Indonesia, Jl. M.H. Thamrin, Jakarta</span>
+    <a href="{wa(lang)}">{WA_DISPLAY}</a>
+    <a class="email" href="mailto:{EMAIL}">{EMAIL}</a>
+    <span class="lang">{lang_top}</span>
+  </div>
+</div>
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="index.html"><span class="brand-name">ARSH &amp; Partners</span><span class="brand-sub">Law Office</span></a>
-    <button class="menu-toggle" aria-expanded="false" aria-controls="nav">{c['menu']}</button>
-    <nav class="nav" id="nav" aria-label="Menu">
+    <a class="logo" href="index.html">ARSH &amp; Partners<small>LAW OFFICE</small></a>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="nav" aria-label="Menu"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav" aria-label="{T(lang, 'Navigasi utama', 'Main navigation')}">
       {nav}
-      {lang_switch}
+      {lang_nav}
     </nav>
+    <a class="btn btn-accent btn-small header-cta" href="{wa(lang)}">{T(lang, 'Hubungi kami', 'Contact us')}</a>
   </div>
 </header>
-<main id="isi">
+<main id="main">
 {body}
 </main>
 <footer class="site-footer">
   <div class="wrap">
-    <div>
-      <p class="brand-name">{FIRM}</p>
-      <p>{c['footer_tag']}</p>
+    <div class="cols">
+      <div>
+        <a class="logo" href="index.html">ARSH &amp; Partners<small>LAW OFFICE</small></a>
+        <p style="margin-top:16px">{address(lang)}</p>
+        <p><a href="{MAPS}" rel="noopener">{T(lang, 'Petunjuk arah', 'Get directions')} &rarr;</a></p>
+      </div>
+      <div><h2>{T(lang, 'Halaman', 'Pages')}</h2><ul>{foot_nav}</ul></div>
+      <div><h2>{T(lang, 'Layanan', 'Services')}</h2><ul>{foot_practice}</ul></div>
+      <div><h2>{T(lang, 'Kontak', 'Contact')}</h2><ul>
+        <li>WhatsApp <a href="{wa(lang)}">{WA_DISPLAY}</a></li>
+        <li><a href="mailto:{EMAIL}">{EMAIL}</a></li>
+        <li>{T(lang, 'Jam kerja', 'Office hours')}: {todo(T(lang, 'hari dan jam', 'days and hours'))}</li>
+      </ul></div>
     </div>
-    <div>
-      <p><strong>{c['footer_pages']}</strong></p>
-      <ul>{footer_links}</ul>
+    <div class="legal">
+      <span>&copy; 2026 {FIRM}</span>
+      <span>{T(lang, 'Isi situs ini merupakan informasi umum, bukan nasihat hukum atas perkara tertentu.', 'The content of this site is general information, not legal advice on any specific matter.')}</span>
     </div>
-    <div>
-      <p><strong>{c['footer_contact']}</strong></p>
-      <p><a href="{wa_link(lang)}">{WA_DISPLAY}</a><br><a href="mailto:{EMAIL}">{EMAIL}</a></p>
-      <p>{c['address']}</p>
-    </div>
-    <p class="fine">© 2026 {FIRM}. {c['fine']}</p>
   </div>
 </footer>
-<a class="wa-float" href="{wa_link(lang)}" aria-label="{c['wa_cta']}">{c['wa_float']}</a>
+<a class="wa-float" href="{wa(lang)}" aria-label="WhatsApp">{WA_ICON}</a>
 <script>
-  const t = document.querySelector('.menu-toggle'), n = document.getElementById('nav');
-  t.addEventListener('click', () => {{ const o = n.classList.toggle('open'); t.setAttribute('aria-expanded', o); }});
+document.querySelector('.menu-toggle').addEventListener('click', function () {{
+  var nav = document.getElementById('nav'), open = nav.classList.toggle('open');
+  this.setAttribute('aria-expanded', open);
+}});
 </script>
 </body>
 </html>
 """
 
 
-# ---------------------------------------------------------------- Isi halaman
+def practice_list(lang, linked=True):
+    rows = []
+    for a, ti, te, di, de in PRACTICE:
+        inner = f'<h3>{T(lang, ti, te)}</h3><p>{T(lang, di, de)}</p><span class="arrow" aria-hidden="true">&rarr;</span>'
+        rows.append(f'<li><a href="layanan.html#{a}">{inner}</a></li>')
+    return '<ul class="practice">' + "".join(rows) + "</ul>"
+
+
+def person(lang, heading_level="h2"):
+    return f"""<div class="person">
+      <div class="photo">{T(lang, 'Foto advokat', 'Photo')}</div>
+      <div>
+        <{heading_level}>{todo(T(lang, 'Nama lengkap, S.H., M.H.', 'Full name, S.H., M.H.'))}</{heading_level}>
+        <p class="role">{T(lang, 'Advokat Pengelola', 'Managing Partner')}</p>
+        <p>{todo(T(lang, 'latar belakang pendidikan, pengalaman, dan bidang yang paling sering ditangani', 'education, experience, and main practice areas'))}</p>
+      </div>
+    </div>"""
+
+
+def closing(lang):
+    return f"""<section class="closing">
+  <div class="wrap">
+    <div>
+      <h2>{T(lang, 'Ingin membicarakan persoalan Anda?', 'Would you like to discuss your matter?')}</h2>
+      <p>{T(lang, 'Kirim pesan singkat lewat WhatsApp, kami akan menghubungi Anda kembali.', 'Send us a short WhatsApp message and we will get back to you.')}</p>
+    </div>
+    <a class="btn btn-accent" href="{wa(lang)}">{WA_ICON} WhatsApp {WA_DISPLAY}</a>
+  </div>
+</section>"""
+
 
 def home(lang):
-    wa = wa_link(lang)
-    if lang == "id":
-        return f"""
+    return f"""
 <section class="hero">
   <div class="wrap">
-    <p class="eyebrow">ARSH &amp; Partners Law Office · Jakarta</p>
-    <h1>Urusan hukum usaha Anda,<br>ditata sejak awal.</h1>
-    <p class="lead">Kami membantu pengusaha dan perusahaan menyusun perjanjian, mengelola hubungan kerja, dan menyelesaikan sengketa dengan tenang dan terukur.</p>
-    <div class="actions">
-      <a class="btn btn-primary" href="{wa}">Konsultasi via WhatsApp</a>
-      <a class="btn btn-ghost" href="layanan.html">Lihat layanan</a>
-    </div>
-    <div class="rule"></div>
-  </div>
-</section>
-
-<section class="band">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Untuk siapa kami bekerja</h2>
-      <p>Sebagian besar persoalan hukum bisa dicegah bila ditangani sejak dokumen pertama ditandatangani. Di situlah kami paling banyak membantu.</p>
-    </div>
-    <div class="for-whom">
-      <div><h3>Pemilik usaha</h3><p>Usaha kecil dan menengah yang membutuhkan pendampingan hukum rutin tanpa harus memiliki bagian hukum sendiri.</p></div>
-      <div><h3>Perusahaan</h3><p>Perjanjian dengan mitra, pemasok, dan karyawan; kepatuhan ketenagakerjaan; serta penyelesaian sengketa.</p></div>
-      <div><h3>Perorangan</h3><p>Pemeriksaan dokumen, perjanjian pribadi, dan pendampingan saat menghadapi persoalan hukum.</p></div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Layanan utama</h2>
-      <p>Pilih sesuai kebutuhan Anda. Setiap layanan dimulai dengan percakapan singkat untuk memahami persoalannya.</p>
-    </div>
-    <div class="grid-3">
-      <article class="card"><span class="num">01</span><h3>Pendampingan Hukum Usaha</h3><p>Pengacara langganan untuk usaha Anda: menyusun dan memeriksa perjanjian, menangani persoalan karyawan, dan membantu penagihan.</p><a class="more" href="layanan.html#usaha">Selengkapnya</a></article>
-      <article class="card"><span class="num">02</span><h3>Litigasi &amp; Sengketa</h3><p>Pendampingan perkara perdata, pidana, hubungan industrial, PKPU, dan kepailitan, termasuk somasi sebelum ke pengadilan.</p><a class="more" href="layanan.html#litigasi">Selengkapnya</a></article>
-      <article class="card"><span class="num">03</span><h3>Ketenagakerjaan &amp; SDM</h3><p>Perjanjian kerja, prosedur pemutusan hubungan kerja, serta pelatihan dan konsultasi SDM untuk tim Anda.</p><a class="more" href="layanan.html#ketenagakerjaan">Selengkapnya</a></article>
-    </div>
-  </div>
-</section>
-
-<section class="band-ink">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Cara kami bekerja</h2>
-      <p style="color:#CFC9BC">Sederhana dan jelas sejak awal.</p>
-    </div>
-    <ol class="steps">
-      <li><h3>Ceritakan persoalan Anda</h3><p>Hubungi kami lewat WhatsApp atau email. Kami mendengarkan dan menanyakan hal yang perlu.</p></li>
-      <li><h3>Terima penawaran</h3><p>Kami menjelaskan langkah yang kami sarankan dan biayanya secara tertulis sebelum pekerjaan dimulai.</p></li>
-      <li><h3>Kami tangani</h3><p>Anda mendapat kabar perkembangan secara berkala sampai urusan selesai.</p></li>
-    </ol>
-  </div>
-</section>
-
-<section>
-  <div class="wrap profile">
-    <div class="photo">{ph('foto advokat pengelola')}</div>
     <div>
-      <p class="eyebrow">Advokat pengelola</p>
-      <h2>{ph('Nama, S.H., M.H.')}</h2>
-      <p>{ph('dua sampai tiga kalimat tentang latar belakang, bidang keahlian, dan cara bekerja advokat pengelola')}</p>
-      <a class="more" href="tentang.html">Tentang kantor kami</a>
+      <h1>{T(lang, 'Kantor hukum untuk pengusaha, perusahaan, dan keluarga di Jakarta.', 'A law office for business owners, companies, and families in Jakarta.')}</h1>
+      <p class="intro">{T(lang, 'Kami menyusun dan memeriksa perjanjian, menangani urusan ketenagakerjaan, dan mendampingi Anda di pengadilan bila sengketa tidak terhindarkan.', 'We draft and review agreements, handle employment matters, and represent you in court when a dispute cannot be avoided.')}</p>
+      <div class="buttons">
+        <a class="btn btn-accent" href="{wa(lang)}">{WA_ICON} {T(lang, 'Konsultasi lewat WhatsApp', 'Consult via WhatsApp')}</a>
+        <a class="btn btn-line" href="layanan.html">{T(lang, 'Lihat layanan', 'View services')}</a>
+      </div>
+    </div>
+    <aside class="office-card">
+      <h2>{T(lang, 'Kantor kami', 'Our office')}</h2>
+      <dl>
+        <dt>{T(lang, 'Alamat', 'Address')}</dt><dd>{address(lang)}</dd>
+        <dt>WhatsApp</dt><dd><a href="{wa(lang)}">{WA_DISPLAY}</a></dd>
+        <dt>Email</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd>
+        <dt>{T(lang, 'Jam kerja', 'Hours')}</dt><dd>{todo(T(lang, 'hari dan jam', 'days and hours'))}</dd>
+      </dl>
+      <a class="btn btn-line btn-small" href="{MAPS}" rel="noopener">{T(lang, 'Petunjuk arah', 'Get directions')}</a>
+    </aside>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap split">
+    <header>
+      <h2>{T(lang, 'Bidang praktik', 'Practice areas')}</h2>
+      <p>{T(lang, 'Sebagian besar pekerjaan kami bersifat pencegahan: memastikan dokumen benar sebelum ditandatangani.', 'Most of our work is preventive: getting documents right before they are signed.')}</p>
+    </header>
+    {practice_list(lang)}
+  </div>
+</section>
+
+<section class="block block-soft">
+  <div class="wrap">
+    <p class="quote">{T(lang, '&ldquo;Cegah selagi bisa dicegah, perbaiki segera setelah disadari.&rdquo;', '&ldquo;Prevent when you are able to prevent; fix it as soon as you notice it.&rdquo;')}</p>
+    <p class="quote-by">{T(lang, 'Dari tulisan kami,', 'From our article,')} <a href="wawasan.html#irony-of-law"><em>The Irony of Law</em></a></p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap split">
+    <header><h2>{T(lang, 'Advokat', 'Our lawyers')}</h2></header>
+    <div>
+      {person(lang, 'h3')}
+      <p style="margin-top:24px"><a class="link-arrow" href="tentang.html">{T(lang, 'Tentang kantor kami', 'About the firm')} &rarr;</a></p>
     </div>
   </div>
 </section>
 
-<section class="band">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Wawasan</h2>
-      <p>Tulisan singkat tentang hukum sehari-hari untuk pengusaha dan pekerja.</p>
-    </div>
-    <ul class="article-list">
-      <li><span class="meta">Artikel</span><div><h3><a href="wawasan.html#ironi-hukum">The Irony of Law</a></h3><p class="muted">Mengapa pencegahan hampir selalu lebih murah daripada penyelesaian perkara.</p></div></li>
-      <li><span class="meta">Legal Reminder Series</span><div><h3><a href="wawasan.html#legal-reminder">Tanda tangan, syarat dan ketentuan, dan ketenagakerjaan</a></h3><p class="muted">Seri pengingat hukum yang bisa diunduh.</p></div></li>
+<section class="block">
+  <div class="wrap split">
+    <header>
+      <h2>{T(lang, 'Wawasan', 'Insights')}</h2>
+      <p><a class="link-arrow" href="wawasan.html">{T(lang, 'Semua tulisan', 'All articles')} &rarr;</a></p>
+    </header>
+    <ul class="posts">
+      <li><span class="meta">{T(lang, 'Artikel', 'Article')}</span><div><h3><a href="wawasan.html#irony-of-law">The Irony of Law</a></h3><p>{T(lang, 'Mengapa pencegahan hampir selalu lebih ringan daripada penyelesaian perkara.', 'Why prevention is almost always lighter than resolving a case.')}</p></div></li>
+      <li><span class="meta">Legal Reminder Series</span><div><h3><a href="wawasan.html#legal-reminder">{T(lang, 'Bab 1: Tanda Tangan', 'Chapter 1: Signature')}</a></h3><p>{T(lang, 'Seri pengingat hukum singkat yang dapat diunduh.', 'A short, downloadable series of legal reminders.')}</p></div></li>
     </ul>
   </div>
 </section>
 
-<section class="cta-band">
-  <div class="wrap">
-    <h2>Ada persoalan hukum yang ingin dibicarakan?</h2>
-    <a class="btn btn-primary" href="{wa}">Konsultasi via WhatsApp</a>
-  </div>
-</section>
+{closing(lang)}
 """
-    return f"""
-<section class="hero">
-  <div class="wrap">
-    <p class="eyebrow">ARSH &amp; Partners Law Office · Jakarta</p>
-    <h1>Your business's legal matters,<br>in order from the start.</h1>
-    <p class="lead">We help business owners and companies draft agreements, manage employment relationships, and resolve disputes calmly and carefully.</p>
-    <div class="actions">
-      <a class="btn btn-primary" href="{wa}">Consult via WhatsApp</a>
-      <a class="btn btn-ghost" href="layanan.html">Our services</a>
-    </div>
-    <div class="rule"></div>
-  </div>
-</section>
 
-<section class="band">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Who we work with</h2>
-      <p>Most legal problems can be prevented when they are handled from the first signed document. That is where we help most.</p>
-    </div>
-    <div class="for-whom">
-      <div><h3>Business owners</h3><p>Small and medium businesses that need regular legal support without an in-house legal team.</p></div>
-      <div><h3>Companies</h3><p>Agreements with partners, suppliers, and employees; employment compliance; and dispute resolution.</p></div>
-      <div><h3>Individuals</h3><p>Document review, personal agreements, and support when facing a legal problem.</p></div>
-    </div>
-  </div>
-</section>
 
-<section>
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Core services</h2>
-      <p>Every engagement begins with a short conversation to understand the matter.</p>
-    </div>
-    <div class="grid-3">
-      <article class="card"><span class="num">01</span><h3>Business Legal Retainer</h3><p>A retained lawyer for your business: drafting and reviewing agreements, handling employee matters, and supporting collections.</p><a class="more" href="layanan.html#usaha">Read more</a></article>
-      <article class="card"><span class="num">02</span><h3>Litigation &amp; Disputes</h3><p>Civil, criminal, industrial relations, suspension of payments (PKPU), and bankruptcy matters, including demand letters before court.</p><a class="more" href="layanan.html#litigasi">Read more</a></article>
-      <article class="card"><span class="num">03</span><h3>Employment &amp; HR</h3><p>Employment agreements, termination procedures, and HR training and consulting for your team.</p><a class="more" href="layanan.html#ketenagakerjaan">Read more</a></article>
-    </div>
-  </div>
-</section>
-
-<section class="band-ink">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>How we work</h2>
-      <p style="color:#CFC9BC">Simple and clear from the start.</p>
-    </div>
-    <ol class="steps">
-      <li><h3>Tell us the matter</h3><p>Reach us by WhatsApp or email. We listen and ask what we need to know.</p></li>
-      <li><h3>Receive a proposal</h3><p>We explain the steps we recommend and the fees in writing before any work begins.</p></li>
-      <li><h3>We handle it</h3><p>You receive regular updates until the matter is resolved.</p></li>
-    </ol>
-  </div>
-</section>
-
-<section>
-  <div class="wrap profile">
-    <div class="photo">{ph('managing partner photo')}</div>
-    <div>
-      <p class="eyebrow">Managing partner</p>
-      <h2>{ph('Name, S.H., M.H.')}</h2>
-      <p>{ph('two or three sentences on background, practice areas, and way of working')}</p>
-      <a class="more" href="tentang.html">About the firm</a>
-    </div>
-  </div>
-</section>
-
-<section class="cta-band band">
-  <div class="wrap">
-    <h2>Have a legal matter you would like to discuss?</h2>
-    <a class="btn btn-primary" href="{wa}">Consult via WhatsApp</a>
-  </div>
-</section>
-"""
+SERVICE_DETAIL = {
+    "usaha": (
+        "Seperti dokter keluarga untuk urusan hukum usaha Anda. Layanan ini cocok untuk usaha kecil dan menengah yang belum memiliki bagian hukum, dan ingin persoalan dengan karyawan, pemasok, atau pelanggan ditangani sebelum menjadi sengketa.",
+        "Like a family doctor for your business's legal matters. Suited to small and medium businesses without a legal department that want issues with employees, suppliers, or customers handled before they become disputes.",
+        ["Menyusun dan memeriksa perjanjian dengan pemasok, vendor, dan mitra", "Perjanjian kerja dan persoalan karyawan", "Pendampingan penagihan piutang", "Konsultasi saat ada keputusan penting"],
+        ["Drafting and reviewing agreements with suppliers, vendors, and partners", "Employment agreements and employee matters", "Support with collections", "Consultation on important decisions"]),
+    "pribadi": (
+        "Untuk perorangan yang mengurus banyak perjanjian dan dokumen, dan ingin memastikan semuanya aman sebelum ditandatangani.",
+        "For individuals who handle many agreements and documents and want to be sure they are sound before signing.",
+        ["Pemeriksaan dokumen dan perjanjian", "Pendapat hukum atas persoalan pribadi", "Pendampingan saat menghadapi persoalan hukum"],
+        ["Document and agreement review", "Legal opinions on personal matters", "Support when facing a legal problem"]),
+    "litigasi": (
+        "Bila persoalan tidak dapat diselesaikan dengan musyawarah, kami mendampingi Anda di setiap tahap perkara.",
+        "When a matter cannot be settled by agreement, we represent you at every stage.",
+        ["Wanprestasi dan perbuatan melawan hukum", "Pendampingan pidana sejak pemeriksaan hingga persidangan", "Penyusunan dan penanganan somasi"],
+        ["Breach of contract and unlawful acts", "Criminal representation from investigation to trial", "Drafting and responding to demand letters"]),
+    "ketenagakerjaan": (
+        "Kepatuhan hukum ketenagakerjaan bagi perusahaan, dan pendampingan bila terjadi perselisihan.",
+        "Employment law compliance for companies, and representation when disputes arise.",
+        ["Perjanjian kerja dan peraturan perusahaan", "Prosedur pemutusan hubungan kerja", "Perselisihan di Pengadilan Hubungan Industrial"],
+        ["Employment agreements and company regulations", "Termination procedures", "Disputes before the Industrial Relations Court"]),
+    "pkpu": (
+        "Pendampingan kreditur maupun debitur dalam proses penundaan kewajiban pembayaran utang dan kepailitan.",
+        "Acting for creditors and debtors in suspension of payments and bankruptcy proceedings.",
+        [], []),
+    "hki": (
+        "Pendaftaran serta penegakan hak cipta dan merek, termasuk penanganan pelanggaran.",
+        "Registration and enforcement of copyright and trademarks, including infringement matters.",
+        [], []),
+    "sdm": (
+        "Pelatihan dan konsultasi untuk mengembangkan orang di dalam organisasi Anda, sejalan dengan kepatuhan ketenagakerjaan.",
+        "Training and consulting to develop the people in your organisation, aligned with employment compliance.",
+        ["Pelatihan HRD: kepemimpinan, perencanaan karier, budaya kerja", "Pelatihan HRM: rekrutmen, penilaian kinerja, pengelolaan konflik, kompensasi", "Psikologi dan konseling karyawan", "Keterampilan lunak: komunikasi, manajemen waktu, kecerdasan emosional", "Program khusus: persiapan pensiun, team building, kewirausahaan, pelayanan publik"],
+        ["HRD training: leadership, career planning, workplace culture", "HRM training: recruitment, appraisal, conflict management, compensation", "Employee psychology and counselling", "Soft skills: communication, time management, emotional intelligence", "Custom programmes: pre-retirement, team building, entrepreneurship, public service"]),
+}
 
 
 def services(lang):
-    wa = wa_link(lang)
-    if lang == "id":
-        return f"""
-<section class="hero">
-  <div class="wrap">
-    <p class="eyebrow">Layanan</p>
-    <h1>Layanan hukum yang dimulai dari pencegahan.</h1>
-    <p class="lead">Kami lebih suka membantu Anda menghindari sengketa daripada menyelesaikannya. Bila sengketa sudah terjadi, kami mendampingi sampai tuntas.</p>
-  </div>
-</section>
-<section class="band" id="usaha">
-  <div class="wrap">
-    <div class="grid-2">
-      <article class="card"><span class="num">01</span><h3>Pendampingan Hukum Usaha</h3>
-        <p>Seperti memiliki dokter keluarga untuk urusan hukum usaha Anda. Cocok untuk usaha kecil dan menengah yang belum memiliki bagian hukum.</p>
-        <ul><li>Menyusun dan memeriksa perjanjian dengan pemasok, vendor, dan mitra</li><li>Perjanjian kerja dan persoalan karyawan</li><li>Pendampingan penagihan piutang</li><li>Konsultasi rutin saat ada keputusan penting</li></ul>
-        <a class="more" href="{wa}">Minta informasi &amp; penawaran</a></article>
-      <article class="card"><span class="num">02</span><h3>Pengacara Pribadi</h3>
-        <p>Untuk perorangan yang mengurus banyak perjanjian dan dokumen, dan ingin memastikan semuanya aman sebelum ditandatangani.</p>
-        <ul><li>Pemeriksaan dokumen dan perjanjian</li><li>Pendapat hukum atas persoalan pribadi</li><li>Pendampingan saat menghadapi persoalan hukum</li></ul>
-        <a class="more" href="{wa}">Minta informasi &amp; penawaran</a></article>
-    </div>
-  </div>
-</section>
-<section id="litigasi">
-  <div class="wrap">
-    <div class="section-head"><h2>Litigasi &amp; Sengketa</h2><p>Bila persoalan tidak dapat diselesaikan dengan musyawarah, kami mendampingi Anda di setiap tahap.</p></div>
-    <div class="grid-3">
-      <article class="card"><h3>Perdata</h3><p>Wanprestasi, perbuatan melawan hukum, dan sengketa perjanjian.</p></article>
-      <article class="card"><h3>Pidana</h3><p>Pendampingan sejak pemeriksaan hingga persidangan.</p></article>
-      <article class="card"><h3>Hubungan Industrial</h3><p>Perselisihan ketenagakerjaan di Pengadilan Hubungan Industrial.</p></article>
-      <article class="card"><h3>PKPU &amp; Kepailitan</h3><p>Pendampingan kreditur maupun debitur.</p></article>
-      <article class="card"><h3>Somasi</h3><p>Penyusunan dan penanganan somasi sebelum perkara ke pengadilan.</p></article>
-      <article class="card"><h3>Hak Kekayaan Intelektual</h3><p>Pendaftaran dan penegakan hak cipta serta merek.</p></article>
-    </div>
-  </div>
-</section>
-<section class="band" id="ketenagakerjaan">
-  <div class="wrap">
-    <div class="section-head"><h2>Ketenagakerjaan &amp; SDM</h2><p>Menggabungkan kepatuhan hukum ketenagakerjaan dengan pengembangan orang di dalam organisasi Anda.</p></div>
-    <div class="grid-3">
-      <article class="card"><h3>Hukum ketenagakerjaan</h3><p>Perjanjian kerja, peraturan perusahaan, dan prosedur pemutusan hubungan kerja.</p></article>
-      <article class="card"><h3>Pelatihan HRD &amp; HRM</h3><p>Kepemimpinan, rekrutmen, penilaian kinerja, pengelolaan konflik, dan kepatuhan ketenagakerjaan.</p></article>
-      <article class="card"><h3>Psikologi &amp; konseling karyawan</h3><p>Dukungan bagi kesejahteraan karyawan dan keharmonisan tempat kerja.</p></article>
-      <article class="card"><h3>Keterampilan lunak</h3><p>Komunikasi, manajemen waktu, dan kecerdasan emosional.</p></article>
-      <article class="card"><h3>Program khusus</h3><p>Persiapan pensiun, team building, kewirausahaan, dan pelayanan publik.</p></article>
-      <article class="card"><h3>Bidang lain</h3><p>Perlindungan konsumen, perdagangan dan ekspor-impor, serta hukum pendidikan.</p></article>
-    </div>
-  </div>
-</section>
-<section class="cta-band">
-  <div class="wrap"><h2>Belum yakin layanan mana yang tepat?</h2><a class="btn btn-primary" href="{wa}">Tanyakan via WhatsApp</a></div>
-</section>
-"""
+    blocks = []
+    for a, ti, te, *_ in PRACTICE:
+        di, de, li, le = SERVICE_DETAIL[a]
+        items = li if lang == "id" else le
+        ul = ("<ul>" + "".join(f"<li>{x}</li>" for x in items) + "</ul>") if items else ""
+        blocks.append(f"""<article class="detail" id="{a}">
+        <h2>{T(lang, ti, te)}</h2>
+        <p style="margin-top:12px">{T(lang, di, de)}</p>
+        {ul}
+        <a class="link-arrow" href="{wa(lang)}">{T(lang, 'Minta informasi dan penawaran', 'Request information and a quotation')} &rarr;</a>
+      </article>""")
     return f"""
-<section class="hero">
+<section class="page-hero">
   <div class="wrap">
-    <p class="eyebrow">Services</p>
-    <h1>Legal services that begin with prevention.</h1>
-    <p class="lead">We would rather help you avoid a dispute than resolve one. When a dispute has already arisen, we stay with you until it is settled.</p>
+    <p class="crumbs"><a href="index.html">{T(lang, 'Beranda', 'Home')}</a> / {T(lang, 'Layanan', 'Services')}</p>
+    <h1>{T(lang, 'Layanan', 'Services')}</h1>
+    <p class="intro">{T(lang, 'Setiap pekerjaan dimulai dengan percakapan singkat untuk memahami persoalan Anda. Setelah itu kami memberikan penawaran tertulis sebelum pekerjaan dimulai.', 'Every engagement begins with a short conversation to understand your matter, followed by a written proposal before work begins.')}</p>
   </div>
 </section>
-<section class="band" id="usaha">
-  <div class="wrap">
-    <div class="grid-2">
-      <article class="card"><span class="num">01</span><h3>Business Legal Retainer</h3>
-        <p>Like having a family doctor for your business's legal matters. Suited to small and medium businesses without an in-house legal team.</p>
-        <ul><li>Drafting and reviewing agreements with suppliers, vendors, and partners</li><li>Employment agreements and employee matters</li><li>Support with collections</li><li>Regular consultation on important decisions</li></ul>
-        <a class="more" href="{wa}">Request information &amp; a quotation</a></article>
-      <article class="card"><span class="num">02</span><h3>Personal Lawyer</h3>
-        <p>For individuals who handle many agreements and documents and want them checked before signing.</p>
-        <ul><li>Document and agreement review</li><li>Legal opinions on personal matters</li><li>Support when facing a legal problem</li></ul>
-        <a class="more" href="{wa}">Request information &amp; a quotation</a></article>
+<section class="block">
+  <div class="wrap split">
+    <header><h2>{T(lang, 'Daftar layanan', 'All services')}</h2>
+      <ul class="tags">{''.join(f'<li><a href="#{a}" style="text-decoration:none">{T(lang, ti, te)}</a></li>' for a, ti, te, *_ in PRACTICE)}</ul>
+    </header>
+    <div>
+      {''.join(blocks)}
     </div>
   </div>
 </section>
-<section id="litigasi">
-  <div class="wrap">
-    <div class="section-head"><h2>Litigation &amp; Disputes</h2><p>When a matter cannot be settled by agreement, we represent you at every stage.</p></div>
-    <div class="grid-3">
-      <article class="card"><h3>Civil</h3><p>Breach of contract, unlawful acts, and contract disputes.</p></article>
-      <article class="card"><h3>Criminal</h3><p>Representation from investigation through trial.</p></article>
-      <article class="card"><h3>Industrial Relations</h3><p>Employment disputes before the Industrial Relations Court.</p></article>
-      <article class="card"><h3>PKPU &amp; Bankruptcy</h3><p>Acting for creditors and debtors.</p></article>
-      <article class="card"><h3>Demand letters</h3><p>Drafting and responding to demand letters (somasi) before court.</p></article>
-      <article class="card"><h3>Intellectual Property</h3><p>Copyright and trademark registration and enforcement.</p></article>
-    </div>
-  </div>
-</section>
-<section class="band" id="ketenagakerjaan">
-  <div class="wrap">
-    <div class="section-head"><h2>Employment &amp; HR</h2><p>Employment law compliance combined with developing the people in your organisation.</p></div>
-    <div class="grid-3">
-      <article class="card"><h3>Employment law</h3><p>Employment agreements, company regulations, and termination procedures.</p></article>
-      <article class="card"><h3>HRD &amp; HRM training</h3><p>Leadership, recruitment, performance appraisal, conflict management, and labour compliance.</p></article>
-      <article class="card"><h3>Employee psychology &amp; counselling</h3><p>Support for employee well-being and workplace harmony.</p></article>
-      <article class="card"><h3>Soft skills</h3><p>Communication, time management, and emotional intelligence.</p></article>
-      <article class="card"><h3>Custom programmes</h3><p>Pre-retirement, team building, entrepreneurship, and public service.</p></article>
-      <article class="card"><h3>Other areas</h3><p>Consumer protection, trade and import-export, and education law.</p></article>
-    </div>
-  </div>
-</section>
-<section class="cta-band">
-  <div class="wrap"><h2>Not sure which service fits?</h2><a class="btn btn-primary" href="{wa}">Ask via WhatsApp</a></div>
-</section>
+{closing(lang)}
 """
 
 
 def about(lang):
-    if lang == "id":
-        return f"""
-<section class="hero">
-  <div class="wrap">
-    <p class="eyebrow">Tentang Kami</p>
-    <h1>Kantor hukum yang menjelaskan, bukan menakut-nakuti.</h1>
-    <p class="lead">{FIRM} berkantor di Plaza Indonesia, Jakarta. Kami membawa cara pandang yang segar dan pendekatan yang luwes dalam menyelesaikan persoalan hukum klien.</p>
-  </div>
-</section>
-<section class="band">
-  <div class="wrap profile">
-    <div class="photo">{ph('foto advokat pengelola')}</div>
-    <div>
-      <p class="eyebrow">Advokat pengelola</p>
-      <h2>{ph('Nama, S.H., M.H.')}</h2>
-      <p>{ph('latar belakang pendidikan, pengalaman, dan bidang keahlian')}</p>
-      <p>{ph('keanggotaan organisasi advokat dan nomor induk, bila ingin ditampilkan')}</p>
-    </div>
-  </div>
-</section>
-<section>
-  <div class="wrap">
-    <div class="section-head"><h2>Cara kami memandang pekerjaan ini</h2><p></p></div>
-    <div class="for-whom">
-      <div><h3>Mencegah lebih dulu</h3><p>Perjanjian yang disusun dengan benar sejak awal menghindarkan banyak sengketa di kemudian hari.</p></div>
-      <div><h3>Jelas soal biaya</h3><p>Penawaran tertulis diberikan sebelum pekerjaan dimulai, sehingga Anda tahu apa yang akan dibayar.</p></div>
-      <div><h3>Mudah dihubungi</h3><p>Anda bisa menghubungi kami lewat WhatsApp atau email, dan kami memberi kabar perkembangan secara berkala.</p></div>
-    </div>
-  </div>
-</section>
-"""
     return f"""
-<section class="hero">
+<section class="page-hero">
   <div class="wrap">
-    <p class="eyebrow">About</p>
-    <h1>A law office that explains, rather than alarms.</h1>
-    <p class="lead">{FIRM} is based at Plaza Indonesia, Jakarta. We bring a fresh perspective and a flexible approach to resolving our clients' legal matters.</p>
+    <p class="crumbs"><a href="index.html">{T(lang, 'Beranda', 'Home')}</a> / {T(lang, 'Tentang Kami', 'About')}</p>
+    <h1>{T(lang, 'Tentang Kami', 'About us')}</h1>
+    <p class="intro">{T(lang, f'{FIRM} berkantor di Plaza Indonesia, Jakarta. Kami membawa cara pandang yang segar dan pendekatan yang luwes dalam menyelesaikan persoalan hukum klien, dengan biaya yang dijelaskan sejak awal.', f'{FIRM} is based at Plaza Indonesia, Jakarta. We bring a fresh perspective and a flexible approach to our clients&rsquo; legal matters, with fees explained from the start.')}</p>
   </div>
 </section>
-<section class="band">
-  <div class="wrap profile">
-    <div class="photo">{ph('managing partner photo')}</div>
+<section class="block">
+  <div class="wrap split">
+    <header><h2>{T(lang, 'Advokat', 'Our lawyers')}</h2></header>
+    {person(lang, 'h3')}
+  </div>
+</section>
+<section class="block block-soft">
+  <div class="wrap split">
+    <header><h2>{T(lang, 'Cara kami bekerja', 'How we work')}</h2></header>
     <div>
-      <p class="eyebrow">Managing partner</p>
-      <h2>{ph('Name, S.H., M.H.')}</h2>
-      <p>{ph('education, experience, and practice areas')}</p>
+      <p><strong>{T(lang, 'Mencegah lebih dulu.', 'Prevention first.')}</strong> {T(lang, 'Perjanjian yang disusun dengan benar sejak awal menghindarkan banyak sengketa di kemudian hari.', 'An agreement drafted correctly from the start avoids many disputes later.')}</p>
+      <p><strong>{T(lang, 'Biaya yang jelas.', 'Clear fees.')}</strong> {T(lang, 'Penawaran tertulis diberikan sebelum pekerjaan dimulai.', 'A written proposal is provided before work begins.')}</p>
+      <p><strong>{T(lang, 'Mudah dihubungi.', 'Easy to reach.')}</strong> {T(lang, 'Lewat WhatsApp atau email, dengan kabar perkembangan secara berkala.', 'By WhatsApp or email, with regular updates on progress.')}</p>
     </div>
   </div>
 </section>
-<section>
-  <div class="wrap">
-    <div class="for-whom">
-      <div><h3>Prevention first</h3><p>An agreement drafted correctly from the start avoids many disputes later.</p></div>
-      <div><h3>Clear on fees</h3><p>A written proposal is provided before work begins, so you know what you will pay.</p></div>
-      <div><h3>Easy to reach</h3><p>Reach us by WhatsApp or email, and expect regular updates on progress.</p></div>
-    </div>
-  </div>
-</section>
+{closing(lang)}
 """
 
 
 def insights(lang):
-    if lang == "id":
-        return f"""
-<section class="hero">
-  <div class="wrap">
-    <p class="eyebrow">Wawasan</p>
-    <h1>Tulisan dan pengingat hukum.</h1>
-    <p class="lead">Bacaan singkat untuk membantu Anda mengenali persoalan hukum sebelum menjadi besar.</p>
-  </div>
-</section>
-<section class="band">
-  <div class="wrap">
-    <ul class="article-list">
-      <li id="ironi-hukum"><span class="meta">Artikel · {ph('tanggal')}</span><div><h3>The Irony of Law</h3><p class="muted">Cegah selagi bisa dicegah, perbaiki segera setelah disadari. {ph('isi artikel dipindahkan dari situs lama setelah ditinjau advokat')}</p></div></li>
-    </ul>
-  </div>
-</section>
-<section id="legal-reminder">
-  <div class="wrap">
-    <div class="section-head"><h2>Legal Reminder Series</h2><p>Seri pengingat hukum yang bisa diunduh.</p></div>
-    <ul class="article-list">
-      <li><span class="meta">Bab 1</span><div><h3>Tanda Tangan</h3><p class="muted">{ph('tanggal dan berkas PDF')}</p></div></li>
-      <li><span class="meta">Bab 2</span><div><h3>Syarat dan Ketentuan</h3><p class="muted">{ph('tanggal dan berkas PDF')}</p></div></li>
-      <li><span class="meta">Bab 3</span><div><h3>Ketenagakerjaan I</h3><p class="muted">{ph('tanggal dan berkas PDF')}</p></div></li>
-    </ul>
-  </div>
-</section>
-"""
+    chapters = [("1", "Tanda Tangan", "Signature"), ("2", "Syarat dan Ketentuan", "Terms and Conditions"),
+                ("3", "Ketenagakerjaan I", "Employment I")]
+    ch = "".join(
+        f'<li><span class="meta">{T(lang, "Bab", "Chapter")} {n}</span><div><h3>{T(lang, i, e)}</h3><p>{todo(T(lang, "tanggal terbit dan berkas PDF", "publication date and PDF"))}</p></div></li>'
+        for n, i, e in chapters)
     return f"""
-<section class="hero">
+<section class="page-hero">
   <div class="wrap">
-    <p class="eyebrow">Insights</p>
-    <h1>Articles and legal reminders.</h1>
-    <p class="lead">Short reads to help you spot legal problems before they grow.</p>
+    <p class="crumbs"><a href="index.html">{T(lang, 'Beranda', 'Home')}</a> / {T(lang, 'Wawasan', 'Insights')}</p>
+    <h1>{T(lang, 'Wawasan', 'Insights')}</h1>
+    <p class="intro">{T(lang, 'Tulisan singkat untuk membantu Anda mengenali persoalan hukum sebelum menjadi besar.', 'Short pieces to help you recognise legal problems before they grow.')}</p>
   </div>
 </section>
-<section class="band">
-  <div class="wrap">
-    <ul class="article-list">
-      <li id="ironi-hukum"><span class="meta">Article · {ph('date')}</span><div><h3>The Irony of Law</h3><p class="muted">Prevent when you are able to prevent; fix it as soon as you notice it. {ph('article text moved from the old site after review')}</p></div></li>
+<section class="block">
+  <div class="wrap split">
+    <header><h2>{T(lang, 'Artikel', 'Articles')}</h2></header>
+    <ul class="posts">
+      <li id="irony-of-law"><span class="meta">{todo(T(lang, 'tanggal', 'date'))}</span><div><h3>The Irony of Law</h3><p>{T(lang, 'Cegah selagi bisa dicegah, perbaiki segera setelah disadari.', 'Prevent when you are able to prevent; fix it as soon as you notice it.')} {todo(T(lang, 'isi artikel dipindahkan dari situs lama setelah ditinjau', 'article text moved from the old site after review'))}</p></div></li>
     </ul>
   </div>
 </section>
-<section id="legal-reminder">
-  <div class="wrap">
-    <div class="section-head"><h2>Legal Reminder Series</h2><p>Downloadable legal reminders.</p></div>
-    <ul class="article-list">
-      <li><span class="meta">Chapter 1</span><div><h3>Signature</h3><p class="muted">{ph('date and PDF')}</p></div></li>
-      <li><span class="meta">Chapter 2</span><div><h3>Terms and Conditions</h3><p class="muted">{ph('date and PDF')}</p></div></li>
-      <li><span class="meta">Chapter 3</span><div><h3>Employment I</h3><p class="muted">{ph('date and PDF')}</p></div></li>
-    </ul>
+<section class="block" id="legal-reminder">
+  <div class="wrap split">
+    <header><h2>Legal Reminder Series</h2><p>{T(lang, 'Seri pengingat hukum yang dapat diunduh.', 'A downloadable series of legal reminders.')}</p></header>
+    <ul class="posts">{ch}</ul>
   </div>
 </section>
+{closing(lang)}
 """
 
 
 def contact(lang):
-    wa = wa_link(lang)
-    map_src = "https://www.google.com/maps?q=Plaza+Indonesia+Jakarta&output=embed"
-    if lang == "id":
-        return f"""
-<section class="hero">
-  <div class="wrap">
-    <p class="eyebrow">Kontak</p>
-    <h1>Mari bicarakan persoalan Anda.</h1>
-    <p class="lead">Cara tercepat adalah lewat WhatsApp. Ceritakan secara singkat persoalannya, dan kami akan menghubungi Anda kembali.</p>
-    <div class="actions"><a class="btn btn-primary" href="{wa}">Konsultasi via WhatsApp</a><a class="btn btn-ghost" href="mailto:{EMAIL}">Kirim email</a></div>
-  </div>
-</section>
-<section class="band">
-  <div class="wrap contact-grid">
-    <dl>
-      <dt>WhatsApp</dt><dd><a href="{wa}">{WA_DISPLAY}</a></dd>
-      <dt>Email</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd>
-      <dt>Alamat</dt><dd>{ADDRESS}</dd>
-      <dt>Jam kerja</dt><dd>{ph('hari dan jam kerja')}</dd>
-    </dl>
-    <iframe class="map" src="{map_src}" loading="lazy" title="Peta Plaza Indonesia" referrerpolicy="no-referrer-when-downgrade"></iframe>
-  </div>
-</section>
-"""
     return f"""
-<section class="hero">
+<section class="page-hero">
   <div class="wrap">
-    <p class="eyebrow">Contact</p>
-    <h1>Let's talk about your matter.</h1>
-    <p class="lead">WhatsApp is the fastest way to reach us. Tell us briefly about the matter and we will get back to you.</p>
-    <div class="actions"><a class="btn btn-primary" href="{wa}">Consult via WhatsApp</a><a class="btn btn-ghost" href="mailto:{EMAIL}">Send an email</a></div>
+    <p class="crumbs"><a href="index.html">{T(lang, 'Beranda', 'Home')}</a> / {T(lang, 'Kontak', 'Contact')}</p>
+    <h1>{T(lang, 'Kontak', 'Contact')}</h1>
+    <p class="intro">{T(lang, 'Cara tercepat menghubungi kami adalah lewat WhatsApp. Ceritakan persoalan Anda secara singkat, dan kami akan menghubungi Anda kembali.', 'The fastest way to reach us is WhatsApp. Tell us briefly about your matter and we will get back to you.')}</p>
   </div>
 </section>
-<section class="band">
-  <div class="wrap contact-grid">
-    <dl>
-      <dt>WhatsApp</dt><dd><a href="{wa}">{WA_DISPLAY}</a></dd>
-      <dt>Email</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd>
-      <dt>Address</dt><dd>{ADDRESS_EN}</dd>
-      <dt>Office hours</dt><dd>{ph('days and hours')}</dd>
-    </dl>
-    <iframe class="map" src="{map_src}" loading="lazy" title="Map of Plaza Indonesia" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<section class="block">
+  <div class="wrap contact">
+    <div>
+      <dl>
+        <dt>WhatsApp</dt><dd><a href="{wa(lang)}">{WA_DISPLAY}</a></dd>
+        <dt>Email</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd>
+        <dt>{T(lang, 'Alamat', 'Address')}</dt><dd>{address(lang)}</dd>
+        <dt>{T(lang, 'Jam kerja', 'Office hours')}</dt><dd>{todo(T(lang, 'hari dan jam', 'days and hours'))}</dd>
+      </dl>
+      <p style="margin-top:32px"><a class="btn btn-accent" href="{wa(lang)}">{WA_ICON} {T(lang, 'Kirim pesan WhatsApp', 'Send a WhatsApp message')}</a></p>
+    </div>
+    <iframe class="map" src="{MAP_EMBED}" loading="lazy" title="{T(lang, 'Peta lokasi Plaza Indonesia', 'Map of Plaza Indonesia')}" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>
 </section>
 """
 
 
 PAGES = {
-    "index.html": (home, {
-        "id": ("ARSH &amp; Partners Law Office · Kantor Hukum di Jakarta",
-               "Kantor hukum di Jakarta yang membantu pengusaha, perusahaan, dan perorangan menyusun perjanjian, mengelola hubungan kerja, dan menyelesaikan sengketa."),
-        "en": ("ARSH &amp; Partners Law Office · Jakarta Law Office",
-               "A Jakarta law office helping business owners, companies, and individuals with agreements, employment matters, and disputes."),
-    }),
-    "layanan.html": (services, {
-        "id": ("Layanan", "Pendampingan hukum usaha, pengacara pribadi, litigasi dan sengketa, serta ketenagakerjaan dan SDM."),
-        "en": ("Services", "Business legal retainer, personal lawyer, litigation and disputes, and employment and HR."),
-    }),
-    "tentang.html": (about, {
-        "id": ("Tentang Kami", "Tentang ARSH & Partners Law Office dan advokat pengelolanya."),
-        "en": ("About", "About ARSH & Partners Law Office and its managing partner."),
-    }),
-    "wawasan.html": (insights, {
-        "id": ("Wawasan", "Artikel dan Legal Reminder Series dari ARSH & Partners Law Office."),
-        "en": ("Insights", "Articles and the Legal Reminder Series from ARSH & Partners Law Office."),
-    }),
-    "kontak.html": (contact, {
-        "id": ("Kontak", "Hubungi ARSH & Partners Law Office lewat WhatsApp, email, atau kunjungi kantor kami di Plaza Indonesia, Jakarta."),
-        "en": ("Contact", "Contact ARSH & Partners Law Office by WhatsApp or email, or visit us at Plaza Indonesia, Jakarta."),
-    }),
+    "index.html": (home,
+                   ("ARSH &amp; Partners Law Office | Kantor Hukum di Jakarta",
+                    "Kantor hukum di Plaza Indonesia, Jakarta, untuk pengusaha, perusahaan, dan keluarga: perjanjian, ketenagakerjaan, litigasi, dan kepailitan."),
+                   ("ARSH &amp; Partners Law Office | Law Office in Jakarta",
+                    "A law office at Plaza Indonesia, Jakarta, for business owners, companies, and families: agreements, employment, litigation, and insolvency.")),
+    "layanan.html": (services,
+                     ("Layanan", "Pendampingan hukum usaha, pengacara pribadi, litigasi, ketenagakerjaan, PKPU dan kepailitan, hak cipta dan merek, serta konsultasi SDM."),
+                     ("Services", "Business legal retainer, personal lawyer, litigation, employment, insolvency, copyright and trademarks, and HR consulting.")),
+    "tentang.html": (about,
+                     ("Tentang Kami", "Tentang ARSH &amp; Partners Law Office dan advokatnya."),
+                     ("About", "About ARSH &amp; Partners Law Office and its lawyers.")),
+    "wawasan.html": (insights,
+                     ("Wawasan", "Artikel dan Legal Reminder Series dari ARSH &amp; Partners Law Office."),
+                     ("Insights", "Articles and the Legal Reminder Series from ARSH &amp; Partners Law Office.")),
+    "kontak.html": (contact,
+                    ("Kontak", "Hubungi ARSH &amp; Partners Law Office lewat WhatsApp atau email, atau kunjungi kantor kami di Plaza Indonesia, Jakarta."),
+                    ("Contact", "Contact ARSH &amp; Partners Law Office by WhatsApp or email, or visit our office at Plaza Indonesia, Jakarta.")),
 }
 
 
 def main():
     (ROOT / "en").mkdir(exist_ok=True)
-    for slug, (fn, meta) in PAGES.items():
-        for lang in ("id", "en"):
-            title, desc = meta[lang]
-            out = ROOT / L[lang]["prefix"] / slug
+    for slug, (fn, meta_id, meta_en) in PAGES.items():
+        for lang, (title, desc) in (("id", meta_id), ("en", meta_en)):
+            out = ROOT / ("en" if lang == "en" else "") / slug
             out.write_text(page(lang, slug, title, desc, fn(lang)), encoding="utf-8")
             print("ditulis", out.relative_to(ROOT))
 
