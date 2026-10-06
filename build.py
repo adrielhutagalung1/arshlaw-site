@@ -232,15 +232,36 @@ def asset(lang, name):
     return ("../" if lang == "en" else "") + "assets/" + name
 
 
-def person(lang, heading_level="h2"):
-    return f"""<div class="person">
-      <div class="photo">{T(lang, 'Foto menyusul', 'Photo to follow')}</div>
-      <div>
-        <{heading_level}>Adriel Hutagalung, S.H., M.H.</{heading_level}>
-        <p class="role">{T(lang, 'Advokat &amp; Managing Partner', 'Lawyer &amp; Managing Partner')}</p>
-        <p>{todo(T(lang, 'dua atau tiga kalimat tentang latar belakang pendidikan, pengalaman, dan bidang yang paling sering ditangani', 'two or three sentences on education, experience, and main practice areas'))}</p>
-      </div>
-    </div>"""
+TEAM = [
+    ("Adriel Reyimer Samuel Hutagalung, S.H., M.H., C.C.D", "adriel.webp",
+     "Managing Partner", "Managing Partner",
+     "Lulusan Sarjana Hukum Universitas Katolik Parahyangan dan Magister Hukum Bisnis. Berpengalaman menangani perselisihan ketenagakerjaan, hukum bisnis komersial, dan hukum perbankan.",
+     "Bachelor of Law from Parahyangan Catholic University and Master of Business Law. Experienced in employment disputes, commercial business law, and banking law."),
+    ("Henrietta Sarah Mega, S.H.", None,
+     "Advokat", "Lawyer",
+     "Lulusan Sarjana Hukum Universitas Indonesia dengan kekhususan hukum korporasi. Berpengalaman di hukum ketenagakerjaan dan penanaman modal, termasuk transaksi merger dan akuisisi, pembiayaan kembali, dan hak tanggungan.",
+     "Bachelor of Law from the University of Indonesia, specialising in corporate law. Experienced in employment and investment law, including mergers and acquisitions, refinancing, and mortgages."),
+    ("Denny Rizky Setiawan, S.H.", None,
+     "Advokat", "Lawyer",
+     "Lulusan Sarjana Hukum Universitas Katolik Parahyangan. Berpengalaman mendampingi dan mewakili klien dalam berbagai sengketa di pengadilan Indonesia, serta menjadi bagian tim pengurus dan kurator dalam perkara kepailitan dan PKPU.",
+     "Bachelor of Law from Parahyangan Catholic University. Experienced in representing clients in disputes before Indonesian courts, and in serving on administrator and curator teams in bankruptcy and PKPU cases."),
+]
+
+
+def team(lang, heading_level="h3"):
+    cards = []
+    for name, photo, role_id, role_en, bio_id, bio_en in TEAM:
+        if photo:
+            pic = f'<div class="photo has-img"><img src="{asset(lang, photo)}" alt="{name.split(",")[0]}" width="600" height="800" loading="lazy"></div>'
+        else:
+            pic = f'<div class="photo">{T(lang, "Foto menyusul", "Photo to follow")}</div>'
+        cards.append(f"""<article class="member reveal">
+        {pic}
+        <{heading_level}>{name}</{heading_level}>
+        <p class="role">{T(lang, role_id, role_en)}</p>
+        <p>{T(lang, bio_id, bio_en)}</p>
+      </article>""")
+    return '<div class="team">\n      ' + "\n      ".join(cards) + "\n    </div>"
 
 
 def closing(lang):
@@ -308,10 +329,10 @@ def home(lang):
 <section class="block">
   <div class="wrap">
     <header class="section-head">
-      <h2>{T(lang, 'Advokat', 'Our lawyers')}</h2>
+      <h2>{T(lang, 'Tim kami', 'Our team')}</h2>
       <span class="line" aria-hidden="true"></span>
     </header>
-    {person(lang, 'h3')}
+    {team(lang)}
   </div>
 </section>
 
@@ -413,9 +434,12 @@ def about(lang):
   </div>
 </section>
 <section class="block">
-  <div class="wrap split">
-    <header><h2>{T(lang, 'Advokat', 'Our lawyers')}</h2></header>
-    {person(lang, 'h3')}
+  <div class="wrap">
+    <header class="section-head">
+      <h2>{T(lang, 'Tim kami', 'Our team')}</h2>
+      <span class="line" aria-hidden="true"></span>
+    </header>
+    {team(lang)}
   </div>
 </section>
 <section class="block block-soft">
