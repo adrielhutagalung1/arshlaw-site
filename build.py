@@ -238,7 +238,7 @@ TEAM = [
      "Lulusan Sarjana Hukum Universitas Katolik Parahyangan dan Magister Hukum Bisnis Universitas Pelita Harapan. Berpengalaman menangani perselisihan ketenagakerjaan, hukum bisnis komersial, dan hukum perbankan.",
      "Bachelor of Law from Parahyangan Catholic University and Master of Business Law from Pelita Harapan University. Experienced in employment disputes, commercial business law, and banking law."),
     ("Henrietta Sarah Mega, S.H.", "sarah.webp",
-     "Advokat", "Lawyer",
+     "Corporate Partner", "Corporate Partner",
      "Lulusan Sarjana Hukum Universitas Indonesia dengan kekhususan hukum korporasi. Berpengalaman di hukum ketenagakerjaan dan penanaman modal, termasuk transaksi merger dan akuisisi, pembiayaan kembali, dan hak tanggungan.",
      "Bachelor of Law from the University of Indonesia, specialising in corporate law. Experienced in employment and investment law, including mergers and acquisitions, refinancing, and mortgages."),
     ("Denny Rizky Setiawan, S.H.", None,
