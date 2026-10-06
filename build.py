@@ -185,11 +185,11 @@ document.querySelector('.menu-toggle').addEventListener('click', function () {{
 
 
 def practice_list(lang, linked=True):
-    rows = []
+    items = []
     for a, ti, te, di, de in PRACTICE:
-        inner = f'<h3>{T(lang, ti, te)}</h3><p>{T(lang, di, de)}</p><span class="arrow" aria-hidden="true">&rarr;</span>'
-        rows.append(f'<li><a href="layanan.html#{a}">{inner}</a></li>')
-    return '<ul class="practice">' + "".join(rows) + "</ul>"
+        items.append(f'<a class="practice-item" href="layanan.html#{a}"><h3>{T(lang, ti, te)}</h3><p>{T(lang, di, de)}</p><span class="more">{T(lang, "Selengkapnya", "Read more")}</span></a>')
+    items.append(f'<a class="practice-item practice-ask" href="{wa(lang)}"><h3>{T(lang, "Belum yakin termasuk bidang mana?", "Not sure which area applies?")}</h3><p>{T(lang, "Ceritakan persoalan Anda lewat WhatsApp, kami bantu arahkan.", "Tell us about your matter on WhatsApp and we will point you in the right direction.")}</p><span class="more">WhatsApp {WA_DISPLAY}</span></a>')
+    return '<div class="practice-grid">' + "".join(items) + "</div>"
 
 
 def asset(lang, name):
@@ -245,10 +245,11 @@ def home(lang):
   </dl>
 </section>
 
-<section class="block">
-  <div class="wrap split">
-    <header>
+<section class="block block-paper">
+  <div class="wrap">
+    <header class="section-head">
       <h2>{T(lang, 'Bidang praktik', 'Practice areas')}</h2>
+      <span class="line" aria-hidden="true"></span>
       <p>{T(lang, 'Sebagian besar pekerjaan kami bersifat pencegahan: memastikan dokumen benar sebelum ditandatangani.', 'Most of our work is preventive: getting documents right before they are signed.')}</p>
     </header>
     {practice_list(lang)}
@@ -266,25 +267,25 @@ def home(lang):
 </section>
 
 <section class="block">
-  <div class="wrap split">
-    <header><h2>{T(lang, 'Advokat', 'Our lawyers')}</h2></header>
-    <div>
-      {person(lang, 'h3')}
-      <p style="margin-top:24px"><a class="link-arrow" href="tentang.html">{T(lang, 'Tentang kantor kami', 'About the firm')} &rarr;</a></p>
-    </div>
+  <div class="wrap">
+    <header class="section-head">
+      <h2>{T(lang, 'Advokat', 'Our lawyers')}</h2>
+      <span class="line" aria-hidden="true"></span>
+    </header>
+    {person(lang, 'h3')}
   </div>
 </section>
 
-<section class="block">
-  <div class="wrap split">
-    <header>
+<section class="block block-paper">
+  <div class="wrap">
+    <header class="section-head">
       <h2>{T(lang, 'Wawasan', 'Insights')}</h2>
-      <p><a class="link-arrow" href="wawasan.html">{T(lang, 'Semua tulisan', 'All articles')} &rarr;</a></p>
+      <span class="line" aria-hidden="true"></span>
     </header>
-    <ul class="posts">
-      <li><span class="meta">{T(lang, 'Artikel', 'Article')}</span><div><h3><a href="wawasan.html#irony-of-law">The Irony of Law</a></h3><p>{T(lang, 'Mengapa pencegahan hampir selalu lebih ringan daripada penyelesaian perkara.', 'Why prevention is almost always lighter than resolving a case.')}</p></div></li>
-      <li><span class="meta">Legal Reminder Series</span><div><h3><a href="wawasan.html#legal-reminder">{T(lang, 'Bab 1: Tanda Tangan', 'Chapter 1: Signature')}</a></h3><p>{T(lang, 'Seri pengingat hukum singkat yang dapat diunduh.', 'A short, downloadable series of legal reminders.')}</p></div></li>
-    </ul>
+    <div class="teasers">
+      <a class="teaser" href="wawasan.html#irony-of-law"><span class="kicker">{T(lang, 'Artikel', 'Article')}</span><h3>The Irony of Law</h3><p>{T(lang, 'Mengapa pencegahan hampir selalu lebih ringan daripada penyelesaian perkara.', 'Why prevention is almost always lighter than resolving a case.')}</p><span class="more">{T(lang, 'Baca', 'Read')}</span></a>
+      <a class="teaser" href="wawasan.html#legal-reminder"><span class="kicker">Legal Reminder Series</span><h3>{T(lang, 'Bab 1: Tanda Tangan', 'Chapter 1: Signature')}</h3><p>{T(lang, 'Seri pengingat hukum singkat yang dapat diunduh.', 'A short, downloadable series of legal reminders.')}</p><span class="more">{T(lang, 'Lihat seri', 'View series')}</span></a>
+    </div>
   </div>
 </section>
 
