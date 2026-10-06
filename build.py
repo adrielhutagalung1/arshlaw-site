@@ -234,7 +234,7 @@ def asset(lang, name):
 
 TEAM = [
     ("Adriel Reyimer Samuel Hutagalung, S.H., M.H., C.C.D", "adriel.webp",
-     "Managing Partner", "Managing Partner",
+     "Managing Partner / Advokat", "Managing Partner / Lawyer",
      "Lulusan Sarjana Hukum Universitas Katolik Parahyangan dan Magister Hukum Bisnis Universitas Pelita Harapan. Berpengalaman menangani perselisihan ketenagakerjaan, hukum bisnis komersial, dan hukum perbankan.",
      "Bachelor of Law from Parahyangan Catholic University and Master of Business Law from Pelita Harapan University. Experienced in employment disputes, commercial business law, and banking law."),
     ("Henrietta Sarah Mega, S.H.", "sarah.webp",
