@@ -284,14 +284,14 @@ h1 em, h2 em { font-style: italic; color: var(--gold-soft); font-family: var(--s
 .outcomes { display: flex; flex-direction: column; gap: clamp(36px, 5vw, 64px); max-width: 1040px; margin: 0 auto; }
 .outcome { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(20px, 4vw, 56px); align-items: end; text-decoration: none; color: inherit; }
 .outcome:nth-child(2n) { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); }
-.outcome:nth-child(2n) h3 { order: 2; text-align: right; }
+.outcome:nth-child(2n) .outcome-head { order: 2; text-align: right; }
 .outcome:nth-child(2n) .outcome-body { order: 1; text-align: left; }
-.outcome h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.75rem, 3.6vw, 2.9rem); line-height: 1.12; color: var(--ink); transition: color .2s; }
-.outcome h3 em { font-family: var(--serif-text); font-style: italic; color: var(--maroon); display: block; transition: color .2s; }
-.outcome-name { display: block; font-weight: 600; font-size: 0.9rem; color: var(--gold-text); margin-bottom: 6px; }
+.outcome h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.7rem, 3.1vw, 2.5rem); line-height: 1.12; color: var(--ink); transition: color .2s; }
+.outcome-tag { font-family: var(--serif-text); font-style: italic; font-size: clamp(1.05rem, 1.5vw, 1.3rem); line-height: 1.35; color: var(--maroon); margin: 10px 0 0; transition: color .2s; }
+.section-head-lg h2 { font-size: clamp(2.5rem, 5.4vw, 4.2rem); line-height: 1.05; }
 .outcome-body p { margin: 0; color: var(--gray); font-size: 0.975rem; }
 .outcome-body::after { content: "\2192"; display: inline-block; margin-top: 10px; color: var(--gold); transition: transform .2s; }
-.outcome:hover h3 em { color: var(--gold-text); }
+.outcome:hover .outcome-tag { color: var(--gold-text); }
 .outcome:hover .outcome-body::after { transform: translateX(6px); }
 .outcomes-ask { text-align: center; margin: clamp(48px, 6vw, 72px) 0 0; color: var(--gray); }
 
@@ -301,7 +301,7 @@ h1 em, h2 em { font-style: italic; color: var(--gold-soft); font-family: var(--s
 
 @media (max-width: 900px) {
   .outcome, .outcome:nth-child(2n) { grid-template-columns: minmax(0, 1fr); gap: 12px; }
-  .outcome:nth-child(2n) h3 { order: 0; text-align: left; }
+  .outcome:nth-child(2n) .outcome-head { order: 0; text-align: left; }
   .outcome:nth-child(2n) .outcome-body { order: 0; }
 }
 @media (prefers-reduced-motion: reduce) {

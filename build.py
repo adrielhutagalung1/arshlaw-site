@@ -221,8 +221,8 @@ def practice_list(lang, linked=True):
     for a, i1, i2, e1, e2 in OUTCOMES:
         ti, te, di, de = names[a]
         rows.append(f"""<a class="outcome reveal" href="layanan.html#{a}">
-        <h3>{T(lang, i1, e1)} <em>{T(lang, i2, e2)}</em></h3>
-        <div class="outcome-body"><span class="outcome-name">{T(lang, ti, te)}</span><p>{T(lang, di, de)}</p></div>
+        <div class="outcome-head"><h3>{T(lang, ti, te)}</h3><p class="outcome-tag">{T(lang, i1, e1)} {T(lang, i2, e2)}</p></div>
+        <div class="outcome-body"><p>{T(lang, di, de)}</p></div>
       </a>""")
     return '<div class="outcomes">' + "".join(rows) + "</div>"
 
@@ -314,7 +314,7 @@ def home(lang):
 
 <section class="block">
   <div class="wrap">
-    <header class="section-head reveal">
+    <header class="section-head section-head-lg reveal">
       <h2>{T(lang, 'Bidang praktik', 'Practice areas')}</h2>
       <span class="line" aria-hidden="true"></span>
       <p>{T(lang, 'Sebagian besar pekerjaan kami bersifat pencegahan: memastikan dokumen benar sebelum ditandatangani.', 'Most of our work is preventive: getting documents right before they are signed.')}</p>
