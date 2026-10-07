@@ -275,8 +275,8 @@ h1 em, h2 em { font-style: italic; color: var(--gold-soft); font-family: var(--s
 .marquee { background: var(--white); overflow: hidden; padding: clamp(28px, 4vw, 44px) 0; }
 .marquee-track { display: flex; align-items: center; width: max-content; animation: marquee 48s linear infinite; }
 .marquee span { font-family: var(--serif-text); font-style: italic; font-size: clamp(1.75rem, 4vw, 3rem); color: var(--ink); white-space: nowrap; padding: 0 0.6em; }
-.marquee span:nth-of-type(2n) { color: transparent; -webkit-text-stroke: 1px var(--gold); }
-.marquee i { width: 10px; height: 10px; background: var(--maroon); transform: rotate(45deg); flex: none; }
+.marquee span:nth-of-type(2n) { color: var(--maroon); }
+.marquee i { width: 10px; height: 10px; background: var(--gold); transform: rotate(45deg); flex: none; }
 .marquee:hover .marquee-track { animation-play-state: paused; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 
