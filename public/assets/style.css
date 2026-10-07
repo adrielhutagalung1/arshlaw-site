@@ -245,7 +245,7 @@ h1 em, h2 em { font-style: italic; color: var(--gold-soft); font-family: var(--s
 .page-hero h1 em, .hero h1 em { color: var(--gold-soft); }
 
 /* ---------- Aksen marun (corak, bukan warna utama) ---------- */
-:root { --maroon: #6E1E2A; --maroon-soft: #8E3442; }
+:root { --maroon: #9B1B30; --maroon-soft: #B5303F; }
 ::selection { background: var(--maroon); color: var(--white); }
 .nav a:hover { border-color: var(--maroon); }
 .btn-dark:hover { background: var(--maroon); }
