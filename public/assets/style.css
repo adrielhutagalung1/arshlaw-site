@@ -356,3 +356,7 @@ body { background: var(--cosmic); }
 @media (max-width: 900px) {
   .nav { background: var(--cosmic); }
 }
+
+/* ---------- Tombol sudut daun (Adriel, 9 Okt 2026), mengikuti lengkung timbangan pada logo ---------- */
+.btn { border-radius: 0 18px 0 18px; }
+.btn-small { border-radius: 0 14px 0 14px; }
