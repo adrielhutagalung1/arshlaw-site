@@ -317,3 +317,42 @@ h1 em, h2 em { font-style: italic; color: var(--gold-soft); font-family: var(--s
   .hero-title em { white-space: normal; }
   .hero-title em::after { display: none; }
 }
+
+/* ---------- Tema kosmik (Adriel, 9 Okt 2026): #23212C sebagai warna utama ---------- */
+:root {
+  color-scheme: dark;
+  --cosmic: #23212C;
+  --cosmic-deep: #1B1A22;
+  --cosmic-raised: #2F2C3B;
+  --cosmic-line: rgba(255, 255, 255, 0.12);
+  --black: var(--cosmic-deep);
+  --ink: #F4F2F7;
+  --text: #D7D4DF;
+  --gray: #ABA7B8;
+  --rule: var(--cosmic-line);
+  --paper: var(--cosmic-raised);
+  --gold: #C9954F;
+  --gold-text: #D4A462;
+  --gold-soft: #DDBF94;
+  --maroon: #E0566A;
+  --maroon-soft: #E0566A;
+}
+body { background: var(--cosmic); }
+.topbar { background: var(--cosmic-deep); }
+.site-header { background: var(--cosmic); border-bottom-color: var(--cosmic-line); }
+.hero, .page-hero, .quote-band, .site-footer { background-color: var(--cosmic-deep); }
+.practice-ask { background-color: var(--cosmic-deep); }
+.facts, .marquee, .closing { background: var(--cosmic-raised); }
+.teaser, .practice-item { background: var(--cosmic-raised); box-shadow: none; }
+.tags a:hover { background: #3A3648; }
+.btn-gold { color: var(--cosmic-deep); }
+.btn-gold:hover { background: #D9A866; }
+.btn-dark { background: var(--gold); color: var(--cosmic-deep); }
+.btn-dark:hover { background: #D9A866; color: var(--cosmic-deep); }
+.btn-line:hover { color: var(--cosmic); }
+.marquee span:nth-of-type(2n) { color: var(--maroon); }
+.member .photo, .member .photo.has-img { background-color: var(--cosmic-deep); }
+.todo { color: #5E4708; }
+@media (max-width: 900px) {
+  .nav { background: var(--cosmic); }
+}

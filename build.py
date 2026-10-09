@@ -159,7 +159,7 @@ def page(lang, slug, title, description, body):
 </div>
 <header class="site-header">
   <div class="wrap">
-    <a class="logo" href="index.html"><img src="{depth}assets/logo-arsh.png" width="320" height="71" alt="ARSH &amp; Partners Law Office"></a>
+    <a class="logo" href="index.html"><img src="{depth}assets/logo-arsh-light.png" width="320" height="71" alt="ARSH &amp; Partners Law Office"></a>
     <button class="menu-toggle" aria-expanded="false" aria-controls="nav" aria-label="Menu"><span></span><span></span><span></span></button>
     <nav class="nav" id="nav" aria-label="{T(lang, 'Navigasi utama', 'Main navigation')}">
       {nav}
