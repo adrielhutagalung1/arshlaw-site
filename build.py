@@ -536,6 +536,47 @@ def wedding(lang):
     </div>
   </div>
 </section>
+<section class="block block-soft" id="story-frames">
+  <div class="wrap">
+    <div class="frames-head reveal">
+      <h2>{T(lang, 'Bingkai Instagram Story', 'Instagram Story frames')}</h2>
+      <p>{T(lang, 'Adriel dan Anasthasia membuat dua bingkai Instagram Story untuk hari ini, dan mereka ingin sekali melihat foto Anda di dalamnya. Pilih salah satu, simpan ke ponsel, lalu pasang di atas foto Anda.', 'Adriel and Anasthasia made two Instagram Story frames for the day, and they would love to see your photos in them. Pick one, save it to your phone, and lay it over your own photo.')}</p>
+    </div>
+    <div class="frames">
+      {''.join(f"""<figure class="frame reveal">
+        <img src="/wedding/story-frame-{n}.png" width="1080" height="1920" alt="{T(lang, f'Bingkai {n}', f'Frame {n}')}" loading="lazy">
+        <figcaption>{T(lang, f'Bingkai {n}, untuk foto {pi}', f'Frame {n}, for {pe} photos')}</figcaption>
+        <a class="btn btn-gold btn-small" href="/wedding/story-frame-{n}.png" download="Adriel &amp; Anasthasia - Story frame {n}.png">{T(lang, f'Unduh bingkai {n}', f'Download frame {n}')}</a>
+      </figure>""" for n, pi, pe in ((1, 'tegak', 'portrait'), (2, 'mendatar', 'landscape')))}
+    </div>
+    <div class="howto">
+      <div class="reveal">
+        <h3>iPhone</h3>
+        <ol>
+          <li>{T(lang, 'Buka bingkai yang sudah diunduh, ketuk Share, lalu Copy.', 'Open the frame you downloaded, tap Share, then Copy.')}</li>
+          <li>{T(lang, 'Buka Instagram dan buat Story baru dengan foto Anda.', 'In Instagram, start a new Story with your photo.')}</li>
+          <li>{T(lang, 'Ketuk di mana saja pada layar, lalu pilih Paste.', 'Tap anywhere on the screen and choose Paste.')}</li>
+          <li>{T(lang, 'Cubit dan lebarkan bingkai sampai memenuhi layar.', 'Pinch the frame until it fills the screen.')}</li>
+          <li>{T(lang, 'Bagikan ke Story Anda.', 'Share it to your Story.')}</li>
+        </ol>
+      </div>
+      <div class="reveal">
+        <h3>Android</h3>
+        <ol>
+          <li>{T(lang, 'Buka bingkai di Galeri, ketuk Share, lalu Copy.', 'Open the frame in your Gallery, tap Share, then Copy.')}</li>
+          <li>{T(lang, 'Buka Instagram dan buat Story baru dengan foto Anda.', 'In Instagram, start a new Story with your photo.')}</li>
+          <li>{T(lang, 'Ketuk layar sampai keyboard muncul, lalu ketuk bingkai di saran clipboard.', 'Tap the screen to bring up the keyboard, then tap the frame in the clipboard suggestion.')}</li>
+          <li>{T(lang, 'Cubit dan lebarkan bingkai sampai memenuhi layar.', 'Pinch the frame until it fills the screen.')}</li>
+          <li>{T(lang, 'Bagikan ke Story Anda.', 'Share it to your Story.')}</li>
+        </ol>
+      </div>
+    </div>
+    <div class="frames-notes reveal">
+      <p>{T(lang, 'Tidak ada pilihan Copy? Di Story Anda, ketuk ikon stiker, pilih Cutouts, lalu pilih file bingkainya.', 'No Copy option? In your Story, tap the sticker icon, choose Cutouts, and pick the frame file instead.')}</p>
+      <p>{T(lang, 'Kalau ada stiker &ldquo;Add Yours&rdquo; di Story mereka, ketuk stiker itu supaya semua foto terkumpul di satu tempat.', 'If you see an &ldquo;Add Yours&rdquo; sticker on their Story, tap it so every photo ends up in one place.')}</p>
+    </div>
+  </div>
+</section>
 """
 
 
