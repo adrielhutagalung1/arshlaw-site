@@ -360,3 +360,15 @@ body { background: var(--cosmic); }
 /* ---------- Tombol sudut daun (Adriel, 9 Okt 2026), mengikuti lengkung timbangan pada logo ---------- */
 .btn { border-radius: 0 18px 0 18px; }
 .btn-small { border-radius: 0 14px 0 14px; }
+
+/* ---------- Halaman pernikahan /wedding/ (12 Okt 2026), dibuka lewat QR, tidak ada di menu ---------- */
+.wedding-amp { font-style: italic; color: var(--gold-text); }
+.wedding { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(28px, 6vw, 88px); align-items: center; }
+.wedding-photo { width: 100%; height: auto; display: block; }
+.wedding-copy p { max-width: 32em; }
+.wedding-file { color: var(--gray); font-size: 0.925rem; }
+.wedding-copy .btn { margin-top: 12px; }
+@media (max-width: 900px) {
+  .wedding { grid-template-columns: minmax(0, 1fr); }
+  .wedding-photo { max-width: 480px; }
+}

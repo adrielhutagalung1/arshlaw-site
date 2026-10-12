@@ -104,20 +104,23 @@ OUTCOMES = [
 
 
 def page(lang, slug, title, description, body):
-    depth = "../" if lang == "id" else ""
+    # slug boleh berada di subfolder (mis. "wedding/index.html"); up = jalan kembali ke akar bahasa
+    up = "../" * slug.count("/")
+    depth = ("../" if lang == "id" else "") + up
     prefix = "id/" if lang == "id" else ""
-    path = "" if slug == "index.html" else slug
-    other_href = ("id/" + slug) if lang == "en" else ("../" + slug)
+    path = slug[:-len("index.html")] if slug.endswith("index.html") else slug
+    other_href = (up + "id/" + slug) if lang == "en" else (up + "../" + slug)
+    noindex = '<meta name="robots" content="noindex">\n' if slug.startswith("wedding/") else ""
     nav = "\n      ".join(
-        f'<a href="{h}"{" aria-current=\"page\"" if h == slug else ""}>{T(lang, i, e)}</a>' for h, i, e in NAV)
+        f'<a href="{up}{h}"{" aria-current=\"page\"" if h == slug else ""}>{T(lang, i, e)}</a>' for h, i, e in NAV)
     lang_top = (f'<span class="on">ID</span> / <a href="{other_href}" hreflang="en">EN</a>' if lang == "id"
                 else f'<a href="{other_href}" hreflang="id">ID</a> / <span class="on">EN</span>')
     lang_nav = (f'<a class="nav-lang" href="{other_href}" hreflang="en">English</a>' if lang == "id"
                 else f'<a class="nav-lang" href="{other_href}" hreflang="id">Bahasa Indonesia</a>')
     full_title = title if slug == "index.html" else f"{title} | ARSH &amp; Partners Law Office"
-    foot_nav = "".join(f'<li><a href="{h}">{T(lang, i, e)}</a></li>' for h, i, e in NAV)
+    foot_nav = "".join(f'<li><a href="{up}{h}">{T(lang, i, e)}</a></li>' for h, i, e in NAV)
     foot_practice = "".join(
-        f'<li><a href="layanan.html#{a}">{T(lang, ti, te)}</a></li>' for a, ti, te, *_ in PRACTICE[:5])
+        f'<li><a href="{up}layanan.html#{a}">{T(lang, ti, te)}</a></li>' for a, ti, te, *_ in PRACTICE[:5])
     return f"""<!doctype html>
 <html lang="{lang}">
 <head>
@@ -126,7 +129,7 @@ def page(lang, slug, title, description, body):
 <script>document.documentElement.classList.add("js")</script>
 <title>{full_title}</title>
 <meta name="description" content="{description}">
-<link rel="canonical" href="{SITE}/{prefix}{path}">
+{noindex}<link rel="canonical" href="{SITE}/{prefix}{path}">
 <link rel="alternate" hreflang="id" href="{SITE}/id/{path}">
 <link rel="alternate" hreflang="en" href="{SITE}/{path}">
 <link rel="alternate" hreflang="x-default" href="{SITE}/{path}">
@@ -159,7 +162,7 @@ def page(lang, slug, title, description, body):
 </div>
 <header class="site-header">
   <div class="wrap">
-    <a class="logo" href="index.html"><img src="{depth}assets/logo-arsh-light.png" width="320" height="71" alt="ARSH &amp; Partners Law Office"></a>
+    <a class="logo" href="{up}index.html"><img src="{depth}assets/logo-arsh-light.png" width="320" height="71" alt="ARSH &amp; Partners Law Office"></a>
     <button class="menu-toggle" aria-expanded="false" aria-controls="nav" aria-label="Menu"><span></span><span></span><span></span></button>
     <nav class="nav" id="nav" aria-label="{T(lang, 'Navigasi utama', 'Main navigation')}">
       {nav}
@@ -175,7 +178,7 @@ def page(lang, slug, title, description, body):
   <div class="wrap">
     <div class="cols">
       <div class="brand">
-        <a href="index.html"><img src="{depth}assets/logo-arsh-stacked-light.png" width="240" height="152" alt="ARSH &amp; Partners Law Office"></a>
+        <a href="{up}index.html"><img src="{depth}assets/logo-arsh-stacked-light.png" width="240" height="152" alt="ARSH &amp; Partners Law Office"></a>
         <p>{address(lang)}</p>
         <p><a href="{MAPS}" rel="noopener">{T(lang, 'Petunjuk arah', 'Get directions')} &rarr;</a></p>
       </div>
@@ -508,6 +511,44 @@ def contact(lang):
 """
 
 
+WEDDING_PDF = "/wedding/order-of-service.pdf"
+
+
+def wedding(lang):
+    # Halaman pernikahan Adriel & Anasthasia, dibuka lewat QR (arshlaw.id/order-of-service). Tidak ada di menu.
+    up = "../"
+    return f"""
+<section class="page-hero">
+  <div class="wrap">
+    <p class="crumbs"><a href="{up}index.html">{T(lang, 'Beranda', 'Home')}</a> / {T(lang, 'Pernikahan', 'Wedding')}</p>
+    <h1>Adriel <em class="wedding-amp">&amp;</em> Anasthasia</h1>
+    <p class="intro">{T(lang, 'Pemberkatan nikah, Minggu, 18 Oktober 2026, pukul 08.30 di Alumni Chapel, Universitas Advent Indonesia. Terima kasih sudah hadir dan mendoakan kami.', 'Holy matrimony on Sunday, 18 October 2026, at 08.30 in the Alumni Chapel, Universitas Advent Indonesia. Thank you for being with us and for your prayers.')}</p>
+  </div>
+</section>
+<section class="block">
+  <div class="wrap wedding">
+    <img class="wedding-photo reveal" src="/wedding/adriel-anasthasia.webp" width="900" height="1273" alt="Adriel {T(lang, 'dan', 'and')} Anasthasia">
+    <div class="wedding-copy reveal">
+      <h2>{T(lang, 'Susunan acara', 'Order of service')}</h2>
+      <p>{T(lang, 'Seluruh susunan acara pemberkatan, dari prelude sampai ucapan terima kasih, beserta nama para petugas dan lagu yang dinyanyikan.', 'The full programme of the ceremony, from the prelude to the words of thanks, with everyone taking part and the songs that will be sung.')}</p>
+      <p class="wedding-file">PDF &middot; 4 {T(lang, 'halaman', 'pages')} A5 &middot; {T(lang, '1,7', '1.7')} MB</p>
+      <p><a class="btn btn-gold" href="{WEDDING_PDF}" download="Order of Service - Adriel &amp; Anasthasia.pdf">{T(lang, 'Unduh susunan acara', 'Download the order of service')}</a></p>
+    </div>
+  </div>
+</section>
+<section class="block block-soft">
+  <div class="wrap split">
+    <header><h2>{FIRM}</h2></header>
+    <div>
+      <p>{T(lang, f'Halaman ini ada di situs kantor hukum yang dipimpin Adriel di Plaza Indonesia, Jakarta. {FIRM} mendampingi pengusaha, perusahaan, dan keluarga dalam perjanjian, ketenagakerjaan, litigasi, serta kepailitan dan PKPU.', f'This page lives on the website of the law office Adriel leads at Plaza Indonesia, Jakarta. {FIRM} assists business owners, companies, and families with agreements, employment, litigation, and insolvency.')}</p>
+      <p><a class="link-arrow" href="{up}layanan.html">{T(lang, 'Lihat layanan kami', 'See our services')} &rarr;</a></p>
+    </div>
+  </div>
+</section>
+{closing(lang)}
+"""
+
+
 PAGES = {
     "index.html": (home,
                    ("ARSH &amp; Partners Law Office | Menjaga Kepentingan. Memperjuangkan Hak.",
@@ -523,6 +564,9 @@ PAGES = {
     "kontak.html": (contact,
                     ("Kontak", "Hubungi ARSH &amp; Partners Law Office lewat WhatsApp atau email, atau kunjungi kantor kami di Plaza Indonesia, Jakarta."),
                     ("Contact", "Contact ARSH &amp; Partners Law Office by WhatsApp or email, or visit our office at Plaza Indonesia, Jakarta.")),
+    "wedding/index.html": (wedding,
+                           ("Adriel &amp; Anasthasia", "Susunan acara pemberkatan nikah Adriel dan Anasthasia, 18 Oktober 2026."),
+                           ("Adriel &amp; Anasthasia", "Order of service for the holy matrimony of Adriel and Anasthasia, 18 October 2026.")),
 }
 
 
@@ -531,6 +575,7 @@ def main():
     for slug, (fn, meta_id, meta_en) in PAGES.items():
         for lang, (title, desc) in (("id", meta_id), ("en", meta_en)):
             out = ROOT / ("id" if lang == "id" else "") / slug
+            out.parent.mkdir(parents=True, exist_ok=True)
             out.write_text(page(lang, slug, title, desc, fn(lang)), encoding="utf-8")
             print("ditulis", out.relative_to(ROOT))
 
