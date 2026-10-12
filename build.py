@@ -536,15 +536,6 @@ def wedding(lang):
     </div>
   </div>
 </section>
-<section class="block block-soft">
-  <div class="wrap split">
-    <header><h2>{FIRM}</h2></header>
-    <div>
-      <p>{T(lang, f'Halaman ini ada di situs kantor hukum yang dipimpin Adriel di Plaza Indonesia, Jakarta. {FIRM} mendampingi pengusaha, perusahaan, dan keluarga dalam perjanjian, ketenagakerjaan, litigasi, serta kepailitan dan PKPU.', f'This page lives on the website of the law office Adriel leads at Plaza Indonesia, Jakarta. {FIRM} assists business owners, companies, and families with agreements, employment, litigation, and insolvency.')}</p>
-      <p><a class="link-arrow" href="{up}layanan.html">{T(lang, 'Lihat layanan kami', 'See our services')} &rarr;</a></p>
-    </div>
-  </div>
-</section>
 {closing(lang)}
 """
 
