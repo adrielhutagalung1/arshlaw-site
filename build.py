@@ -521,8 +521,8 @@ def wedding(lang):
 <section class="page-hero">
   <div class="wrap">
     <p class="crumbs"><a href="{up}index.html">{T(lang, 'Beranda', 'Home')}</a> / {T(lang, 'Pernikahan', 'Wedding')}</p>
-    <h1>Adriel <em class="wedding-amp">&amp;</em> Anasthasia</h1>
-    <p class="intro">{T(lang, 'Pemberkatan nikah, Minggu, 18 Oktober 2026, pukul 08.30 di Alumni Chapel, Universitas Advent Indonesia. Terima kasih sudah hadir dan mendoakan kami.', 'Holy matrimony on Sunday, 18 October 2026, at 08.30 in the Alumni Chapel, Universitas Advent Indonesia. Thank you for being with us and for your prayers.')}</p>
+    <h1>Hi there. Our Managing Partner is <em class="wedding-amp">getting married.</em></h1>
+    <p class="intro">Adriel Hutagalung and Anasthasia Sabatini will be joined in holy matrimony on Sunday, 18 October 2026, at 08.30 in the Alumni Chapel, Universitas Advent Indonesia. For once, he is signing an agreement with no clauses to negotiate. Thank you for being with them, and for your prayers.</p>
   </div>
 </section>
 <section class="block">
@@ -536,7 +536,6 @@ def wedding(lang):
     </div>
   </div>
 </section>
-{closing(lang)}
 """
 
 
