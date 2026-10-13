@@ -605,8 +605,8 @@ def wedding_photos(lang):
     <h2>{T(lang, 'Hanya ada 200 kamera', 'There are only 200 cameras')}</h2>
     <p>{T(lang, 'Untuk hari itu, kami hanya punya 200 kamera sekali pakai. Karena itu, proyek ini sengaja tidak kami umumkan ke semua orang. Kalau link ini sampai kepadamu, berarti kamu termasuk orang yang kami harapkan ikut berkontribusi.', 'We only have 200 disposable cameras for the day, so we are keeping this project a little quiet. If this link has reached you, you are one of the people we hoped would take part.')}</p>
     <p>{T(lang, 'Link ini tidak akan dipasang di QR dan tidak akan diumumkan di mana pun. Link ini beredar diam-diam, dari pesan ke pesan. Kalau ada orang yang kamu percaya bisa ikut membantu, silakan teruskan kepada mereka. Kami sangat menghargai kalau link ini tetap beredar dengan cara itu.', 'This link will not appear on any QR code, and it will not be announced. It travels quietly, from one message to the next. If there is someone you trust to help, feel free to pass it on to them. We would be grateful if it keeps travelling that way.')}</p>
-    <p>{T(lang, 'Sekali lagi, aku dan Anasthasia berterima kasih banyak atas bantuanmu di proyek spesial ini.', 'Once again, Anasthasia and I thank you so much for your help with this special project.')}</p>
-    <p class="photos-sign">Adriel</p>
+    <p>{T(lang, 'Sekali lagi, kami berdua berterima kasih banyak atas bantuanmu di proyek spesial ini.', 'Once again, thank you so much from both of us for your help with this special project.')}</p>
+    <p class="photos-sign">Adriel &amp; Anasthasia</p>
   </div>
 </section>
 <section class="block block-soft">
