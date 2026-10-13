@@ -595,7 +595,7 @@ def wedding_photos(lang):
     return f"""
 <section class="page-hero">
   <div class="wrap">
-    <p class="crumbs"><a href="{up}index.html">{T(lang, 'Beranda', 'Home')}</a> / <a href="../">{T(lang, 'Pernikahan', 'Wedding')}</a> / {T(lang, 'Foto', 'Photos')}</p>
+    <p class="crumbs"><a href="{up}index.html">{T(lang, 'Beranda', 'Home')}</a> / <a href="../">{T(lang, 'Pernikahan', 'Wedding')}</a> / Special project</p>
     <h1>{T(lang, 'Apabila berkenan, bolehkah kami <em class="wedding-amp">minta tolong?</em>', 'If you don&rsquo;t mind, may we <em class="wedding-amp">ask a favour?</em>')}</h1>
     <p class="intro">{T(lang, 'Di hari pernikahan kami, Minggu, 18 Oktober 2026, kami ingin kamu menjadi salah satu fotografernya. Dari pemberkatan di chapel pagi hari sampai resepsi siang harinya, kami ingin melihat hari itu dari sudut pandangmu. Semua foto akan masuk ke satu album bersama: <em>The One on the Eighteenth of October 2026.</em>', 'On our wedding day, Sunday, 18 October 2026, we would love for you to be one of our photographers. From the chapel in the morning to the reception in the afternoon, we would like to see the day through your eyes. Every photo goes into one shared album: <em>The One on the Eighteenth of October 2026.</em>')}</p>
   </div>
@@ -641,9 +641,9 @@ PAGES = {
     "wedding/index.html": (wedding,
                            ("Adriel &amp; Anasthasia", "Susunan acara pemberkatan nikah Adriel dan Anasthasia, 18 Oktober 2026."),
                            ("Adriel &amp; Anasthasia", "Order of service for the holy matrimony of Adriel and Anasthasia, 18 October 2026.")),
-    "wedding/photos/index.html": (wedding_photos,
-                                  ("Foto tamu | Adriel &amp; Anasthasia", "Kamera bersama untuk tamu pernikahan Adriel dan Anasthasia, 18 Oktober 2026."),
-                                  ("Guest photos | Adriel &amp; Anasthasia", "A shared camera for the guests of Adriel and Anasthasia, 18 October 2026.")),
+    "wedding/special-project/index.html": (wedding_photos,
+                                  ("Special project | Adriel &amp; Anasthasia", "Kamera bersama untuk tamu pernikahan Adriel dan Anasthasia, 18 Oktober 2026."),
+                                  ("Special project | Adriel &amp; Anasthasia", "A shared camera for the guests of Adriel and Anasthasia, 18 October 2026.")),
 }
 
 

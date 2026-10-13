@@ -1,4 +1,9 @@
 /en/* /:splat 301
 /en /  301
 /order-of-service /wedding/ 302
-/photos /wedding/photos/ 302
+/special-project /wedding/special-project/ 302
+/photos /wedding/special-project/ 302
+/wedding/photos/ /wedding/special-project/ 301
+/wedding/photos /wedding/special-project/ 301
+/id/wedding/photos/ /id/wedding/special-project/ 301
+/id/wedding/photos /id/wedding/special-project/ 301
