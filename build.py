@@ -596,15 +596,15 @@ def wedding_photos(lang):
 <section class="page-hero">
   <div class="wrap">
     <p class="crumbs"><a href="{up}index.html">{T(lang, 'Beranda', 'Home')}</a> / <a href="../">{T(lang, 'Pernikahan', 'Wedding')}</a> / {T(lang, 'Foto', 'Photos')}</p>
-    <h1>{T(lang, 'Di hari pernikahan kami, kamu yang jadi <em class="wedding-amp">fotografernya.</em>', 'On our wedding day, you are the <em class="wedding-amp">photographer.</em>')}</h1>
-    <p class="intro">{T(lang, 'Pada Minggu, 18 Oktober 2026, dari pemberkatan di chapel pagi hari sampai resepsi siang harinya, kami ingin melihat hari itu dari sudut pandangmu. Semua foto akan masuk ke satu album bersama: <em>The One on the Eighteenth of October 2026.</em>', 'On Sunday, 18 October 2026, from the chapel in the morning to the reception in the afternoon, we would love to see the day through your eyes. Every photo goes into one shared album: <em>The One on the Eighteenth of October 2026.</em>')}</p>
+    <h1>{T(lang, 'Apabila berkenan, bolehkah kami <em class="wedding-amp">minta tolong?</em>', 'If you don&rsquo;t mind, may we <em class="wedding-amp">ask a favour?</em>')}</h1>
+    <p class="intro">{T(lang, 'Di hari pernikahan kami, Minggu, 18 Oktober 2026, kami ingin kamu menjadi salah satu fotografernya. Dari pemberkatan di chapel pagi hari sampai resepsi siang harinya, kami ingin melihat hari itu dari sudut pandangmu. Semua foto akan masuk ke satu album bersama: <em>The One on the Eighteenth of October 2026.</em>', 'On our wedding day, Sunday, 18 October 2026, we would love for you to be one of our photographers. From the chapel in the morning to the reception in the afternoon, we would like to see the day through your eyes. Every photo goes into one shared album: <em>The One on the Eighteenth of October 2026.</em>')}</p>
   </div>
 </section>
 <section class="block">
   <div class="wrap photos-story reveal">
     <h2>{T(lang, 'Hanya ada 200 kamera', 'There are only 200 cameras')}</h2>
-    <p>{T(lang, 'Untuk hari itu kami hanya punya 200 kamera sekali pakai, jadi proyek ini sengaja tidak kami umumkan ke semua orang. Kalau link ini sampai kepadamu, berarti kamu termasuk orang yang kami harapkan ikut berkontribusi.', 'We only have 200 disposable cameras for the day, so we are keeping this project a little quiet. If this link has reached you, you are one of the people we hoped would take part.')}</p>
-    <p>{T(lang, 'Link ini tidak akan dipasang di QR atau diumumkan di mana pun. Link ini beredar diam-diam, dari pesan ke pesan. Silakan teruskan kepada orang yang kamu percaya bisa ikut membantu, dan kami sangat menghargai kalau link ini tetap beredar dengan cara itu.', 'This link will not appear on any QR code, and it will not be announced. It travels quietly, from one message to the next. Feel free to pass it on to people you trust to help, and we would be grateful if it keeps travelling that way.')}</p>
+    <p>{T(lang, 'Untuk hari itu, kami hanya punya 200 kamera sekali pakai. Karena itu, proyek ini sengaja tidak kami umumkan ke semua orang. Kalau link ini sampai kepadamu, berarti kamu termasuk orang yang kami harapkan ikut berkontribusi.', 'We only have 200 disposable cameras for the day, so we are keeping this project a little quiet. If this link has reached you, you are one of the people we hoped would take part.')}</p>
+    <p>{T(lang, 'Link ini tidak akan dipasang di QR dan tidak akan diumumkan di mana pun. Link ini beredar diam-diam, dari pesan ke pesan. Kalau ada orang yang kamu percaya bisa ikut membantu, silakan teruskan kepada mereka. Kami sangat menghargai kalau link ini tetap beredar dengan cara itu.', 'This link will not appear on any QR code, and it will not be announced. It travels quietly, from one message to the next. If there is someone you trust to help, feel free to pass it on to them. We would be grateful if it keeps travelling that way.')}</p>
     <p>{T(lang, 'Sekali lagi, aku dan Anasthasia berterima kasih banyak atas bantuanmu di proyek spesial ini.', 'Once again, Anasthasia and I thank you so much for your help with this special project.')}</p>
     <p class="photos-sign">Adriel</p>
   </div>
@@ -613,7 +613,8 @@ def wedding_photos(lang):
   <div class="wrap photos">
     <div class="photos-copy reveal">
       <h2>{T(lang, 'Buka kameranya', 'Open the camera')}</h2>
-      <p>{T(lang, 'Pindai kode ini dengan kamera ponselmu. Kalau kamu sudah membuka halaman ini di ponsel, cukup ketuk tombolnya.', 'Scan the code with your phone camera. If you are already reading this on your phone, just tap the button.')}</p>
+      <p>{T(lang, 'Ini kamera sekali pakai. Setiap kamera hanya punya 25 kesempatan foto, jadi pilih momennya baik-baik dan pastikan setiap foto yang kamu ambil adalah yang terbaik menurutmu.', 'This is a disposable camera. Each one has only 25 shots, so choose your moments well and make every photo one you are proud of.')}</p>
+      <p>{T(lang, 'Di hari pernikahan, buka kameranya dari ponselmu. Kalau kamu membuka halaman ini di ponsel, cukup ketuk tombolnya. Kalau dari komputer, pindai kode ini dengan kamera ponselmu.', 'On the day, open the camera on your phone. If you are reading this on your phone, just tap the button. If you are on a computer, scan the code with your phone camera.')}</p>
       <p><a class="btn btn-gold" href="{MOREMENTS_URL}" rel="noopener">{T(lang, 'Buka kamera', 'Open the camera')}</a></p>
     </div>
     <img class="photos-qr reveal" src="/wedding/morements-qr.svg" width="330" height="330" alt="{T(lang, 'Kode QR kamera Morements', 'QR code for the Morements camera')}">
