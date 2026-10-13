@@ -103,6 +103,17 @@ OUTCOMES = [
 ]
 
 
+SHARE = {
+    "wedding/special-project/index.html": {
+        "image": "/wedding/special-project-share.jpg",
+        "title_id": "Apabila berkenan, bolehkah kami minta tolong?",
+        "title_en": "If you don&rsquo;t mind, may we ask a favour?",
+        "desc_id": "Adriel &amp; Anasthasia &middot; Minggu, 18 Oktober 2026",
+        "desc_en": "Adriel &amp; Anasthasia &middot; Sunday, 18 October 2026",
+    },
+}
+
+
 def page(lang, slug, title, description, body):
     # slug boleh berada di subfolder (mis. "wedding/index.html"); up = jalan kembali ke akar bahasa
     up = "../" * slug.count("/")
@@ -124,6 +135,13 @@ def page(lang, slug, title, description, body):
     lang_nav = (f'<a class="nav-lang" href="{other_href}" hreflang="en">English</a>' if lang == "id"
                 else f'<a class="nav-lang" href="{other_href}" hreflang="id">Bahasa Indonesia</a>')
     full_title = title if slug == "index.html" else f"{title} | ARSH &amp; Partners Law Office"
+    # Pratinjau link (WhatsApp dll.): default logo kantor; halaman tertentu punya gambar, judul, dan deskripsi sendiri
+    og = SHARE.get(slug)
+    og_title = T(lang, og["title_id"], og["title_en"]) if og else full_title
+    og_desc = T(lang, og["desc_id"], og["desc_en"]) if og else description
+    og_image = (f'<meta property="og:image" content="{SITE}{og["image"]}">\n<meta property="og:image:width" content="1200">\n'
+                f'<meta property="og:image:height" content="630">\n<meta name="twitter:card" content="summary_large_image">'
+                if og else f'<meta property="og:image" content="{SITE}/assets/logo-arsh.png">')
     foot_nav = "".join(f'<li><a href="{up}{h}">{T(lang, i, e)}</a></li>' for h, i, e in NAV)
     foot_practice = "".join(
         f'<li><a href="{up}layanan.html#{a}">{T(lang, ti, te)}</a></li>' for a, ti, te, *_ in PRACTICE[:5])
@@ -139,15 +157,15 @@ def page(lang, slug, title, description, body):
 <link rel="alternate" hreflang="id" href="{SITE}/id/{path}">
 <link rel="alternate" hreflang="en" href="{SITE}/{path}">
 <link rel="alternate" hreflang="x-default" href="{SITE}/{path}">
-<meta property="og:site_name" content="ARSH &amp; Partners Law Office">
-<meta property="og:title" content="{full_title}">
-<meta property="og:description" content="{description}">
+<meta property="og:site_name" content="{"Adriel &amp; Anasthasia" if og else "ARSH &amp; Partners Law Office"}">
+<meta property="og:title" content="{og_title}">
+<meta property="og:description" content="{og_desc}">
 <meta property="og:url" content="{SITE}/{prefix}{path}">
 <meta property="og:locale" content="{T(lang, 'id_ID', 'en_US')}">
 <meta name="theme-color" content="{theme_color}">
 <link rel="icon" href="{depth}assets/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="{depth}assets/apple-touch-icon.png">
-<meta property="og:image" content="{SITE}/assets/logo-arsh.png">
+{og_image}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
