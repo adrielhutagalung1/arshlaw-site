@@ -467,3 +467,4 @@ body.theme-wedding {
 .theme-wedding .howto li::marker { color: #EBC4C0; }
 .theme-wedding .photos-qr { background: #FDFBF7; border-radius: 12px; padding: 18px; }
 .theme-wedding .page-hero + .block { padding-top: clamp(8px, 2vw, 24px); }
+.photos-note { margin-top: 18px; font-style: italic; color: var(--gold-text); }

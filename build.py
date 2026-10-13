@@ -606,6 +606,7 @@ def wedding_photos(lang):
       <h2>{T(lang, 'Buka kameranya', 'Open the camera')}</h2>
       <p>{T(lang, 'Pindai kode ini dengan kamera ponsel Anda. Kalau Anda sudah membuka halaman ini di ponsel, cukup ketuk tombolnya.', 'Scan the code with your phone camera. If you are already reading this on your phone, just tap the button.')}</p>
       <p><a class="btn btn-gold" href="{MOREMENTS_URL}" rel="noopener">{T(lang, 'Buka kamera', 'Open the camera')}</a></p>
+      <p class="photos-note">{T(lang, 'Kamera ini terbatas untuk 200 tamu pertama yang membukanya, jadi jangan tunggu terlalu lama.', 'The camera is limited to the first 200 guests who open it, so do not wait too long.')}</p>
     </div>
     <img class="photos-qr reveal" src="/wedding/morements-qr.svg" width="330" height="330" alt="{T(lang, 'Kode QR kamera Morements', 'QR code for the Morements camera')}">
   </div>
