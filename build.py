@@ -551,7 +551,7 @@ def wedding(lang):
 </section>
 <section class="block">
   <div class="wrap wedding">
-    <img class="wedding-photo reveal" src="/wedding/adriel-anasthasia.webp" width="900" height="1273" alt="Adriel {T(lang, 'dan', 'and')} Anasthasia">
+    <img class="wedding-photo reveal" src="/wedding/adriel-anasthasia-cover.webp" width="1000" height="1420" alt="Adriel {T(lang, 'dan', 'and')} Anasthasia">
     <div class="wedding-copy reveal">
       <h2>{T(lang, 'Susunan acara', 'Order of service')}</h2>
       <p>{T(lang, 'Seluruh susunan acara pemberkatan, dari prelude sampai ucapan terima kasih, beserta nama para petugas dan lagu yang dinyanyikan.', 'The full programme of the ceremony, from the prelude to the words of thanks, with everyone taking part and the songs that will be sung.')}</p>
@@ -619,13 +619,16 @@ def wedding_photos(lang):
   </div>
 </section>
 <section class="block">
-  <div class="wrap photos-story reveal">
+  <div class="wrap wedding">
+    <img class="wedding-photo reveal" src="/wedding/adriel-anasthasia-cover.webp" width="1000" height="1420" alt="Adriel {T(lang, 'dan', 'and')} Anasthasia">
+    <div class="wedding-copy photos-story reveal">
     <h2>{T(lang, 'Hanya ada 200 kamera', 'There are only 200 cameras')}</h2>
     <p>{T(lang, 'Untuk hari itu, kami hanya punya 200 kamera sekali pakai. Karena itu, proyek ini sengaja tidak kami umumkan ke semua orang. Kalau link ini sampai kepadamu, berarti kamu termasuk orang yang kami harapkan ikut berkontribusi.', 'We only have 200 disposable cameras for the day, so we are keeping this project a little quiet. If this link has reached you, you are one of the people we hoped would take part.')}</p>
     <p>{T(lang, 'Link ini tidak akan dipasang di QR dan tidak akan diumumkan di mana pun. Link ini beredar diam-diam, dari pesan ke pesan. Kalau ada orang yang kamu percaya bisa ikut membantu, silakan teruskan kepada mereka. Kami sangat menghargai kalau link ini tetap beredar dengan cara itu.', 'This link will not appear on any QR code, and it will not be announced. It travels quietly, from one message to the next. If there is someone you trust to help, feel free to pass it on to them. We would be grateful if it keeps travelling that way.')}</p>
     <p>{T(lang, 'Kalau link ini sampai kepadamu dan kamu berkenan ikut terlibat, tolong simpan link ini baik-baik dan ingat untuk membukanya lagi di hari pernikahan kami, Minggu, 18 Oktober 2026.', 'If this link has reached you and you would like to take part, please save it and remember to open it again on our wedding day, Sunday, 18 October 2026.')}</p>
     <p>{T(lang, 'Sekali lagi, kami berdua berterima kasih banyak atas bantuanmu di proyek spesial ini.', 'Once again, thank you so much from both of us for your help with this special project.')}</p>
     <p class="photos-sign">Adriel &amp; Anasthasia</p>
+    </div>
   </div>
 </section>
 <section class="block block-soft">
