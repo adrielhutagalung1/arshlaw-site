@@ -475,4 +475,50 @@ body.theme-wedding {
 .photos-story p { font-size: 1.1rem; }
 .photos-story h2 { margin-bottom: 18px; }
 .photos-sign { font-style: italic; font-size: 1.5rem !important; color: var(--gold-text); margin-top: 8px; }
-.photos-em { font-style: italic; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.22em; text-decoration-color: rgba(235, 196, 192, 0.8); }
+.photos-em { font-style: italic; }
+.photos-underline { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.24em; text-decoration-color: rgba(235, 196, 192, 0.75); }
+
+/* ---------- Sentuhan akhir tema pernikahan (13 Okt 2026): skala huruf, jarak, kedalaman warna ---------- */
+body.theme-wedding { --cosmic: #7A2226; --wed-deep: #651C1F; --wed-ink: #FDFBF7; --wed-body: #F2E3DE; --wed-pink: #EBC4C0; font-size: 17.5px; line-height: 1.8; }
+.theme-wedding main { background: #7A2226; }
+.theme-wedding h1, .theme-wedding h2 { text-wrap: balance; color: var(--wed-ink); }
+.theme-wedding p { text-wrap: pretty; }
+/* Hero: komposisi tengah seperti kartu undangan, cahaya lembut dari atas */
+.theme-wedding .page-hero { text-align: center; background: radial-gradient(120% 90% at 50% -10%, rgba(253, 251, 247, 0.07), rgba(253, 251, 247, 0) 60%), #7A2226; padding: clamp(64px, 10vw, 136px) 0 clamp(48px, 7vw, 88px); }
+.theme-wedding .page-hero .crumbs { font-size: 0.85rem; letter-spacing: 0.02em; opacity: 0.85; margin-bottom: clamp(22px, 3vw, 32px); }
+.theme-wedding .page-hero h1 { font-size: clamp(2.3rem, 5.6vw, 4.5rem); line-height: 1.07; letter-spacing: -0.015em; max-width: 15em; margin: 0 auto; }
+.theme-wedding .page-hero .intro { max-width: 33em; margin: clamp(22px, 3vw, 32px) auto 0; font-size: clamp(1.08rem, 1.5vw, 1.22rem); line-height: 1.8; color: var(--wed-body); }
+/* Bagian isi */
+.theme-wedding .block { background: #7A2226; padding: clamp(56px, 8vw, 112px) 0; }
+.theme-wedding .page-hero + .block { padding-top: clamp(16px, 3vw, 40px); }
+.theme-wedding .block-soft { background: linear-gradient(180deg, #6C1E21 0%, var(--wed-deep) 100%); }
+.theme-wedding h2 { font-size: clamp(1.85rem, 3.2vw, 2.6rem); line-height: 1.14; margin: 0 0 clamp(16px, 2vw, 22px); }
+.theme-wedding .wedding-copy p, .theme-wedding .photos-copy p, .theme-wedding .frames-head p { color: var(--wed-body); margin: 0 0 1.05em; max-width: 31em; }
+.theme-wedding .wedding { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 7vw, 104px); align-items: center; }
+.theme-wedding .wedding-photo { border-radius: 3px; box-shadow: 0 2px 6px rgba(40, 6, 8, 0.25), 0 34px 70px -28px rgba(30, 4, 6, 0.65); }
+.theme-wedding .wedding-copy .btn, .theme-wedding .photos-copy .btn { margin-top: 18px; }
+.theme-wedding .wedding-file { font-size: 0.95rem; margin-top: -0.2em; }
+/* Surat di special project */
+.theme-wedding .photos-story p { font-size: 1.06rem; }
+.theme-wedding .photos-em { color: var(--wed-pink); }
+.theme-wedding .photos-sign { font-size: 1.7rem !important; line-height: 1.2; color: var(--wed-pink); margin-top: 1.4em; }
+/* Kamera */
+.theme-wedding .photos { gap: clamp(32px, 7vw, 104px); }
+.theme-wedding .photos-qr { box-shadow: 0 30px 60px -30px rgba(20, 3, 4, 0.7); }
+/* Tombol */
+.theme-wedding .btn { padding: 16px 30px; min-height: 52px; font-size: 1rem; box-shadow: 0 10px 24px -14px rgba(20, 3, 4, 0.8); transition: background .2s, color .2s, transform .2s, box-shadow .2s; }
+.theme-wedding .btn:hover { transform: translateY(-1px); box-shadow: 0 14px 28px -14px rgba(20, 3, 4, 0.85); }
+.theme-wedding .btn-small { padding: 12px 20px; min-height: 44px; font-size: 0.95rem; }
+/* Bingkai Story dan cara pakai */
+.theme-wedding .frames-head { max-width: 36em; }
+.theme-wedding .howto h3 { margin-bottom: 4px; }
+.theme-wedding .howto li { color: var(--wed-body); margin-bottom: 10px; }
+.theme-wedding .frames-notes p { margin-bottom: 0.6em; }
+@media (max-width: 900px) {
+  .theme-wedding .wedding { grid-template-columns: minmax(0, 1fr); gap: clamp(32px, 8vw, 48px); }
+  .theme-wedding .wedding-photo { max-width: 440px; width: 100%; margin: 0 auto; }
+}
+@media (max-width: 760px) {
+  .theme-wedding .page-hero h1 { font-size: clamp(2.1rem, 9vw, 2.8rem); }
+  .theme-wedding .photos-qr { margin: 0 auto; }
+}
