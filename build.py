@@ -568,9 +568,9 @@ def wedding(lang):
     </div>
     <div class="frames">
       {''.join(f"""<figure class="frame reveal">
-        <img src="/wedding/story-frame-{n}.png?v=2" width="1080" height="1920" alt="{T(lang, f'Bingkai {n}', f'Frame {n}')}" loading="lazy">
+        <img src="/wedding/story-frame-{n}.png?v=3" width="1080" height="1920" alt="{T(lang, f'Bingkai {n}', f'Frame {n}')}" loading="lazy">
         <figcaption>{T(lang, f'Bingkai {n}, untuk foto {pi}', f'Frame {n}, for {pe} photos')}</figcaption>
-        <a class="btn btn-gold btn-small" href="/wedding/story-frame-{n}.png?v=2" download="Adriel &amp; Anasthasia - Story frame {n}.png">{T(lang, f'Unduh bingkai {n}', f'Download frame {n}')}</a>
+        <a class="btn btn-gold btn-small" href="/wedding/story-frame-{n}.png?v=3" download="Adriel &amp; Anasthasia - Story frame {n}.png">{T(lang, f'Unduh bingkai {n}', f'Download frame {n}')}</a>
       </figure>""" for n, pi, pe in ((1, 'tegak', 'portrait'), (2, 'mendatar', 'landscape')))}
     </div>
     <div class="howto">
