@@ -394,7 +394,7 @@ body { background: var(--cosmic); }
 }
 
 /* ---------- Halaman foto tamu /wedding/photos/ (13 Okt 2026): kamera Morements, dibuka lewat QR arshlaw.id/photos ---------- */
-.photos { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(28px, 6vw, 88px); align-items: center; max-width: 1000px; }
+.photos { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(28px, 6vw, 88px); align-items: center; }
 .photos-copy p { max-width: 30em; }
 .photos-copy .btn { margin-top: 12px; }
 .photos-qr { width: clamp(220px, 28vw, 330px); height: auto; background: #fff; padding: 14px; image-rendering: pixelated; }
@@ -402,3 +402,68 @@ body { background: var(--cosmic); }
   .photos { grid-template-columns: minmax(0, 1fr); }
   .photos-qr { width: 240px; }
 }
+
+/* ---------- Tema pernikahan (Adriel, 13 Okt 2026): semua halaman /wedding/ memakai palet dan huruf buku acara ----------
+   Merah marun kain latar foto prewedding, gading, merah muda; satu keluarga huruf: Libre Caslon Text (tegak, miring, tebal). */
+body.theme-wedding {
+  color-scheme: dark;
+  --cosmic: #7E2327;
+  --cosmic-deep: #681D20;
+  --cosmic-raised: #8C2328;
+  --cosmic-line: rgba(253, 251, 247, 0.16);
+  --black: #681D20;
+  --ink: #FDFBF7;
+  --text: #F6E9E5;
+  --gray: #EBC4C0;
+  --rule: var(--cosmic-line);
+  --paper: #8C2328;
+  --gold: #FDFBF7;
+  --gold-text: #EBC4C0;
+  --gold-soft: #EBC4C0;
+  --maroon: #EBC4C0;
+  --serif: "Libre Caslon Text", Georgia, serif;
+  --serif-text: "Libre Caslon Text", Georgia, serif;
+  --sans: "Libre Caslon Text", Georgia, serif;
+  background: var(--cosmic);
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.7;
+}
+.theme-wedding ::selection { background: #EBC4C0; color: #681D20; }
+.theme-wedding h1, .theme-wedding h2 { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+.theme-wedding h1 { font-size: clamp(2.4rem, 6vw, 4.4rem); line-height: 1.08; }
+.theme-wedding h2 { font-size: clamp(1.9rem, 3.6vw, 2.8rem); line-height: 1.15; }
+.theme-wedding h3 { font-family: var(--serif); font-weight: 700; font-size: 1.15rem; }
+.theme-wedding .wedding-amp { color: #EBC4C0; font-style: italic; }
+.theme-wedding em { font-style: italic; }
+/* Hero: tanpa lambang kantor, sama marun dengan sampul */
+.theme-wedding .page-hero { background: #7E2327; color: var(--text); padding: clamp(56px, 9vw, 120px) 0 clamp(40px, 6vw, 72px); }
+.theme-wedding .page-hero::after { display: none; }
+.theme-wedding .page-hero .crumbs, .theme-wedding .page-hero .crumbs a { color: #EBC4C0; font-style: italic; }
+.theme-wedding .page-hero .crumbs a:hover { color: #FDFBF7; }
+.theme-wedding .page-hero .intro { font-size: clamp(1.1rem, 1.6vw, 1.25rem); color: var(--text); }
+.theme-wedding .block { background: #7E2327; }
+.theme-wedding .block-soft { background: #6E1F22; }
+/* Header, bilah atas, dan kaki halaman ikut marun */
+.theme-wedding .topbar { background: #681D20; color: #EBC4C0; }
+.theme-wedding .topbar a { color: #FDFBF7; }
+.theme-wedding .site-header { background: #7E2327; border-bottom-color: var(--cosmic-line); }
+.theme-wedding .nav a { color: #F6E9E5; }
+.theme-wedding .site-footer { background: #5E1A1C; color: #EBC4C0; }
+.theme-wedding .site-footer a { color: #FDFBF7; }
+.theme-wedding .site-footer h2 { font-family: var(--serif); font-style: italic; font-size: 1rem; letter-spacing: 0; color: #EBC4C0; }
+.theme-wedding .site-footer .legal { color: rgba(235, 196, 192, 0.7); }
+@media (max-width: 900px) { .theme-wedding .nav { background: #7E2327; } }
+/* Tombol: gading dengan teks marun, sudut membulat seperti kotak QR di sampul */
+.theme-wedding .btn { border-radius: 12px; font-family: var(--serif); font-weight: 700; letter-spacing: 0; }
+.theme-wedding .btn-gold, .theme-wedding .btn-dark { background: #FDFBF7; color: #7E2327; }
+.theme-wedding .btn-gold:hover, .theme-wedding .btn-dark:hover { background: #EBC4C0; color: #681D20; }
+.theme-wedding .btn-small { border-radius: 10px; }
+/* Isi halaman */
+.theme-wedding .wedding-photo { border-radius: 4px; }
+.theme-wedding .wedding-file, .theme-wedding .frame figcaption, .theme-wedding .frames-notes { color: #EBC4C0; font-style: italic; }
+.theme-wedding .frame img { background: #5E1A1C; border-radius: 6px; }
+.theme-wedding .howto h3 { font-style: italic; font-weight: 400; font-size: 1.6rem; color: #FDFBF7; }
+.theme-wedding .howto li::marker { color: #EBC4C0; }
+.theme-wedding .photos-qr { background: #FDFBF7; border-radius: 12px; padding: 18px; }
+.theme-wedding .page-hero + .block { padding-top: clamp(8px, 2vw, 24px); }

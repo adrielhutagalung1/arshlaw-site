@@ -111,6 +111,12 @@ def page(lang, slug, title, description, body):
     path = slug[:-len("index.html")] if slug.endswith("index.html") else slug
     other_href = (up + "id/" + slug) if lang == "en" else (up + "../" + slug)
     noindex = '<meta name="robots" content="noindex">\n' if slug.startswith("wedding/") else ""
+    # Halaman pernikahan memakai tema sendiri (palet dan huruf buku acara), bukan tema kantor hukum
+    wedding_theme = slug.startswith("wedding/")
+    body_class = ' class="theme-wedding"' if wedding_theme else ""
+    theme_color = "#7E2327" if wedding_theme else "#0B0B0B"
+    wedding_fonts = ('<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">\n'
+                     if wedding_theme else "")
     nav = "\n      ".join(
         f'<a href="{up}{h}"{" aria-current=\"page\"" if h == slug else ""}>{T(lang, i, e)}</a>' for h, i, e in NAV)
     lang_top = (f'<span class="on">ID</span> / <a href="{other_href}" hreflang="en">EN</a>' if lang == "id"
@@ -138,19 +144,19 @@ def page(lang, slug, title, description, body):
 <meta property="og:description" content="{description}">
 <meta property="og:url" content="{SITE}/{prefix}{path}">
 <meta property="og:locale" content="{T(lang, 'id_ID', 'en_US')}">
-<meta name="theme-color" content="#0B0B0B">
+<meta name="theme-color" content="{theme_color}">
 <link rel="icon" href="{depth}assets/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="{depth}assets/apple-touch-icon.png">
 <meta property="og:image" content="{SITE}/assets/logo-arsh.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{depth}assets/style.css">
+{wedding_fonts}<link rel="stylesheet" href="{depth}assets/style.css">
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"LegalService","name":"ARSH & Partners Law Office","url":"{SITE}/","email":"{EMAIL}","telephone":"+{WA_NUMBER}","address":{{"@type":"PostalAddress","streetAddress":"Plaza Indonesia L5 Unit E021AB, Jl. M.H. Thamrin Kav. 28-30","addressLocality":"Jakarta","postalCode":"10350","addressCountry":"ID"}}}}
 </script>
 </head>
-<body>
+<body{body_class}>
 <a class="skip" href="#main">{T(lang, 'Langsung ke isi', 'Skip to content')}</a>
 <div class="topbar">
   <div class="wrap">
