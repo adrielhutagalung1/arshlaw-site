@@ -620,7 +620,7 @@ def wedding_photos(lang):
 </section>
 <section class="block">
   <div class="wrap wedding">
-    <img class="wedding-photo reveal" src="/wedding/adriel-anasthasia-cover.webp" width="1000" height="1420" alt="Adriel {T(lang, 'dan', 'and')} Anasthasia">
+    <img class="wedding-photo reveal" src="/wedding/adriel-anasthasia-cover-sp.webp" width="1000" height="1420" alt="Adriel {T(lang, 'dan', 'and')} Anasthasia">
     <div class="wedding-copy photos-story reveal">
     <h2>{T(lang, 'Hanya ada 200 kamera', 'There are only 200 cameras')}</h2>
     <p>{T(lang, 'Untuk hari itu, kami hanya punya 200 kamera sekali pakai. Karena itu, proyek ini sengaja tidak kami umumkan ke semua orang. Kalau link ini sampai kepadamu, berarti kamu termasuk orang yang kami harapkan ikut berkontribusi.', 'We only have 200 disposable cameras for the day, so we are keeping this project a little quiet. If this link has reached you, you are one of the people we hoped would take part.')}</p>
