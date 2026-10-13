@@ -475,3 +475,4 @@ body.theme-wedding {
 .photos-story p { font-size: 1.1rem; }
 .photos-story h2 { margin-bottom: 18px; }
 .photos-sign { font-style: italic; font-size: 1.5rem !important; color: var(--gold-text); margin-top: 8px; }
+.photos-em { font-style: italic; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.22em; text-decoration-color: rgba(235, 196, 192, 0.8); }
