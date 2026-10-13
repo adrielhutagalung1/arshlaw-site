@@ -468,3 +468,10 @@ body.theme-wedding {
 .theme-wedding .photos-qr { background: #FDFBF7; border-radius: 12px; padding: 18px; }
 .theme-wedding .page-hero + .block { padding-top: clamp(8px, 2vw, 24px); }
 .photos-note { margin-top: 18px; font-style: italic; color: var(--gold-text); }
+/* Halaman pernikahan: bilah atas hanya pilihan bahasa (tanpa alamat, nomor, email) */
+.theme-wedding .topbar .addr, .theme-wedding .topbar .wrap > a { display: none; }
+.theme-wedding .topbar .lang { display: inline; margin-left: auto; }
+.photos-story > * { max-width: 40em; }
+.photos-story p { font-size: 1.1rem; }
+.photos-story h2 { margin-bottom: 18px; }
+.photos-sign { font-style: italic; font-size: 1.5rem !important; color: var(--gold-text); margin-top: 8px; }

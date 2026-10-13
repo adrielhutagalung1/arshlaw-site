@@ -590,23 +590,31 @@ MOREMENTS_URL = "https://morements.cloud/e/xk97vqiv73"
 
 
 def wedding_photos(lang):
-    # Kamera bersama Morements untuk tamu, dibuka lewat QR (arshlaw.id/photos). Tidak ada di menu.
+    # Kamera bersama Morements untuk tamu. Link dibagikan diam-diam lewat pesan (bukan QR), tidak ada di menu.
     up = "../../"
     return f"""
 <section class="page-hero">
   <div class="wrap">
     <p class="crumbs"><a href="{up}index.html">{T(lang, 'Beranda', 'Home')}</a> / <a href="../">{T(lang, 'Pernikahan', 'Wedding')}</a> / {T(lang, 'Foto', 'Photos')}</p>
-    <h1>Today, you are the <em class="wedding-amp">photographer.</em></h1>
-    <p class="intro">Adriel and Anasthasia would love to see the day through your eyes, from the chapel in the morning to the reception in the afternoon. Every photo you take goes into one shared album: <em>The One on the Eighteenth of October 2026.</em></p>
+    <h1>{T(lang, 'Di hari pernikahan kami, kamu yang jadi <em class="wedding-amp">fotografernya.</em>', 'On our wedding day, you are the <em class="wedding-amp">photographer.</em>')}</h1>
+    <p class="intro">{T(lang, 'Pada Minggu, 18 Oktober 2026, dari pemberkatan di chapel pagi hari sampai resepsi siang harinya, kami ingin melihat hari itu dari sudut pandangmu. Semua foto akan masuk ke satu album bersama: <em>The One on the Eighteenth of October 2026.</em>', 'On Sunday, 18 October 2026, from the chapel in the morning to the reception in the afternoon, we would love to see the day through your eyes. Every photo goes into one shared album: <em>The One on the Eighteenth of October 2026.</em>')}</p>
   </div>
 </section>
 <section class="block">
+  <div class="wrap photos-story reveal">
+    <h2>{T(lang, 'Hanya ada 200 kamera', 'There are only 200 cameras')}</h2>
+    <p>{T(lang, 'Untuk hari itu kami hanya punya 200 kamera sekali pakai, jadi proyek ini sengaja tidak kami umumkan ke semua orang. Kalau link ini sampai kepadamu, berarti kamu termasuk orang yang kami harapkan ikut berkontribusi.', 'We only have 200 disposable cameras for the day, so we are keeping this project a little quiet. If this link has reached you, you are one of the people we hoped would take part.')}</p>
+    <p>{T(lang, 'Link ini tidak akan dipasang di QR atau diumumkan di mana pun. Link ini beredar diam-diam, dari pesan ke pesan. Silakan teruskan kepada orang yang kamu percaya bisa ikut membantu, dan kami sangat menghargai kalau link ini tetap beredar dengan cara itu.', 'This link will not appear on any QR code, and it will not be announced. It travels quietly, from one message to the next. Feel free to pass it on to people you trust to help, and we would be grateful if it keeps travelling that way.')}</p>
+    <p>{T(lang, 'Sekali lagi, aku dan Anasthasia berterima kasih banyak atas bantuanmu di proyek spesial ini.', 'Once again, Anasthasia and I thank you so much for your help with this special project.')}</p>
+    <p class="photos-sign">Adriel</p>
+  </div>
+</section>
+<section class="block block-soft">
   <div class="wrap photos">
     <div class="photos-copy reveal">
       <h2>{T(lang, 'Buka kameranya', 'Open the camera')}</h2>
-      <p>{T(lang, 'Pindai kode ini dengan kamera ponsel Anda. Kalau Anda sudah membuka halaman ini di ponsel, cukup ketuk tombolnya.', 'Scan the code with your phone camera. If you are already reading this on your phone, just tap the button.')}</p>
+      <p>{T(lang, 'Pindai kode ini dengan kamera ponselmu. Kalau kamu sudah membuka halaman ini di ponsel, cukup ketuk tombolnya.', 'Scan the code with your phone camera. If you are already reading this on your phone, just tap the button.')}</p>
       <p><a class="btn btn-gold" href="{MOREMENTS_URL}" rel="noopener">{T(lang, 'Buka kamera', 'Open the camera')}</a></p>
-      <p class="photos-note">{T(lang, 'Kamera ini terbatas untuk 200 tamu pertama yang membukanya, jadi jangan tunggu terlalu lama.', 'The camera is limited to the first 200 guests who open it, so do not wait too long.')}</p>
     </div>
     <img class="photos-qr reveal" src="/wedding/morements-qr.svg" width="330" height="330" alt="{T(lang, 'Kode QR kamera Morements', 'QR code for the Morements camera')}">
   </div>
