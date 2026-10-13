@@ -392,3 +392,13 @@ body { background: var(--cosmic); }
   .frames { gap: 14px; }
   .frame .btn { padding: 11px 12px; font-size: 0.875rem; }
 }
+
+/* ---------- Halaman foto tamu /wedding/photos/ (13 Okt 2026): kamera Morements, dibuka lewat QR arshlaw.id/photos ---------- */
+.photos { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(28px, 6vw, 88px); align-items: center; max-width: 1000px; }
+.photos-copy p { max-width: 30em; }
+.photos-copy .btn { margin-top: 12px; }
+.photos-qr { width: clamp(220px, 28vw, 330px); height: auto; background: #fff; padding: 14px; image-rendering: pixelated; }
+@media (max-width: 760px) {
+  .photos { grid-template-columns: minmax(0, 1fr); }
+  .photos-qr { width: 240px; }
+}

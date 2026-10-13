@@ -580,6 +580,33 @@ def wedding(lang):
 """
 
 
+MOREMENTS_URL = "https://morements.cloud/e/xk97vqiv73"
+
+
+def wedding_photos(lang):
+    # Kamera bersama Morements untuk tamu, dibuka lewat QR (arshlaw.id/photos). Tidak ada di menu.
+    up = "../../"
+    return f"""
+<section class="page-hero">
+  <div class="wrap">
+    <p class="crumbs"><a href="{up}index.html">{T(lang, 'Beranda', 'Home')}</a> / <a href="../">{T(lang, 'Pernikahan', 'Wedding')}</a> / {T(lang, 'Foto', 'Photos')}</p>
+    <h1>Today, you are the <em class="wedding-amp">photographer.</em></h1>
+    <p class="intro">Adriel and Anasthasia would love to see the day through your eyes, from the chapel in the morning to the reception in the afternoon. Every photo you take goes into one shared album: <em>The One on the Eighteenth of October 2026.</em></p>
+  </div>
+</section>
+<section class="block">
+  <div class="wrap photos">
+    <div class="photos-copy reveal">
+      <h2>{T(lang, 'Buka kameranya', 'Open the camera')}</h2>
+      <p>{T(lang, 'Pindai kode ini dengan kamera ponsel Anda. Kalau Anda sudah membuka halaman ini di ponsel, cukup ketuk tombolnya.', 'Scan the code with your phone camera. If you are already reading this on your phone, just tap the button.')}</p>
+      <p><a class="btn btn-gold" href="{MOREMENTS_URL}" rel="noopener">{T(lang, 'Buka kamera', 'Open the camera')}</a></p>
+    </div>
+    <img class="photos-qr reveal" src="/wedding/morements-qr.svg" width="330" height="330" alt="{T(lang, 'Kode QR kamera Morements', 'QR code for the Morements camera')}">
+  </div>
+</section>
+"""
+
+
 PAGES = {
     "index.html": (home,
                    ("ARSH &amp; Partners Law Office | Menjaga Kepentingan. Memperjuangkan Hak.",
@@ -598,6 +625,9 @@ PAGES = {
     "wedding/index.html": (wedding,
                            ("Adriel &amp; Anasthasia", "Susunan acara pemberkatan nikah Adriel dan Anasthasia, 18 Oktober 2026."),
                            ("Adriel &amp; Anasthasia", "Order of service for the holy matrimony of Adriel and Anasthasia, 18 October 2026.")),
+    "wedding/photos/index.html": (wedding_photos,
+                                  ("Foto tamu | Adriel &amp; Anasthasia", "Kamera bersama untuk tamu pernikahan Adriel dan Anasthasia, 18 Oktober 2026."),
+                                  ("Guest photos | Adriel &amp; Anasthasia", "A shared camera for the guests of Adriel and Anasthasia, 18 October 2026.")),
 }
 
 
