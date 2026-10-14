@@ -776,7 +776,7 @@ def posts_index(lang):
   <div class="wrap">
     <p class="crumbs"><a href="../index.html">Beranda</a> / Tulisan</p>
     <h1>Tulisan</h1>
-    <p class="intro">Catatan Adriel Hutagalung tentang sejarah dan hukum Indonesia.</p>
+    <p class="intro">Menengok kembali masa lalu, untuk memahami hari ini.</p>
   </div>
 </section>
 <section class="block">
@@ -811,7 +811,7 @@ PAGES = {
                                   ("Special project | Adriel &amp; Anasthasia", "Kamera bersama untuk tamu pernikahan Adriel dan Anasthasia, 18 Oktober 2026."),
                                   ("Special project | Adriel &amp; Anasthasia", "A shared camera for the guests of Adriel and Anasthasia, 18 October 2026.")),
     "tulisan/index.html": (posts_index,
-                           ("Tulisan", "Catatan Adriel Hutagalung tentang sejarah dan hukum Indonesia."), None),
+                           ("Tulisan", "Menengok kembali masa lalu, untuk memahami hari ini."), None),
 }
 for _p in POSTS:
     PAGES[f"tulisan/{_p['slug']}/index.html"] = (post_page(_p), (_p["title_text"], _p["description"]), None)
