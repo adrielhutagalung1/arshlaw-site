@@ -5,6 +5,8 @@ Jalankan: python3 build.py
 Halaman Inggris ditulis di root (halaman utama), halaman Indonesia di id/.
 Teks bertanda .todo masih menunggu isi dari advokat.
 """
+import html
+import re
 from pathlib import Path
 from urllib.parse import quote
 
@@ -110,6 +112,7 @@ SHARE = {
         "title_en": "If you don&rsquo;t mind, may we ask a favour?",
         "desc_id": "Adriel &amp; Anasthasia &middot; Minggu, 18 Oktober 2026",
         "desc_en": "Adriel &amp; Anasthasia &middot; Sunday, 18 October 2026",
+        "site_name": "Adriel &amp; Anasthasia",
     },
 }
 
@@ -121,13 +124,17 @@ def page(lang, slug, title, description, body):
     prefix = "id/" if lang == "id" else ""
     path = slug[:-len("index.html")] if slug.endswith("index.html") else slug
     other_href = (up + "id/" + slug) if lang == "en" else (up + "../" + slug)
+    # Tulisan hanya berbahasa Indonesia: tanpa pasangan EN, tombol EN menuju beranda Inggris
+    id_only = slug.startswith("tulisan/")
+    if id_only:
+        other_href = up + "../index.html"
     noindex = '<meta name="robots" content="noindex">\n' if slug.startswith("wedding/") else ""
     # Halaman pernikahan memakai tema sendiri (palet dan huruf buku acara), bukan tema kantor hukum
     wedding_theme = slug.startswith("wedding/")
     body_class = ' class="theme-wedding"' if wedding_theme else ""
     theme_color = "#7E2327" if wedding_theme else "#0B0B0B"
     wedding_fonts = ('<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">\n'
-                     if wedding_theme else "")
+                     if wedding_theme or id_only else "")
     nav = "\n      ".join(
         f'<a href="{up}{h}"{" aria-current=\"page\"" if h == slug else ""}>{T(lang, i, e)}</a>' for h, i, e in NAV)
     lang_top = (f'<span class="on">ID</span> / <a href="{other_href}" hreflang="en">EN</a>' if lang == "id"
@@ -136,7 +143,10 @@ def page(lang, slug, title, description, body):
                 else f'<a class="nav-lang" href="{other_href}" hreflang="id">Bahasa Indonesia</a>')
     full_title = title if slug == "index.html" else f"{title} | ARSH &amp; Partners Law Office"
     # Pratinjau link (WhatsApp dll.): default logo kantor; halaman tertentu punya gambar, judul, dan deskripsi sendiri
-    og = SHARE.get(slug)
+    post = POSTS_BY_SLUG.get(slug)
+    og = SHARE.get(slug) or (post and {"image": post["image"], "title_id": post["title_text"], "title_en": post["title_text"],
+                                       "desc_id": post["description"], "desc_en": post["description"],
+                                       "site_name": "ARSH &amp; Partners Law Office"})
     og_title = T(lang, og["title_id"], og["title_en"]) if og else full_title
     og_desc = T(lang, og["desc_id"], og["desc_en"]) if og else description
     og_image = (f'<meta property="og:image" content="{SITE}{og["image"]}">\n<meta property="og:image:width" content="1200">\n'
@@ -154,10 +164,11 @@ def page(lang, slug, title, description, body):
 <title>{full_title}</title>
 <meta name="description" content="{description}">
 {noindex}<link rel="canonical" href="{SITE}/{prefix}{path}">
-<link rel="alternate" hreflang="id" href="{SITE}/id/{path}">
+{"" if id_only else f'''<link rel="alternate" hreflang="id" href="{SITE}/id/{path}">
 <link rel="alternate" hreflang="en" href="{SITE}/{path}">
-<link rel="alternate" hreflang="x-default" href="{SITE}/{path}">
-<meta property="og:site_name" content="{"Adriel &amp; Anasthasia" if og else "ARSH &amp; Partners Law Office"}">
+<link rel="alternate" hreflang="x-default" href="{SITE}/{path}">'''}
+<meta property="og:site_name" content="{og["site_name"] if og else "ARSH &amp; Partners Law Office"}">
+<meta property="og:type" content="{"article" if post else "website"}">
 <meta property="og:title" content="{og_title}">
 <meta property="og:description" content="{og_desc}">
 <meta property="og:url" content="{SITE}/{prefix}{path}">
@@ -170,7 +181,7 @@ def page(lang, slug, title, description, body):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 {wedding_fonts}<link rel="stylesheet" href="{depth}assets/style.css">
-<script type="application/ld+json">
+{article_ld(post) if post else ""}<script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"LegalService","name":"ARSH & Partners Law Office","url":"{SITE}/","email":"{EMAIL}","telephone":"+{WA_NUMBER}","address":{{"@type":"PostalAddress","streetAddress":"Plaza Indonesia L5 Unit E021AB, Jl. M.H. Thamrin Kav. 28-30","addressLocality":"Jakarta","postalCode":"10350","addressCountry":"ID"}}}}
 </script>
 </head>
@@ -644,6 +655,134 @@ def wedding_photos(lang):
 """
 
 
+# ---------- Tulisan (14 Okt 2026): esai Adriel, hanya berbahasa Indonesia, di /id/tulisan/ ----------
+# Naskah ada di tulisan/<slug>.md: paragraf dipisah baris kosong, "## " = subjudul, "> " = kutipan, _miring_.
+# Situs adalah sumber utama (canonical); versi Medium diimpor lewat "Import a story" agar canonical menunjuk ke sini.
+POSTS = [
+    {"slug": "kembali-sebentar-ke-1945",
+     "title": "Kembali Sebentar ke <em>1945</em>",
+     "title_text": "Kembali Sebentar ke 1945",
+     "description": "Mengapa Republik yang baru merdeka tetap memakai hukum peninggalan kolonial, dan apakah pilihan itu ikut membentuk cara kita memandang pemerintah hari ini.",
+     "date": "2026-10-14",
+     "image": "/assets/tulisan/kembali-sebentar-ke-1945.jpg",
+     "medium": None},  # isi URL Medium setelah terbit
+]
+POSTS_BY_SLUG = {f"tulisan/{p['slug']}/index.html": p for p in POSTS}
+BULAN = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
+AUTHOR_BIO = ("Adriel Hutagalung adalah Managing Partner ARSH &amp; Partners Law Office. "
+              "Ia menulis tentang sejarah dan hukum Indonesia untuk memahami keadaan hari ini.")
+
+
+def tanggal(iso):
+    y, m, d = iso.split("-")
+    return f"{int(d)} {BULAN[int(m) - 1]} {y}"
+
+
+def post_source(post):
+    return (Path(__file__).parent / "tulisan" / f"{post['slug']}.md").read_text(encoding="utf-8")
+
+
+def inline(text):
+    text = html.escape(text, quote=False)
+    text = re.sub(r'"([^"]+)"', r"&ldquo;\1&rdquo;", text)
+    return re.sub(r"\b_([^_]+)_\b", r"<em>\1</em>", text)
+
+
+def render_post(src):
+    out = []
+    for block in src.strip().split("\n\n"):
+        block = block.strip()
+        if block.startswith("## "):
+            out.append(f"<h2>{inline(block[3:])}</h2>")
+        elif block.startswith("> "):
+            out.append(f"<blockquote><p>{inline(block[2:])}</p></blockquote>")
+        else:
+            out.append(f"<p>{inline(block)}</p>")
+    return "\n      ".join(out)
+
+
+def reading_minutes(src):
+    return max(1, round(len(src.split()) / 200))
+
+
+def article_ld(post):
+    url = f"{SITE}/id/tulisan/{post['slug']}/"
+    return ('<script type="application/ld+json">\n'
+            f'{{"@context":"https://schema.org","@type":"Article","headline":"{post["title_text"]}","description":"{post["description"]}",'
+            f'"image":"{SITE}{post["image"]}","datePublished":"{post["date"]}","inLanguage":"id","mainEntityOfPage":"{url}",'
+            f'"author":{{"@type":"Person","name":"Adriel Hutagalung","url":"{SITE}/id/tentang.html"}},'
+            f'"publisher":{{"@type":"Organization","name":"ARSH & Partners Law Office","logo":{{"@type":"ImageObject","url":"{SITE}/assets/logo-arsh.png"}}}}}}\n'
+            '</script>\n')
+
+
+def post_page(post):
+    def build(lang):
+        src = post_source(post)
+        url = f"{SITE}/id/tulisan/{post['slug']}/"
+        share_text = quote(f"{post['title_text']} — {url}")
+        medium = (f'<p class="essay-medium">Tulisan ini juga terbit di <a href="{post["medium"]}" rel="noopener">Medium</a>.</p>'
+                  if post["medium"] else "")
+        return f"""
+<section class="page-hero essay-hero">
+  <div class="wrap">
+    <p class="crumbs"><a href="../../index.html">Beranda</a> / <a href="../">Tulisan</a></p>
+    <h1>{post['title']}</h1>
+    <p class="essay-meta">Adriel Hutagalung <i aria-hidden="true"></i> <time datetime="{post['date']}">{tanggal(post['date'])}</time> <i aria-hidden="true"></i> {reading_minutes(src)} menit baca</p>
+  </div>
+</section>
+<section class="block">
+  <div class="wrap">
+    <article class="essay">
+      {render_post(src)}
+    </article>
+    <aside class="essay-end">
+      <p class="essay-author">{AUTHOR_BIO} <a class="link-arrow" href="../../tentang.html">Tentang kami &rarr;</a></p>
+      {medium}
+      <p class="essay-share">Bagikan:
+        <a href="https://wa.me/?text={share_text}" rel="noopener">WhatsApp</a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url={quote(url, safe='')}" rel="noopener">LinkedIn</a>
+        <button type="button" class="copy-link" data-url="{url}">Salin tautan</button>
+      </p>
+    </aside>
+  </div>
+</section>
+<script>
+document.querySelector('.copy-link').addEventListener('click', function () {{
+  var b = this;
+  navigator.clipboard.writeText(b.dataset.url).then(function () {{ b.textContent = 'Tautan tersalin'; }});
+}});
+</script>
+"""
+    return build
+
+
+def posts_index(lang):
+    items = "".join(f"""<li class="reveal">
+        <a href="{p['slug']}/">
+          <span class="meta"><time datetime="{p['date']}">{tanggal(p['date'])}</time></span>
+          <h2>{p['title']}</h2>
+          <p>{p['description']}</p>
+          <span class="link-arrow">Baca tulisan &rarr;</span>
+        </a>
+      </li>""" for p in sorted(POSTS, key=lambda p: p["date"], reverse=True))
+    return f"""
+<section class="page-hero">
+  <div class="wrap">
+    <p class="crumbs"><a href="../index.html">Beranda</a> / Tulisan</p>
+    <h1>Tulisan</h1>
+    <p class="intro">Catatan Adriel Hutagalung tentang sejarah dan hukum Indonesia.</p>
+  </div>
+</section>
+<section class="block">
+  <div class="wrap">
+    <ul class="essay-list">
+      {items}
+    </ul>
+  </div>
+</section>
+"""
+
+
 PAGES = {
     "index.html": (home,
                    ("ARSH &amp; Partners Law Office | Menjaga Kepentingan. Memperjuangkan Hak.",
@@ -665,17 +804,39 @@ PAGES = {
     "wedding/special-project/index.html": (wedding_photos,
                                   ("Special project | Adriel &amp; Anasthasia", "Kamera bersama untuk tamu pernikahan Adriel dan Anasthasia, 18 Oktober 2026."),
                                   ("Special project | Adriel &amp; Anasthasia", "A shared camera for the guests of Adriel and Anasthasia, 18 October 2026.")),
+    "tulisan/index.html": (posts_index,
+                           ("Tulisan", "Catatan Adriel Hutagalung tentang sejarah dan hukum Indonesia."), None),
 }
+for _p in POSTS:
+    PAGES[f"tulisan/{_p['slug']}/index.html"] = (post_page(_p), (_p["title_text"], _p["description"]), None)
+
+
+def sitemap():
+    # Halaman yang boleh diindeks; halaman pernikahan (noindex) tidak dimasukkan
+    urls = []
+    for slug, (_, _, meta_en) in PAGES.items():
+        if slug.startswith("wedding/"):
+            continue
+        path = slug[:-len("index.html")] if slug.endswith("index.html") else slug
+        if meta_en:
+            urls.append(f"{SITE}/{path}")
+        urls.append(f"{SITE}/id/{path}")
+    body = "".join(f"  <url><loc>{u}</loc></url>\n" for u in urls)
+    (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n'
+                                      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + body + "</urlset>\n",
+                                      encoding="utf-8")
+    (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n", encoding="utf-8")
 
 
 def main():
     (ROOT / "id").mkdir(exist_ok=True)
     for slug, (fn, meta_id, meta_en) in PAGES.items():
-        for lang, (title, desc) in (("id", meta_id), ("en", meta_en)):
+        for lang, (title, desc) in (("id", meta_id), ("en", meta_en)) if meta_en else (("id", meta_id),):
             out = ROOT / ("id" if lang == "id" else "") / slug
             out.parent.mkdir(parents=True, exist_ok=True)
             out.write_text(page(lang, slug, title, desc, fn(lang)), encoding="utf-8")
             print("ditulis", out.relative_to(ROOT))
+    sitemap()
 
 
 if __name__ == "__main__":

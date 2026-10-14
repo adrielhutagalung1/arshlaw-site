@@ -522,3 +522,32 @@ body.theme-wedding { --cosmic: #7A2226; --wed-deep: #651C1F; --wed-ink: #FDFBF7;
   .theme-wedding .page-hero h1 { font-size: clamp(2.1rem, 9vw, 2.8rem); }
   .theme-wedding .photos-qr { margin: 0 auto; }
 }
+
+/* ---------- Tulisan /id/tulisan/ (14 Okt 2026): esai panjang, nyaman dibaca di ponsel ---------- */
+.essay-hero h1 { max-width: 16em; }
+.essay-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin: 22px 0 0; color: var(--gray); font-size: 0.95rem; }
+.essay-meta i { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); flex: none; }
+.essay, .essay-end { max-width: 38rem; margin: 0 auto; }
+.essay { font: 400 1.15rem/1.85 var(--serif-text); color: var(--text); }
+.essay p { margin: 0 0 1.35em; }
+.essay > p:first-child::first-letter { float: left; font-family: var(--serif); font-size: 4.1em; line-height: 0.82; padding: 0.06em 0.1em 0 0; color: var(--gold-soft); }
+.essay h2 { font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.1rem); line-height: 1.2; color: var(--ink); margin: 2.2em 0 0.8em; }
+.essay em { font-style: italic; }
+.essay blockquote { position: relative; margin: 2em 0; padding: 0 0 0 2.2rem; font-style: italic; font-size: 1.22rem; line-height: 1.7; color: var(--ink); }
+.essay blockquote::before { content: "\201C"; position: absolute; left: 0; top: -0.12em; font: 400 3.2rem/1 var(--serif); color: var(--gold); }
+.essay blockquote p { margin: 0; }
+.essay-end { margin-top: clamp(40px, 6vw, 64px); font-size: 0.975rem; }
+.essay-author { color: var(--gray); }
+.essay-share { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; color: var(--gray); margin-top: 24px; }
+.essay-share a, .essay-share button { font: 500 0.975rem var(--sans); color: var(--gold-text); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: none; border-bottom: 1px solid var(--gold-soft); }
+.essay-share a:hover, .essay-share button:hover { color: var(--maroon); border-color: var(--maroon); }
+.essay-list { list-style: none; margin: 0 auto; padding: 0; max-width: 46rem; display: flex; flex-direction: column; gap: clamp(40px, 6vw, 64px); }
+.essay-list a { display: block; text-decoration: none; color: inherit; }
+.essay-list .meta { color: var(--gray); font-size: 0.9rem; }
+.essay-list h2 { margin: 8px 0 12px; }
+.essay-list p { color: var(--text); margin-bottom: 14px; }
+.essay-list a:hover h2 { color: var(--gold-soft); }
+@media (max-width: 520px) {
+  .essay { font-size: 1.075rem; line-height: 1.8; }
+  .essay blockquote { font-size: 1.12rem; padding-left: 1.8rem; }
+}
