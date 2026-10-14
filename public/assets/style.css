@@ -530,9 +530,10 @@ body.theme-wedding { --cosmic: #7A2226; --wed-deep: #651C1F; --wed-ink: #FDFBF7;
 .essay, .essay-end { max-width: 38rem; margin: 0 auto; }
 .essay { font: 400 1.15rem/1.85 var(--serif-text); color: var(--text); }
 .essay p { margin: 0 0 1.35em; }
-.essay > p:first-child::first-letter { float: left; font-family: var(--serif); font-size: 4.1em; line-height: 0.82; padding: 0.06em 0.1em 0 0; color: var(--gold-soft); }
+.essay > p:first-child:not(.essay-hook)::first-letter, .essay > .essay-hook + p::first-letter { float: left; font-family: var(--serif); font-size: 4.1em; line-height: 0.82; padding: 0.06em 0.1em 0 0; color: var(--gold-soft); }
 .essay h2 { font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.1rem); line-height: 1.2; color: var(--ink); margin: 2.2em 0 0.8em; }
 .essay em { font-style: italic; }
+.essay .essay-hook { font-style: italic; font-size: clamp(1.3rem, 2.4vw, 1.55rem); line-height: 1.6; color: var(--gold-soft); margin: 0 0 2.2em; }
 .essay blockquote { position: relative; margin: 2em 0; padding: 0 0 0 2.2rem; font-style: italic; font-size: 1.22rem; line-height: 1.7; color: var(--ink); }
 .essay blockquote::before { content: "\201C"; position: absolute; left: 0; top: -0.12em; font: 400 3.2rem/1 var(--serif); color: var(--gold); }
 .essay blockquote p { margin: 0; }

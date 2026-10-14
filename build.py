@@ -663,6 +663,8 @@ POSTS = [
      "title": "Kembali Sebentar ke <em>1945</em>",
      "title_text": "Kembali Sebentar ke 1945",
      "description": "Mengapa Republik yang baru merdeka tetap memakai hukum peninggalan kolonial, dan apakah pilihan itu ikut membentuk cara kita memandang pemerintah hari ini.",
+     # Kalimat pembuka (hook) di atas tulisan, dikutip dari isi tulisan
+     "hook": "Bisa jadi pemerintah dipandang sebagai pihak yang patut dihormati karena telah menjadi penolong, atau apabila saya boleh menggunakan istilah yang sedikit lebih ekstrem, sebagai seorang &lsquo;pahlawan&rsquo; dalam menyelesaikan permasalahan rakyatnya; bukan semata-mata sebagai &lsquo;pelayan&rsquo; masyarakat.",
      "date": "2026-10-14",
      "image": "/assets/tulisan/kembali-sebentar-ke-1945.jpg",
      "medium": None},  # isi URL Medium setelah terbit
@@ -733,6 +735,7 @@ def post_page(post):
 <section class="block">
   <div class="wrap">
     <article class="essay">
+      {f'<p class="essay-hook">&ldquo;{post["hook"]}&rdquo;</p>' if post.get("hook") else ""}
       {render_post(src)}
     </article>
     <aside class="essay-end">
