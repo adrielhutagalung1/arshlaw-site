@@ -670,7 +670,7 @@ POSTS = [
      "hook": "Bisa jadi pemerintah Republik dipandang sebagai pihak yang patut dan selalu dihormati karena sejak awal kehadirannya dianggap sebagai penolong (atau apabila saya boleh menggunakan istilah yang sedikit lebih ekstrem, sebagai seorang &lsquo;pahlawan&rsquo;) dalam menyelesaikan berbagai permasalahan penduduk Republik; sehingga semakin menjauhkan cara pandang terhadap pemerintah sebagai &lsquo;pelayan&rsquo; masyarakat.",
      "date": "2026-10-14",
      "image": "/assets/tulisan/kembali-sebentar-ke-1945.jpg",
-     "medium": None},  # isi URL Medium setelah terbit
+     "medium": "https://aderiyel.medium.com/kembali-sebentar-ke-1945-698834e853f7"},
 ]
 POSTS_BY_SLUG = {f"tulisan/{p['slug']}/index.html": p for p in POSTS}
 BULAN = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
