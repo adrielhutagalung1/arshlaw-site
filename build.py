@@ -65,6 +65,7 @@ NAV = [
     ("layanan.html", "Layanan", "Services"),
     ("tentang.html", "Tentang Kami", "About"),
     ("kontak.html", "Kontak", "Contact"),
+    ("tulisan/", "Tulisan", None),  # tulisan hanya berbahasa Indonesia: tidak tampil di menu EN
 ]
 
 # Bidang praktik: (anchor, judul ID, judul EN, ringkas ID, ringkas EN)
@@ -135,8 +136,10 @@ def page(lang, slug, title, description, body):
     theme_color = "#7E2327" if wedding_theme else "#0B0B0B"
     wedding_fonts = ('<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">\n'
                      if wedding_theme or id_only else "")
+    nav_items = [(h, i, e) for h, i, e in NAV if e or lang == "id"]
     nav = "\n      ".join(
-        f'<a href="{up}{h}"{" aria-current=\"page\"" if h == slug else ""}>{T(lang, i, e)}</a>' for h, i, e in NAV)
+        f'<a href="{up}{h}"{" aria-current=\"page\"" if h == slug or (h.endswith("/") and slug.startswith(h)) else ""}>{T(lang, i, e)}</a>'
+        for h, i, e in nav_items)
     lang_top = (f'<span class="on">ID</span> / <a href="{other_href}" hreflang="en">EN</a>' if lang == "id"
                 else f'<a href="{other_href}" hreflang="id">ID</a> / <span class="on">EN</span>')
     lang_nav = (f'<a class="nav-lang" href="{other_href}" hreflang="en">English</a>' if lang == "id"
@@ -152,7 +155,7 @@ def page(lang, slug, title, description, body):
     og_image = (f'<meta property="og:image" content="{SITE}{og["image"]}">\n<meta property="og:image:width" content="1200">\n'
                 f'<meta property="og:image:height" content="630">\n<meta name="twitter:card" content="summary_large_image">'
                 if og else f'<meta property="og:image" content="{SITE}/assets/logo-arsh.png">')
-    foot_nav = "".join(f'<li><a href="{up}{h}">{T(lang, i, e)}</a></li>' for h, i, e in NAV)
+    foot_nav = "".join(f'<li><a href="{up}{h}">{T(lang, i, e)}</a></li>' for h, i, e in nav_items)
     foot_practice = "".join(
         f'<li><a href="{up}layanan.html#{a}">{T(lang, ti, te)}</a></li>' for a, ti, te, *_ in PRACTICE[:5])
     return f"""<!doctype html>
