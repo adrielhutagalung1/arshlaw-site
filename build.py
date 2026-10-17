@@ -569,7 +569,7 @@ def wedding(lang):
     <div class="wedding-copy reveal">
       <h2>{T(lang, 'Susunan acara', 'Order of service')}</h2>
       <p>{T(lang, 'Seluruh susunan acara pemberkatan, dari prelude sampai ucapan terima kasih, beserta nama para petugas dan lagu yang dinyanyikan.', 'The full programme of the ceremony, from the prelude to the words of thanks, with everyone taking part and the songs that will be sung.')}</p>
-      <p class="wedding-file">PDF &middot; 16 {T(lang, 'halaman', 'pages')} A5 &middot; {T(lang, '6,6', '6.6')} MB</p>
+      <p class="wedding-file">PDF &middot; 18 {T(lang, 'halaman', 'pages')} A5 &middot; {T(lang, '7,3', '7.3')} MB</p>
       <p><a class="btn btn-gold" href="{WEDDING_PDF}" download="Order of Service - Adriel &amp; Anasthasia.pdf">{T(lang, 'Unduh susunan acara', 'Download the order of service')}</a></p>
     </div>
   </div>
