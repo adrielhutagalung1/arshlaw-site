@@ -16,8 +16,8 @@ FIRM = "ARSH &amp; Partners Law Office"
 EMAIL = "info@arshlaw.id"
 WA_NUMBER = "6281973140134"
 WA_DISPLAY = "+62 819 7314 0134"
-MAPS = "https://maps.google.com/?q=Plaza+Indonesia,+Jl.+M.H.+Thamrin+Kav.+28-30,+Jakarta"
-MAP_EMBED = "https://www.google.com/maps?q=Plaza+Indonesia+Jakarta&output=embed"
+MAPS = "https://maps.google.com/?q=Plaza+Asia,+Jl.+Jenderal+Sudirman+Kav.+59,+Jakarta"
+MAP_EMBED = "https://www.google.com/maps?q=Plaza+Asia,+Jl.+Jenderal+Sudirman+Kav.+59,+Jakarta&output=embed"
 
 WA_ICON = ('<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 '
            '11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 '
@@ -56,8 +56,8 @@ def wa(lang):
 
 def address(lang):
     return T(lang,
-             "Plaza Indonesia Lt. 5, Unit E021AB<br>Jl. M.H. Thamrin Kav. 28–30<br>Jakarta Pusat 10350",
-             "Plaza Indonesia, Level 5, Unit E021AB<br>Jl. M.H. Thamrin Kav. 28–30<br>Central Jakarta 10350, Indonesia")
+             "Plaza Asia Lt. 16, Unit 1653<br>Jl. Jenderal Sudirman Kav. 59<br>Jakarta 12110",
+             "Plaza Asia, 16th Floor, Unit 1653<br>Jl. Jenderal Sudirman Kav. 59<br>Jakarta 12110, Indonesia")
 
 
 NAV = [
@@ -185,14 +185,14 @@ def page(lang, slug, title, description, body):
 <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 {wedding_fonts}<link rel="stylesheet" href="{depth}assets/style.css">
 {article_ld(post) if post else ""}<script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"LegalService","name":"ARSH & Partners Law Office","url":"{SITE}/","email":"{EMAIL}","telephone":"+{WA_NUMBER}","address":{{"@type":"PostalAddress","streetAddress":"Plaza Indonesia L5 Unit E021AB, Jl. M.H. Thamrin Kav. 28-30","addressLocality":"Jakarta","postalCode":"10350","addressCountry":"ID"}}}}
+{{"@context":"https://schema.org","@type":"LegalService","name":"ARSH & Partners Law Office","url":"{SITE}/","email":"{EMAIL}","telephone":"+{WA_NUMBER}","address":{{"@type":"PostalAddress","streetAddress":"Plaza Asia, 16th Floor, Unit 1653, Jl. Jenderal Sudirman Kav. 59","addressLocality":"Jakarta","postalCode":"12110","addressCountry":"ID"}}}}
 </script>
 </head>
 <body{body_class}>
 <a class="skip" href="#main">{T(lang, 'Langsung ke isi', 'Skip to content')}</a>
 <div class="topbar">
   <div class="wrap">
-    <span class="addr">Plaza Indonesia, Jl. M.H. Thamrin, Jakarta</span>
+    <span class="addr">Plaza Asia, Jl. Jenderal Sudirman, Jakarta</span>
     <a href="{wa(lang)}">{WA_DISPLAY}</a>
     <a class="email" href="mailto:{EMAIL}">{EMAIL}</a>
     <span class="lang">{lang_top}</span>
@@ -344,7 +344,7 @@ def home(lang):
 
 <section class="facts" aria-label="{T(lang, 'Informasi kantor', 'Office information')}">
   <dl class="wrap">
-    <div><dt>{T(lang, 'Kantor', 'Office')}</dt><dd><a href="{MAPS}" rel="noopener">Plaza Indonesia Lt. 5, Jakarta</a></dd></div>
+    <div><dt>{T(lang, 'Kantor', 'Office')}</dt><dd><a href="{MAPS}" rel="noopener">{T(lang, 'Plaza Asia Lt. 16, Jakarta', 'Plaza Asia, 16th Floor, Jakarta')}</a></dd></div>
     <div><dt>WhatsApp</dt><dd><a href="{wa(lang)}">{WA_DISPLAY}</a></dd></div>
     <div><dt>Email</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd></div>
     {f"<div><dt>{T(lang, 'Jam kerja', 'Hours')}</dt><dd>{hours(lang)}</dd></div>" if HOURS else ""}
@@ -465,7 +465,7 @@ def about(lang):
   <div class="wrap">
     <p class="crumbs"><a href="index.html">{T(lang, 'Beranda', 'Home')}</a> / {T(lang, 'Tentang Kami', 'About')}</p>
     <h1>{T(lang, 'Tentang Kami', 'About us')}</h1>
-    <p class="intro">{T(lang, f'{FIRM} berkantor di Plaza Indonesia, Jakarta. Kami membawa cara pandang yang segar dan pendekatan yang luwes dalam menyelesaikan persoalan hukum klien, dengan biaya yang dijelaskan sejak awal.', f'{FIRM} is based at Plaza Indonesia, Jakarta. We bring a fresh perspective and a flexible approach to our clients&rsquo; legal matters, with fees explained from the start.')}</p>
+    <p class="intro">{T(lang, f'{FIRM} berkantor di Plaza Asia, Jakarta. Kami membawa cara pandang yang segar dan pendekatan yang luwes dalam menyelesaikan persoalan hukum klien, dengan biaya yang dijelaskan sejak awal.', f'{FIRM} is based at Plaza Asia, Jakarta. We bring a fresh perspective and a flexible approach to our clients&rsquo; legal matters, with fees explained from the start.')}</p>
   </div>
 </section>
 <section class="block">
@@ -543,7 +543,7 @@ def contact(lang):
       </dl>
       <p style="margin-top:32px"><a class="btn btn-gold" href="{wa(lang)}">{WA_ICON} {T(lang, 'Kirim pesan WhatsApp', 'Send a WhatsApp message')}</a></p>
     </div>
-    <iframe class="map" src="{MAP_EMBED}" loading="lazy" title="{T(lang, 'Peta lokasi Plaza Indonesia', 'Map of Plaza Indonesia')}" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <iframe class="map" src="{MAP_EMBED}" loading="lazy" title="{T(lang, 'Peta lokasi Plaza Asia', 'Map of Plaza Asia')}" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>
 </section>
 """
@@ -792,9 +792,9 @@ def posts_index(lang):
 PAGES = {
     "index.html": (home,
                    ("ARSH &amp; Partners Law Office | Menjaga Kepentingan. Memperjuangkan Hak.",
-                    "Kantor hukum di Plaza Indonesia, Jakarta, untuk pengusaha, perusahaan, dan keluarga: perjanjian, ketenagakerjaan, litigasi, dan kepailitan."),
+                    "Kantor hukum di Plaza Asia, Jakarta, untuk pengusaha, perusahaan, dan keluarga: perjanjian, ketenagakerjaan, litigasi, dan kepailitan."),
                    ("ARSH &amp; Partners Law Office | Protecting Interests. Fighting for Rights.",
-                    "A law office at Plaza Indonesia, Jakarta, for business owners, companies, and families: agreements, employment, litigation, and insolvency.")),
+                    "A law office at Plaza Asia, Jakarta, for business owners, companies, and families: agreements, employment, litigation, and insolvency.")),
     "layanan.html": (services,
                      ("Layanan", "Pendampingan hukum usaha, pengacara pribadi, litigasi, ketenagakerjaan, PKPU dan kepailitan, hak cipta dan merek, serta konsultasi SDM."),
                      ("Services", "Business legal retainer, personal lawyer, litigation, employment, insolvency, copyright and trademarks, and HR consulting.")),
@@ -802,8 +802,8 @@ PAGES = {
                      ("Tentang Kami", "Tentang ARSH &amp; Partners Law Office dan advokatnya."),
                      ("About", "About ARSH &amp; Partners Law Office and its lawyers.")),
     "kontak.html": (contact,
-                    ("Kontak", "Hubungi ARSH &amp; Partners Law Office lewat WhatsApp atau email, atau kunjungi kantor kami di Plaza Indonesia, Jakarta."),
-                    ("Contact", "Contact ARSH &amp; Partners Law Office by WhatsApp or email, or visit our office at Plaza Indonesia, Jakarta.")),
+                    ("Kontak", "Hubungi ARSH &amp; Partners Law Office lewat WhatsApp atau email, atau kunjungi kantor kami di Plaza Asia, Jakarta."),
+                    ("Contact", "Contact ARSH &amp; Partners Law Office by WhatsApp or email, or visit our office at Plaza Asia, Jakarta.")),
     "wedding/index.html": (wedding,
                            ("Adriel &amp; Anasthasia", "Susunan acara pemberkatan nikah Adriel dan Anasthasia, 18 Oktober 2026."),
                            ("Adriel &amp; Anasthasia", "Order of service for the holy matrimony of Adriel and Anasthasia, 18 October 2026.")),
