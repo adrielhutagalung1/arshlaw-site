@@ -64,6 +64,7 @@ NAV = [
     ("index.html", "Beranda", "Home"),
     ("layanan.html", "Layanan", "Services"),
     ("tentang.html", "Tentang Kami", "About"),
+    ("penanganan-kasus/", "Penanganan Kasus", "Case Handling"),
     ("kontak.html", "Kontak", "Contact"),
     ("tulisan/", "Tulisan", None),  # tulisan hanya berbahasa Indonesia: tidak tampil di menu EN
 ]
@@ -129,13 +130,17 @@ def page(lang, slug, title, description, body):
     id_only = slug.startswith("tulisan/")
     if id_only:
         other_href = up + "../index.html"
+    # Artikel hanya berbahasa Inggris: tombol ID menuju halaman Penanganan Kasus versi Indonesia
+    en_only = slug in ARTICLES_BY_SLUG
+    if en_only:
+        other_href = up + "id/penanganan-kasus/"
     noindex = '<meta name="robots" content="noindex">\n' if slug.startswith("wedding/") else ""
     # Halaman pernikahan memakai tema sendiri (palet dan huruf buku acara), bukan tema kantor hukum
     wedding_theme = slug.startswith("wedding/")
     body_class = ' class="theme-wedding"' if wedding_theme else ""
     theme_color = "#7E2327" if wedding_theme else "#0B0B0B"
     wedding_fonts = ('<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">\n'
-                     if wedding_theme or id_only else "")
+                     if wedding_theme or id_only or en_only else "")
     nav_items = [(h, i, e) for h, i, e in NAV if e or lang == "id"]
     nav = "\n      ".join(
         f'<a href="{up}{h}"{" aria-current=\"page\"" if h == slug or (h.endswith("/") and slug.startswith(h)) else ""}>{T(lang, i, e)}</a>'
@@ -146,8 +151,8 @@ def page(lang, slug, title, description, body):
                 else f'<a class="nav-lang" href="{other_href}" hreflang="id">Bahasa Indonesia</a>')
     full_title = title if slug == "index.html" else f"{title} | ARSH &amp; Partners Law Office"
     # Pratinjau link (WhatsApp dll.): default logo kantor; halaman tertentu punya gambar, judul, dan deskripsi sendiri
-    post = POSTS_BY_SLUG.get(slug)
-    og = SHARE.get(slug) or (post and {"image": post["image"], "title_id": post["title_text"], "title_en": post["title_text"],
+    post = POSTS_BY_SLUG.get(slug) or ARTICLES_BY_SLUG.get(slug)
+    og = SHARE.get(slug) or (post and post.get("image") and {"image": post["image"], "title_id": post["title_text"], "title_en": post["title_text"],
                                        "desc_id": post["description"], "desc_en": post["description"],
                                        "site_name": "ARSH &amp; Partners Law Office"})
     og_title = T(lang, og["title_id"], og["title_en"]) if og else full_title
@@ -167,7 +172,7 @@ def page(lang, slug, title, description, body):
 <title>{full_title}</title>
 <meta name="description" content="{description}">
 {noindex}<link rel="canonical" href="{SITE}/{prefix}{path}">
-{"" if id_only else f'''<link rel="alternate" hreflang="id" href="{SITE}/id/{path}">
+{"" if id_only or en_only else f'''<link rel="alternate" hreflang="id" href="{SITE}/id/{path}">
 <link rel="alternate" hreflang="en" href="{SITE}/{path}">
 <link rel="alternate" hreflang="x-default" href="{SITE}/{path}">'''}
 <meta property="og:site_name" content="{og["site_name"] if og else "ARSH &amp; Partners Law Office"}">
@@ -711,11 +716,18 @@ def reading_minutes(src):
 
 
 def article_ld(post):
-    url = f"{SITE}/id/tulisan/{post['slug']}/"
+    if post.get("article"):
+        url = f"{SITE}/penanganan-kasus/{post['slug']}/"
+        lang, author = "en", f'{{"@type":"Organization","name":"ARSH & Partners Law Office","url":"{SITE}/"}}'
+        image = ""
+    else:
+        url = f"{SITE}/id/tulisan/{post['slug']}/"
+        lang, author = "id", f'{{"@type":"Person","name":"Adriel Hutagalung","url":"{SITE}/id/tentang.html"}}'
+        image = f'"image":"{SITE}{post["image"]}",'
     return ('<script type="application/ld+json">\n'
             f'{{"@context":"https://schema.org","@type":"Article","headline":"{post["title_text"]}","description":"{post["description"]}",'
-            f'"image":"{SITE}{post["image"]}","datePublished":"{post["date"]}","inLanguage":"id","mainEntityOfPage":"{url}",'
-            f'"author":{{"@type":"Person","name":"Adriel Hutagalung","url":"{SITE}/id/tentang.html"}},'
+            f'{image}"datePublished":"{post["date"]}","inLanguage":"{lang}","mainEntityOfPage":"{url}",'
+            f'"author":{author},'
             f'"publisher":{{"@type":"Organization","name":"ARSH & Partners Law Office","logo":{{"@type":"ImageObject","url":"{SITE}/assets/logo-arsh.png"}}}}}}\n'
             '</script>\n')
 
@@ -789,6 +801,155 @@ def posts_index(lang):
 """
 
 
+# ---------- Penanganan Kasus (9 Nov 2026): halaman publik cara kantor menangani perkara, plus artikel umum ----------
+# Artikel berbahasa Inggris saja, di /penanganan-kasus/<slug>/; naskah di artikel/<slug>.md (format sama dengan tulisan/).
+ARTICLES = [
+    {"slug": "filing-for-cassation-is-not-pursuing-it",
+     "article": True,
+     "title": "Filing for Cassation Is Not the Same as <em>Pursuing It</em>",
+     "title_text": "Filing for Cassation Is Not the Same as Pursuing It",
+     "description": "When the cassation brief is never filed, the request is declared inadmissible without the merits ever being examined, and the first-instance judgment stands.",
+     "date": "2026-10-08"},
+]
+ARTICLES_BY_SLUG = {f"penanganan-kasus/{a['slug']}/index.html": a for a in ARTICLES}
+MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+
+def date_en(iso):
+    y, m, d = iso.split("-")
+    return f"{int(d)} {MONTHS[int(m) - 1]} {y}"
+
+
+def article_source(a):
+    return (Path(__file__).parent / "artikel" / f"{a['slug']}.md").read_text(encoding="utf-8")
+
+
+CASE_STEPS = [
+    ("Percakapan awal", "First conversation",
+     "Ceritakan persoalan Anda secara singkat lewat WhatsApp atau email. Kami menanyakan hal-hal pokok dan dokumen yang perlu dilihat, lalu memastikan tidak ada benturan kepentingan sebelum masuk lebih jauh.",
+     "Tell us briefly about your matter by WhatsApp or email. We ask about the key points and the documents we need to see, and check for any conflict of interest before going further."),
+    ("Telaah dan penawaran tertulis", "Assessment and written proposal",
+     "Kami menelaah dokumen Anda, menjelaskan posisi hukum Anda beserta pilihan yang tersedia dan risikonya, lalu memberikan penawaran tertulis sebelum pekerjaan dimulai.",
+     "We review your documents, explain your legal position, the options open to you and their risks, and give you a written proposal before any work begins."),
+    ("Kuasa", "Engagement",
+     "Setelah Anda menyetujui penawaran, Anda memberikan surat kuasa dan kami mulai bertindak atas nama Anda.",
+     "Once you accept the proposal, you sign a power of attorney and we begin acting on your behalf."),
+    ("Di luar pengadilan lebih dulu", "Out of court first",
+     "Bila memungkinkan, kami menempuh somasi, negosiasi, atau mediasi lebih dulu. Jalur ini sering lebih hemat waktu dan biaya.",
+     "Where possible, we start with a demand letter, negotiation, or mediation. This route often saves time and cost."),
+    ("Di pengadilan", "In court",
+     "Bila perkara harus diperiksa pengadilan, kami menyusun dan mengajukan dokumen perkara, termasuk melalui e-Court, dan menghadiri persidangan.",
+     "When a matter has to go before a court, we prepare and file the case documents, including through e-Court, and attend the hearings."),
+    ("Tenggat dan kabar perkembangan", "Deadlines and updates",
+     "Setiap tenggat dicatat sejak awal, mulai dari jawaban dan bukti sampai upaya hukum dan memorinya. Anda menerima kabar perkembangan secara berkala dan setiap kali ada putusan atau penetapan.",
+     "Every deadline is recorded from the start, from pleadings and evidence to appeals and their briefs. You receive regular updates, and a report whenever a judgment or decree is issued."),
+    ("Setelah putusan", "After the judgment",
+     "Kami menjelaskan isi putusan, upaya hukum yang tersedia beserta tenggatnya, dan langkah pelaksanaannya. Keputusan untuk melanjutkan atau berhenti tetap di tangan Anda.",
+     "We explain the judgment, the remedies available and their deadlines, and how it can be enforced. Whether to continue or stop remains your decision."),
+]
+
+CASE_PREPARE = [
+    ("Kronologi singkat: apa yang terjadi, kapan, dan siapa saja yang terlibat.", "A short chronology: what happened, when, and who was involved."),
+    ("Perjanjian, surat keputusan, atau dokumen lain yang menjadi pokok persoalan.", "The agreement, decision letter, or other documents at the centre of the matter."),
+    ("Surat-menyurat dan pesan yang berkaitan, termasuk somasi yang pernah dikirim atau diterima.", "Related correspondence and messages, including any demand letters sent or received."),
+    ("Putusan, penetapan, atau panggilan pengadilan yang sudah Anda terima, beserta tanggal Anda menerimanya.", "Any judgment, decree, or court summons you have received, with the date you received it."),
+]
+
+
+def case_handling(lang):
+    steps = "".join(f"""<li class="reveal"><span class="case-n">{n:02d}</span><div><h3>{T(lang, ti, te)}</h3><p>{T(lang, di, de)}</p></div></li>"""
+                    for n, (ti, te, di, de) in enumerate(CASE_STEPS, 1))
+    prep = "".join(f"<li>{T(lang, i, e)}</li>" for i, e in CASE_PREPARE)
+    arts = "".join(f"""<li class="reveal">
+        <a href="{a['slug']}/">
+          <span class="meta"><time datetime="{a['date']}">{T(lang, tanggal(a['date']), date_en(a['date']))}</time>{T(lang, ' &middot; dalam bahasa Inggris', '')}</span>
+          <h2>{a['title']}</h2>
+          <p>{a['description']}</p>
+          <span class="link-arrow">{T(lang, 'Baca artikel', 'Read the article')} &rarr;</span>
+        </a>
+      </li>""" for a in sorted(ARTICLES, key=lambda a: a["date"], reverse=True))
+    art_href = "../../penanganan-kasus/" if lang == "id" else ""
+    if lang == "id":
+        arts = arts.replace('<a href="', f'<a href="{art_href}')
+    return f"""
+<section class="page-hero">
+  <div class="wrap">
+    <p class="crumbs"><a href="../index.html">{T(lang, 'Beranda', 'Home')}</a> / {T(lang, 'Penanganan Kasus', 'Case Handling')}</p>
+    <h1>{T(lang, 'Informasi <em>penanganan kasus</em>', 'How we handle <em>your case</em>')}</h1>
+    <p class="intro">{T(lang, 'Apa yang terjadi sejak Anda pertama kali menghubungi kami sampai perkara selesai, dan apa yang perlu Anda siapkan.', 'What happens from the moment you first contact us until your matter is resolved, and what you should prepare.')}</p>
+  </div>
+</section>
+<section class="block">
+  <div class="wrap split">
+    <header><h2>{T(lang, 'Tahapan', 'The stages')}</h2><p>{T(lang, 'Tidak setiap perkara melewati semua tahap. Banyak persoalan selesai sebelum sampai ke pengadilan.', 'Not every matter goes through every stage. Many are resolved before they reach a court.')}</p></header>
+    <ol class="case-steps">{steps}</ol>
+  </div>
+</section>
+<section class="block block-soft">
+  <div class="wrap split">
+    <header><h2>{T(lang, 'Yang perlu disiapkan', 'What to prepare')}</h2></header>
+    <div class="detail">
+      <p>{T(lang, 'Anda tidak perlu menyiapkan semuanya sebelum menghubungi kami. Namun dokumen berikut membantu kami memahami persoalan Anda lebih cepat.', 'You do not need everything ready before you contact us, but these documents help us understand your matter faster.')}</p>
+      <ul>{prep}</ul>
+      <p><strong>{T(lang, 'Perhatikan tanggal.', 'Watch the dates.')}</strong> {T(lang, 'Upaya hukum terikat tenggat yang singkat. Bila Anda baru menerima putusan atau penetapan, segera hubungi kami agar sisa waktunya masih cukup.', 'Appeals are bound by short deadlines. If you have just received a judgment or decree, contact us promptly so there is still enough time left.')}</p>
+      <p><strong>{T(lang, 'Kerahasiaan.', 'Confidentiality.')}</strong> {T(lang, 'Informasi yang Anda sampaikan kami jaga kerahasiaannya. Bila kami menulis tentang suatu perkara untuk tujuan edukasi, perkara itu dirujuk dengan nomor perkara dan inisial, tanpa nama lengkap para pihak.', 'What you tell us is kept confidential. When we write about a case for educational purposes, we refer to it by its case number and initials, without the full names of the parties.')}</p>
+    </div>
+  </div>
+</section>
+<section class="block" id="articles">
+  <div class="wrap">
+    <header class="section-head">
+      <h2>{T(lang, 'Artikel', 'Articles')}</h2>
+      <span class="line" aria-hidden="true"></span>
+    </header>
+    <ul class="essay-list">
+      {arts}
+    </ul>
+  </div>
+</section>
+{closing(lang)}
+"""
+
+
+def article_page(a):
+    def build(lang):
+        src = article_source(a)
+        url = f"{SITE}/penanganan-kasus/{a['slug']}/"
+        share_text = quote(f"{a['title_text']} — {url}")
+        return f"""
+<section class="page-hero essay-hero">
+  <div class="wrap">
+    <p class="crumbs"><a href="../../index.html">Home</a> / <a href="../">Case Handling</a></p>
+    <h1>{a['title']}</h1>
+    <p class="essay-meta">ARSH &amp; Partners Law Office <i aria-hidden="true"></i> <time datetime="{a['date']}">{date_en(a['date'])}</time> <i aria-hidden="true"></i> {reading_minutes(src)} min read</p>
+  </div>
+</section>
+<section class="block">
+  <div class="wrap">
+    <article class="essay">
+      {render_post(src)}
+    </article>
+    <aside class="essay-end">
+      <p class="essay-author">This article is general information, not legal advice on any specific matter. <a class="link-arrow" href="../">How we handle cases &rarr;</a></p>
+      <p class="essay-share">Share:
+        <a href="https://wa.me/?text={share_text}" rel="noopener">WhatsApp</a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url={quote(url, safe='')}" rel="noopener">LinkedIn</a>
+        <button type="button" class="copy-link" data-url="{url}">Copy link</button>
+      </p>
+    </aside>
+  </div>
+</section>
+<script>
+document.querySelector('.copy-link').addEventListener('click', function () {{
+  var b = this;
+  navigator.clipboard.writeText(b.dataset.url).then(function () {{ b.textContent = 'Link copied'; }});
+}});
+</script>
+{closing(lang)}
+"""
+    return build
+
+
 PAGES = {
     "index.html": (home,
                    ("ARSH &amp; Partners Law Office | Menjaga Kepentingan. Memperjuangkan Hak.",
@@ -815,18 +976,24 @@ PAGES = {
 }
 for _p in POSTS:
     PAGES[f"tulisan/{_p['slug']}/index.html"] = (post_page(_p), (_p["title_text"], _p["description"]), None)
+PAGES["penanganan-kasus/index.html"] = (case_handling,
+    ("Informasi Penanganan Kasus", "Cara ARSH &amp; Partners Law Office menangani perkara: tahapan, tenggat, dan dokumen yang perlu disiapkan."),
+    ("Case Handling", "How ARSH &amp; Partners Law Office handles a case: the stages, the deadlines, and the documents to prepare."))
+for _a in ARTICLES:
+    PAGES[f"penanganan-kasus/{_a['slug']}/index.html"] = (article_page(_a), None, (_a["title_text"], _a["description"]))
 
 
 def sitemap():
     # Halaman yang boleh diindeks; halaman pernikahan (noindex) tidak dimasukkan
     urls = []
-    for slug, (_, _, meta_en) in PAGES.items():
+    for slug, (_, meta_id, meta_en) in PAGES.items():
         if slug.startswith("wedding/"):
             continue
         path = slug[:-len("index.html")] if slug.endswith("index.html") else slug
         if meta_en:
             urls.append(f"{SITE}/{path}")
-        urls.append(f"{SITE}/id/{path}")
+        if meta_id:
+            urls.append(f"{SITE}/id/{path}")
     body = "".join(f"  <url><loc>{u}</loc></url>\n" for u in urls)
     (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n'
                                       '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + body + "</urlset>\n",
@@ -837,7 +1004,7 @@ def sitemap():
 def main():
     (ROOT / "id").mkdir(exist_ok=True)
     for slug, (fn, meta_id, meta_en) in PAGES.items():
-        for lang, (title, desc) in (("id", meta_id), ("en", meta_en)) if meta_en else (("id", meta_id),):
+        for lang, (title, desc) in [(l, m) for l, m in (("id", meta_id), ("en", meta_en)) if m]:
             out = ROOT / ("id" if lang == "id" else "") / slug
             out.parent.mkdir(parents=True, exist_ok=True)
             out.write_text(page(lang, slug, title, desc, fn(lang)), encoding="utf-8")
