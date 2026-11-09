@@ -804,6 +804,12 @@ def posts_index(lang):
 # ---------- Penanganan Kasus (9 Nov 2026): halaman publik cara kantor menangani perkara, plus artikel umum ----------
 # Artikel berbahasa Inggris saja, di /penanganan-kasus/<slug>/; naskah di artikel/<slug>.md (format sama dengan tulisan/).
 ARTICLES = [
+    {"slug": "case-1565-pdt-g-2026-pn-dps",
+     "article": True,
+     "title": "Information on Case No. <em>1565/Pdt.G/2026/PN Dps</em>",
+     "title_text": "Information on Case No. 1565/Pdt.G/2026/PN Dps",
+     "description": "A claim for breach of contract, annulment, compensation, and conservatory attachment, registered at the Denpasar District Court on behalf of our client, an Italian company.",
+     "date": "2026-10-12"},
     {"slug": "case-131-pdt-sus-phi-2026-pn-jkt-pst",
      "article": True,
      "title": "Information on Case No. <em>131/Pdt.Sus-PHI/2026/PN Jkt.Pst</em>",
