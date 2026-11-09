@@ -804,10 +804,10 @@ def posts_index(lang):
 # ---------- Penanganan Kasus (9 Nov 2026): halaman publik cara kantor menangani perkara, plus artikel umum ----------
 # Artikel berbahasa Inggris saja, di /penanganan-kasus/<slug>/; naskah di artikel/<slug>.md (format sama dengan tulisan/).
 ARTICLES = [
-    {"slug": "filing-for-cassation-is-not-pursuing-it",
+    {"slug": "case-131-pdt-sus-phi-2026-pn-jkt-pst",
      "article": True,
-     "title": "Filing for Cassation Is Not the Same as <em>Pursuing It</em>",
-     "title_text": "Filing for Cassation Is Not the Same as Pursuing It",
+     "title": "Information on Case No. <em>131/Pdt.Sus-PHI/2026/PN Jkt.Pst</em>",
+     "title_text": "Information on Case No. 131/Pdt.Sus-PHI/2026/PN Jkt.Pst",
      "description": "When the cassation brief is never filed, the request is declared inadmissible without the merits ever being examined, and the first-instance judgment stands.",
      "date": "2026-10-08"},
 ]
