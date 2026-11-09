@@ -2,7 +2,7 @@ A request for cassation is often treated as the moment a case leaves the first-i
 
 ## What happened
 
-On 7 September 2026, the Industrial Relations Court at the Central Jakarta District Court delivered its judgment in Case No. 131/Pdt.Sus-PHI/2026/PN Jkt.Pst. PT TMD, as cassation applicant, filed a request for cassation against BDA and others electronically through e-Court on 22 September 2026. The deadline for uploading the cassation brief (_memori kasasi_) was 6 October 2026. The brief was never uploaded.
+On 7 September 2026, the Industrial Relations Court at the Central Jakarta District Court delivered its judgment in Case No. 131/Pdt.Sus-PHI/2026/PN Jkt.Pst. PT TMD, as cassation applicant, filed a request for cassation against BDA and others, our clients, electronically through e-Court on 22 September 2026. The deadline for uploading the cassation brief (_memori kasasi_) was 6 October 2026. The brief was never uploaded.
 
 On 7 October 2026, the Chief Judge of the Industrial Relations Court at the Central Jakarta District Court issued a decree (_penetapan_) stating that the request did not meet the formal requirements and was therefore inadmissible. The case file was not sent to the Supreme Court.
 
