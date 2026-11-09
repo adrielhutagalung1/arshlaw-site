@@ -2,7 +2,7 @@ A request for cassation is often treated as the moment a case leaves the first-i
 
 ## What happened
 
-On 7 September 2026, the Industrial Relations Court at the Central Jakarta District Court delivered its judgment in Case No. 131/Pdt.Sus-PHI/2026/PN Jkt.Pst. A request for cassation was filed electronically through e-Court on 22 September 2026. The deadline for uploading the cassation brief (_memori kasasi_) was 6 October 2026. The brief was never uploaded.
+On 7 September 2026, the Industrial Relations Court at the Central Jakarta District Court delivered its judgment in Case No. 131/Pdt.Sus-PHI/2026/PN Jkt.Pst. PT TMD, as cassation applicant, filed a request for cassation against BDA and others electronically through e-Court on 22 September 2026. The deadline for uploading the cassation brief (_memori kasasi_) was 6 October 2026. The brief was never uploaded.
 
 On 7 October 2026, the Chief Judge of the Industrial Relations Court at the Central Jakarta District Court issued a decree (_penetapan_) stating that the request did not meet the formal requirements and was therefore inadmissible. The case file was not sent to the Supreme Court.
 
@@ -24,7 +24,7 @@ Filing a request is not the same as pursuing it. The request keeps the door open
 
 Count the 14 days from the date the request is recorded, and treat the last day as a firm limit rather than a target. Leave room for problems with the upload, and after uploading, check that the brief actually appears in e-Court and keep proof that it does.
 
-Work on the brief should begin as soon as the decision to seek cassation is made, not after the request has been filed. Two weeks passes quickly when the grounds still have to be researched and written.
+Work on the brief should begin as soon as the decision to seek cassation is made, not after the request has been filed. Two weeks passes quickly.
 
 A cassation is won or lost on its arguments only if it reaches the court that hears them. Getting it there is a matter of procedure, and the procedure runs on dates.
 
