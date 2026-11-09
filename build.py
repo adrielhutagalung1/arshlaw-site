@@ -808,7 +808,7 @@ ARTICLES = [
      "article": True,
      "title": "Information on Case No. <em>131/Pdt.Sus-PHI/2026/PN Jkt.Pst</em>",
      "title_text": "Information on Case No. 131/Pdt.Sus-PHI/2026/PN Jkt.Pst",
-     "description": "When the cassation brief is never filed, the request is declared inadmissible without the merits ever being examined, and the first-instance judgment stands.",
+     "description": "The cassation request was declared inadmissible, so the first-instance judgment in favour of our clients stands and the rights it recognises are now final.",
      "date": "2026-10-08"},
 ]
 ARTICLES_BY_SLUG = {f"penanganan-kasus/{a['slug']}/index.html": a for a in ARTICLES}

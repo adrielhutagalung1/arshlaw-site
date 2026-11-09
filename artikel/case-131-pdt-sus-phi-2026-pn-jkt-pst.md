@@ -1,8 +1,8 @@
-A request for cassation is often treated as the moment a case leaves the first-instance court for the Supreme Court. In practice, the request is only the first step. If the steps that follow are not taken in time, the request can fall away on formal grounds, and the Supreme Court never looks at the dispute at all. A recent industrial relations case in Jakarta shows how this happens.
+On 7 October 2026, the cassation request in Case No. 131/Pdt.Sus-PHI/2026/PN Jkt.Pst was declared inadmissible, and the case file was not sent to the Supreme Court. For our clients, BDA and others, this means that the first-instance judgment in their favour stands, and the rights it recognises are now final.
 
 ## What happened
 
-On 7 September 2026, the Industrial Relations Court at the Central Jakarta District Court delivered its judgment in Case No. 131/Pdt.Sus-PHI/2026/PN Jkt.Pst. PT TMD, as cassation applicant, filed a request for cassation against BDA and others, our clients, electronically through e-Court on 22 September 2026. The deadline for uploading the cassation brief (_memori kasasi_) was 6 October 2026. The brief was never uploaded.
+On 7 September 2026, the Industrial Relations Court at the Central Jakarta District Court delivered its judgment in the case. PT TMD, as cassation applicant, filed a request for cassation against our clients electronically through e-Court on 22 September 2026. The deadline for uploading the cassation brief (_memori kasasi_) was 6 October 2026, and no brief was uploaded by that date.
 
 On 7 October 2026, the Chief Judge of the Industrial Relations Court at the Central Jakarta District Court issued a decree (_penetapan_) stating that the request did not meet the formal requirements and was therefore inadmissible. The case file was not sent to the Supreme Court.
 
@@ -12,20 +12,16 @@ Article 47(1) of Law No. 14 of 1985 on the Supreme Court requires a party reques
 
 Article 45A(3) of Law No. 5 of 2004, which amended Law No. 14 of 1985, provides that a cassation request that does not meet the formal requirements is declared inadmissible by a decree of the chief judge of the first-instance court, and the case file is not sent to the Supreme Court. Under Article 45A(4), no legal remedy may be brought against that decree. Supreme Court Circular (SEMA) No. 8 of 2011 reinforces the rule and spells out what is closed: an objection (_perlawanan_), cassation, and case review (_peninjauan kembali_) against the decree.
 
-## When the judgment became final
+## What this means for our clients
 
-Because the request never reached the Supreme Court, the first-instance judgment stands. In our reading, it has been final and binding (_berkekuatan hukum tetap_) at least since 7 October 2026, the date of the decree. That date has not yet been recorded in the court's case tracking system (SIPP), and another reading places it on 6 October 2026, when the deadline for the brief passed.
+With the cassation request set aside, nothing stands between our clients and the judgment of 7 September 2026. In our reading, the judgment has been final and binding (_berkekuatan hukum tetap_) at least since 7 October 2026, the date of the decree. That date has not yet been recorded in the court's case tracking system (SIPP), and another reading places it on 6 October 2026, when the deadline for the brief passed. On either reading, the judgment is no longer subject to cassation.
 
-The bar on further remedies applies to the decree, not to the judgment. A final judgment remains open, in principle, to case review on the limited grounds set out in Article 67 of Law No. 14 of 1985.
+A final judgment gives legal certainty. The rights it recognises can now be relied on, and where the judgment orders a party to do something, our clients may ask the court to enforce it if it is not carried out voluntarily.
 
-## Practical lessons
+The bar on further remedies applies to the decree. A final judgment remains open, in principle, to case review on the limited grounds set out in Article 67 of Law No. 14 of 1985.
 
-Filing a request is not the same as pursuing it. The request keeps the door open for the moment; the brief is what gives the Supreme Court something to examine. Without it, the merits of the case are never reviewed.
+## For employees and employers
 
-Count the 14 days from the date the request is recorded, and treat the last day as a firm limit rather than a target. Leave room for problems with the upload, and after uploading, check that the brief actually appears in e-Court and keep proof that it does.
+An industrial relations dispute is not over when the first-instance judgment is read. Each side has a limited time to take the next step, and the outcome depends on those dates as much as on the arguments. Knowing where those dates fall, from the judgment through to finality and enforcement, helps either side plan what comes next.
 
-Work on the brief should begin as soon as the decision to seek cassation is made, not after the request has been filed. Two weeks passes quickly.
-
-A cassation is won or lost on its arguments only if it reaches the court that hears them. Getting it there is a matter of procedure, and the procedure runs on dates.
-
-If you are considering a cassation or another appeal, contact us to discuss the deadlines that apply to your case.
+If you are involved in an industrial relations dispute and want to understand where your case stands, contact us.
