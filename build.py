@@ -198,7 +198,6 @@ def page(lang, slug, title, description, body):
 <div class="topbar">
   <div class="wrap">
     <span class="addr">Plaza Asia, Jl. Jenderal Sudirman, Jakarta</span>
-    <a href="{wa(lang)}">{WA_DISPLAY}</a>
     <a class="email" href="mailto:{EMAIL}">{EMAIL}</a>
     <span class="lang">{lang_top}</span>
   </div>

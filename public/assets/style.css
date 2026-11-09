@@ -230,8 +230,7 @@ p { margin: 0 0 1em; }
   .wa-float { display: flex; }
 }
 @media (max-width: 520px) {
-  .topbar .addr { display: none; }
-  .topbar .wrap { justify-content: center; }
+  .topbar { display: none; }
   .hero .buttons .btn { width: 100%; }
   .facts .wrap { grid-template-columns: 1fr; }
   .facts div:nth-child(2n) { padding-left: 0; }
